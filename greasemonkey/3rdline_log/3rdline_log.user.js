@@ -17,7 +17,7 @@ function getIssueNr(commitLog) {
 }
 
 function getCommitUrl(blockquote) {
-    return 'http://github.com/' + $(blockquote).parent().parent().find('code a').attr('href');
+    return 'http://github.com' + $(blockquote).parent().parent().find('code a').attr('href');
 }
 
 function getBranch(blockquote) {
