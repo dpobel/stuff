@@ -58,6 +58,10 @@ $('#ez-3rdline-log a.close').live('click', function (e) {
 // looking for my commits
 $('.push .body').each(function (index, el) {
 
+    if ( $(el).find('.title a:first').text() == 'ezrobot' ) {
+        return;
+    }
+
     $(el).find('.commits blockquote[title^="Fixed #"]').each(function (index, blockquote) {
         var commitLog = $(blockquote).attr('title'),
             issueNr = getIssueNr(commitLog);
