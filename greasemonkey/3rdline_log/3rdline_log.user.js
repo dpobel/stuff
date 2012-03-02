@@ -35,14 +35,16 @@ function getRepo(blockquote) {
 $('.push button').live('click', function (e) {
     var commits = commitsHash[$(this).attr('class')],
         l = "Fixed in " + commits[0].repo + ":\n",
-        area = $('#ez-3rdline-log');
+        area = $('#ez-3rdline-log'),
+        fixedLines = [];
 
     $(commits).each(function(i, v) {
-        l += ' - ' + v.branch + ': ' + v.url + "\n";
+        fixedLines.push(' - ' + v.branch + ': ' + v.url);
     });
+    fixedLines.sort();
 
     $('#ez-3rdline-log').find('h2').html('<a style="display:block;float:right;color:#000;font-weight:normal;text-decoration:underline;color:#333" href="/" class="close">Close</a><a href="http://issues.ez.no/' + commits[0].issue + '">Issue #' + commits[0].issue + '</a>');
-    $('#ez-3rdline-log').find('textarea').val(l);
+    $('#ez-3rdline-log').find('textarea').val(l + fixedLines.join("\n"));
     var x = Math.min(e.pageX + 10, $(document).width() - $('#ez-3rdline-log').width() - 10);
     $('#ez-3rdline-log').css('top', e.pageY + 'px').css('left', x + 'px');
     $('#ez-3rdline-log').fadeIn(600);
