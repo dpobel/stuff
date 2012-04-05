@@ -6,7 +6,7 @@
 
 $ = unsafeWindow.jQuery;
 
-$('<div id="ez-3rdline-log" style="box-shadow: 2px 2px 10px #555;padding:0;background:#fff;border:1px solid #888;border-radius:5px;z-index:1000;position:absolute;width:700px;height:180px;display:none;"><h2 style="margin-top: 0;padding:6px 10px;background:#eee;border-bottom:1px solid #aaa"></h2><p style="text-align:center"><textarea style="width:95%; height: 110px;" readonly></textarea></p></div>').appendTo('body');
+$('<div id="ez-3rdline-log" style="box-shadow: 2px 2px 10px #555;padding:0;background:#fff;border:1px solid #888;border-radius:5px;z-index:1000;position:absolute;width:700px;height:230px;display:none;"><h2 style="margin-top: 0;padding:6px 10px;background:#eee;border-bottom:1px solid #aaa"></h2><p style="text-align:center"><textarea style="width:95%; height: 160px;" readonly></textarea></p></div>').appendTo('body');
 
 
 var commitsHash = {};
