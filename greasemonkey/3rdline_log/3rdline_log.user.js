@@ -75,6 +75,9 @@ $('.push .body').each(function (index, el) {
             issueNr = getIssueNr(commitLog),
             repo = getRepo(blockquote);
 
+        if ( repo === 'ezpublish-ee' )
+            repo = 'ezpublish';
+
         var commit = {
             issue: issueNr,
             url: getCommitUrl(blockquote),
