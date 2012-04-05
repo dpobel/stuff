@@ -34,17 +34,24 @@ function getRepo(blockquote) {
 
 $('.push button').live('click', function (e) {
     var commits = commitsHash[$(this).attr('class')],
-        l = "Fixed in " + commits[0].repo + ":\n",
         area = $('#ez-3rdline-log'),
-        fixedLines = [];
+        msg = "",
+        issueNr = $(this).attr('class').replace('issue', '');
 
-    $(commits).each(function(i, v) {
-        fixedLines.push(' - ' + v.branch + ': ' + v.url);
-    });
-    fixedLines.sort();
+    for( var repo in commits ) {
+        var l = "Fixed in " + repo + ":\n",
+            fixedLines = [],
+            repoCommits = commits[repo];
 
-    $('#ez-3rdline-log').find('h2').html('<a style="display:block;float:right;color:#000;font-weight:normal;text-decoration:underline;color:#333" href="/" class="close">Close</a><a href="http://issues.ez.no/' + commits[0].issue + '">Issue #' + commits[0].issue + '</a>');
-    $('#ez-3rdline-log').find('textarea').val(l + fixedLines.join("\n"));
+        $(repoCommits).each(function (i, v) {
+            fixedLines.push(' - ' + v.branch + ': ' + v.url);
+        });
+        fixedLines.sort();
+        msg += l + fixedLines.join("\n") + "\n\n";
+    }
+
+    $('#ez-3rdline-log').find('h2').html('<a style="display:block;float:right;color:#000;font-weight:normal;text-decoration:underline;color:#333" href="/" class="close">Close</a><a href="http://issues.ez.no/' + issueNr + '">Issue #' + issueNr + '</a>');
+    $('#ez-3rdline-log').find('textarea').val(msg);
     var x = Math.min(e.pageX + 10, $(document).width() - $('#ez-3rdline-log').width() - 10);
     $('#ez-3rdline-log').css('top', e.pageY + 'px').css('left', x + 'px');
     $('#ez-3rdline-log').fadeIn(600);
@@ -63,19 +70,24 @@ $('.push .body').each(function (index, el) {
     }
 
     $(el).find('.commits blockquote[title^="Fixed #"]').each(function (index, blockquote) {
+
         var commitLog = $(blockquote).attr('title'),
-            issueNr = getIssueNr(commitLog);
+            issueNr = getIssueNr(commitLog),
+            repo = getRepo(blockquote);
 
         var commit = {
-            issue: getIssueNr(commitLog),
+            issue: issueNr,
             url: getCommitUrl(blockquote),
             branch: getBranch(blockquote),
-            repo: getRepo(blockquote)
-        }
+            repo: repo
+        };
         if ( !commitsHash["issue" + issueNr] ) {
-            commitsHash["issue" + issueNr] = [];
+            commitsHash["issue" + issueNr] = {};
         }
-        commitsHash["issue" + issueNr].push(commit);
+        if ( !commitsHash["issue"+ issueNr][repo] ) {
+            commitsHash["issue"+ issueNr][repo] = [];
+        }
+        commitsHash["issue" + issueNr][repo].push(commit);
 
         $(blockquote.parentNode).append('<button class="issue' + issueNr + '">3rdline comment</button>');
 
