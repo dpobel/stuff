@@ -1,0 +1,45 @@
+[
+{
+"type": "TER",
+"destination": "Belfort",
+"time": "17:19",
+"platform": "2",
+"details": ""
+},
+{
+"type": "TER",
+"destination":"St Claude",
+"time": "17:21",
+"platform": "C",
+"details": ""
+},
+{
+"type": "TER",
+"destination":"Amberieu",
+"time": "17:26",
+"platform": "B",
+"details": "Retard 20 minutes environ"
+},
+{
+"type": "TER",
+"destination": "Belfort",
+"time": "17:19",
+"platform": "2",
+"details": ""
+},
+{
+"type": "TER",
+"destination":"St Claude",
+"time": "17:21",
+"platform": "C",
+"details": ""
+},
+{
+"type": "TER",
+"destination":"Amberieu",
+"time": "17:26",
+"platform": "B",
+"details": "Retard 20 minutes environ"
+}
+
+]
