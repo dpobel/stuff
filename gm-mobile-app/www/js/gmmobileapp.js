@@ -1,10 +1,46 @@
 YUI.add('gmmobileapp', function (Y) {
 
-    var L = Y.Lang,
-        localStorage = Y.config.win.localStorage; // TODO check
+    var L = Y.Lang;
 
     var HomePageView, SearchView, DeparturesView;
     var Station, StationList, Train, TrainList;
+
+
+    var bookmarkManager = (function () {
+        var key = 'stations',
+            storage = Y.config.win.localStorage, // TODO check
+            data = {};
+
+        function getAll() {
+            var st = storage.getItem(key);
+            if ( st ) {
+                data = Y.JSON.parse(st);
+            }
+            return data;
+        }
+
+        function isBookmarked(code) {
+            var stations = getAll();
+
+            if ( stations[code] )
+                return true;
+            return false;
+        }
+
+        return {
+            getAll: getAll,
+            isBookmarked: isBookmarked,
+            toggleBookmark: function (station) {
+                var id = station.get('id');
+                if ( isBookmarked(id) ) {
+                    delete data[id];
+                } else {
+                    data[id] = station.json();
+                }
+                storage.setItem(key, Y.JSON.stringify(data));
+            }
+        }
+    })();
 
     // Models and ModelLists
     Train = Y.Base.create('train', Y.Model, [], {
@@ -50,18 +86,22 @@ YUI.add('gmmobileapp', function (Y) {
     });
 
     Station = Y.Base.create('station', Y.Model, [], {
-        idAttribute: 'code'
+        idAttribute: 'code',
+
+        json: function () {
+            return {
+                code: this.get('code'),
+                name: this.get('name')
+            };
+        }
     }, {
         ATTRS: {
             code: {value: null},
-            gemCode: {value: null},
             name: {value: null},
             bookmarked: {
-                value: false,
                 getter: function () {
-                    return (localStorage.getItem(this.get('id')) === "1");
-                },
-                validator: L.isBoolean
+                    return bookmarkManager.isBookmarked(this.get('code'));
+                }
             }
         }
     });
@@ -87,13 +127,12 @@ YUI.add('gmmobileapp', function (Y) {
             return Y.JSON.parse(res);
         },
 
-        bookmarked: function() {
-            return this.filter(function (s) {
-                if (s.get('bookmarked')) {
-                    return s;
-                }
-                return false;
+        loadBookmarked: function() {
+            var that = this;
+            Y.each(bookmarkManager.getAll(), function (o) {
+                that.add(o);
             });
+            return this;
         }
 
     }, {
@@ -122,6 +161,7 @@ YUI.add('gmmobileapp', function (Y) {
 
         initializer: function () {
             this.publish('search', {preventable: false});
+            this.publish('bookmarkChange', {preventable: false});
         },
 
         render: function () {
@@ -158,14 +198,17 @@ YUI.add('gmmobileapp', function (Y) {
                 }, false),
                 that = this;
             e.preventDefault();
-            this.fire('bookmarkChange', {code: e.target.getAttribute('data-station-code')});
+            this.fire('bookmarkChange', {
+                station: this.get('stations').getById(
+                    e.target.getAttribute('data-station-code')
+                )
+            });
             li.hide('fadeOut', {}, function() {
                 if ( li.siblings().size() == 0 ) {
                     Y.one(that.selectors.help).show('fadeIn');
                 }
                 li.remove(true);
             });
-            
         }
     });
 
@@ -196,9 +239,14 @@ YUI.add('gmmobileapp', function (Y) {
 
         bookmark: function (e) {
             e.preventDefault();
-            this.fire('bookmarkChange', {code: e.target.getAttribute('data-station-code')});
+            this.fire('bookmarkChange', {
+                station: this.get('results').getById(
+                    e.target.getAttribute('data-station-code')
+                )
+            });
             e.target.toggleClass('bookmarked');
         }
+    }, {
     });
 
     DeparturesView = Y.Base.create('departuresView', Y.View, [], {
@@ -288,6 +336,7 @@ YUI.add('gmmobileapp', function (Y) {
                     this.getContent()
                 );
             });
+
         },
 
         // Event handlers
@@ -296,30 +345,26 @@ YUI.add('gmmobileapp', function (Y) {
         },
 
         bookmark: function (e) {
-            var station = this.get('stations').getById(e.code),
-                bookmarked = station.get('bookmarked');
-            station.set('bookmarked', !bookmarked);
-            // TODO set event handler instead ?
-            localStorage.setItem(
-                station.get('id'),
-                bookmarked ? "0" : "1"
-            );
+            var bookmarked = e.station.get('bookmarked');
+            e.station.set('bookmarked', !bookmarked);
+            // TODO event handler on station model
+            bookmarkManager.toggleBookmark(e.station);
         },
 
         // Route handlers
         showHome: function (req, res, next) {
             this.showView('home', {
-                stations: this._getBookmarkedStations()
+                stations: this.get('stations').loadBookmarked()
             });
         },
         showSearch: function (req, res, next) {
             var that = this,
-                list = this.get('stations');
+                list = new StationList();
             list.load({
                 action: L.sub(
                     this.get('actions.search'),
                     {str: req.params.str}
-                ) 
+                )
             }, function () {
                 that.showView('search', {
                     search: req.params.str,
@@ -355,10 +400,6 @@ YUI.add('gmmobileapp', function (Y) {
                     });
                 }
             })
-        },
-
-        _getBookmarkedStations: function() {
-            return this.get('stations').bookmarked();
         }
     },{
         ATTRS: {
@@ -382,6 +423,6 @@ YUI.add('gmmobileapp', function (Y) {
 
 }, '1.0.0', {
     requires: [
-        'app', 'app-transitions', 'handlebars', 'transition', 'io-base', 'json-parse'
+        'app', 'app-transitions', 'handlebars', 'transition', 'io-base', 'json'
     ]
 });
