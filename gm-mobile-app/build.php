@@ -25,8 +25,16 @@ $result = array();
 foreach ( $lines as $l )
 {
     list( $name, $x, $y, $lat, $lon ) = explode( ';', trim( $l ) );
-    $result[] = array(
-        'name' => trim( $name, '"' ),
+    $name = trim( $name, '"' );
+    $code = trim(
+        strtolower(
+            preg_replace( '/-{2,}/', '-', str_replace( array( ' ', '(', ')' ), '-', $name ) )
+        ),
+        '-'
+    );
+    $result[$code] = array(
+        'code' => $code,
+        'name' => $name,
         'lat' => (float) str_replace( ',', '.', $lat ),
         'lon' => (float) str_replace( ',', '.', $lon )
     );
