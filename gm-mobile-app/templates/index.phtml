@@ -155,13 +155,16 @@
     </script>
 
     <script src="js/3.5.0/build/yui/yui-min.js"></script>
-    <script src="js/gmmobileapp.js"></script>
     <script>
     YUI({
-<?php foreach( $settings['yui'] as $k => $s ) echo "$k: $s,\n" ?>
+        <?php foreach( $settings['yui'] as $k => $s ) echo "$k: $s,\n" ?>
+        modules: {
+            gmmobileapp: {
+                fullpath: "js/gmmobileapp.js",
+                requires: ['app', 'app-transitions', 'handlebars', 'transition', 'io-base', 'json']
+            }
+        }
     }).use('gmmobileapp', function (Y) {
-
-
         var app = new Y.GMMobileApp({
             serverRouting: false,
             viewContainer: '#gmmobile',
@@ -172,7 +175,6 @@
             },
             appLoader: '#gm-app-loader'
         });
-
         app.render().dispatch();
     });
     </script>
