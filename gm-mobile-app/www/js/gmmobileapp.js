@@ -3,7 +3,8 @@ YUI.add('gmmobileapp', function (Y) {
 
     var L = Y.Lang;
 
-    var HomePageView, SearchView, DeparturesView, ArrivalsView, LoadingView;
+    var HomePageView, SearchView, DeparturesView, ArrivalsView, LoadingView,
+        SearchFormView;
     var Station, StationList, Train, TrainList;
 
 
@@ -151,7 +152,31 @@ YUI.add('gmmobileapp', function (Y) {
     });
 
     // Views
-    HomePageView = Y.Base.create('homePageView', Y.View, [], {
+
+    SearchFormView = Y.Base.create('searchView', Y.View, [], {
+
+        initializer: function () {
+            this.publish('search', {preventable: false});
+        },
+
+        search: function () {
+            var value = L.trim(Y.one('#search-station').get('value'));
+            if (value !== '') {
+                this.fire('search', {search: value});
+            }
+            // TODO warning in search form
+        },
+
+        handleEnter: function (e) {
+            if (e.keyCode === 13) {
+                this.search();
+            }
+        },
+    });
+
+
+
+    HomePageView = Y.Base.create('homePageView', SearchFormView, [], {
         selectors: {
             help: '.help'
         },
@@ -171,7 +196,6 @@ YUI.add('gmmobileapp', function (Y) {
         },
 
         initializer: function () {
-            this.publish('search', {preventable: false});
             this.publish('bookmarkChange', {preventable: false});
         },
 
@@ -186,21 +210,6 @@ YUI.add('gmmobileapp', function (Y) {
             this.get('container').addClass('home').setContent(content);
 
             return this;
-        },
-
-        // Event handlers
-        search: function () {
-            var value = L.trim(Y.one('#search-station').get('value'));
-            if (value !== '') {
-                this.fire('search', {search: value});
-            }
-            // TODO warning in search form
-        },
-
-        handleEnter: function (e) {
-            if (e.keyCode === 13) {
-                this.search();
-            }
         },
 
         bookmark: function (e) {
@@ -223,10 +232,16 @@ YUI.add('gmmobileapp', function (Y) {
         }
     });
 
-    SearchView = Y.Base.create('searchView', Y.View, [], {
+    SearchView = Y.Base.create('searchView', SearchFormView, [], {
         template: Y.Handlebars.compile(Y.one('#t-search').getContent()),
 
         events: {
+            '.gm-search': {
+                click: 'search'
+            },
+            '#search-station': {
+                keypress: 'handleEnter'
+            },
             '.gm-bookmark': {
                 click: 'bookmark'
             }
@@ -257,7 +272,6 @@ YUI.add('gmmobileapp', function (Y) {
             });
             e.target.toggleClass('bookmarked');
         }
-    }, {
     });
 
     DeparturesView = Y.Base.create('departuresView', Y.View, [], {

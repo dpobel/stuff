@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>gmMobileApp</title>
-<link rel="stylesheet" href="cache/pack.css?1335158371" />
+<link rel="stylesheet" href="cache/pack.css?1335196261" />
 </head>
 <body>
     <script id="t-home" type="text/x-handlebars-template">
@@ -25,15 +25,7 @@
         <p class="help"{{#if stations.length}} style="display:none;"{{/if}}>Aucune gare favorite</p>
 
         <h2>Ajouter des gares favorites</h2>
-        <section class="gm-search">
-            <p>
-                <input type="text" placeholder="Nom ou partie du nom de la gare" value="" id="search-station" />
-            </p>
-            <p>
-                <button class="gm-geosearch yui3-button yui3-button-primary">À proximité</button>
-                <button class="gm-search yui3-button yui3-button-primary">Recherche</button>
-            </p>
-        </section>
+        {{> searchform}}
     </script>
 
     <script id="t-search" type="text/x-handlebars-template">
@@ -49,6 +41,8 @@
             </li>
             {{/each}}
         </ul>
+        <h2>Autre recherche</h2>
+        {{> searchform}}
     </script>
 
     <script id="t-departures" type="text/x-handlebars-template">
@@ -121,6 +115,18 @@
         </div>
         <a class="yui3-button gm-bookmark{{#if bookmarked}} bookmarked{{/if}}" href="#" data-station-code="{{code}}">★</a>
         <strong class="gm-name">{{name}}</strong>
+    </script>
+
+    <script class="gm-t-partial" type="text/x-handlebars-template" data-name="searchform">
+        <section class="gm-search-form">
+            <p>
+                <input type="text" placeholder="Nom ou partie du nom de la gare" value="{{search}}" id="search-station" />
+            </p>
+            <p>
+                <button class="gm-geosearch yui3-button yui3-button-primary">À proximité</button>
+                <button class="gm-search yui3-button yui3-button-primary">Recherche</button>
+            </p>
+        </section>
     </script>
 
     <script src="js/3.5.0/build/yui/yui-min.js"></script>
