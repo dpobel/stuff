@@ -87,6 +87,15 @@ YUI.add('gmmobileapp', function (Y) {
 
     Station = Y.Base.create('station', Y.Model, [], {
         idAttribute: 'code',
+        bookmarkManager: bookmarkManager,
+
+        initializer: function () {
+            var that = this;
+
+            this.after('bookmarkedChange', function (e) {
+                that.bookmarkManager.toggleBookmark(that);
+            });
+        },
 
         json: function () {
             return {
@@ -108,6 +117,7 @@ YUI.add('gmmobileapp', function (Y) {
 
     StationList = Y.Base.create('stationList', Y.ModelList, [], {
         model: Station,
+        bookmarkManager: bookmarkManager,
 
         sync: function (action, options, callback) {
             Y.io(options.action, {
@@ -129,7 +139,7 @@ YUI.add('gmmobileapp', function (Y) {
 
         loadBookmarked: function() {
             var that = this;
-            Y.each(bookmarkManager.getAll(), function (o) {
+            Y.each(this.bookmarkManager.getAll(), function (o) {
                 that.add(o);
             });
             return this;
@@ -347,8 +357,6 @@ YUI.add('gmmobileapp', function (Y) {
         bookmark: function (e) {
             var bookmarked = e.station.get('bookmarked');
             e.station.set('bookmarked', !bookmarked);
-            // TODO event handler on station model
-            bookmarkManager.toggleBookmark(e.station);
         },
 
         // Route handlers
