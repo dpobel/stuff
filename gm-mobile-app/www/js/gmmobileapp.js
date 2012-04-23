@@ -362,6 +362,13 @@ YUI.add('gmmobileapp', function (Y) {
                 );
             });
 
+            this.on('init', function (e) {
+                var loader = Y.one(this.get('appLoader'));
+                if ( loader ) {
+                    loader.remove(true);
+                }
+            });
+
         },
 
         // Event handlers

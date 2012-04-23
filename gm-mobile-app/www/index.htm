@@ -8,6 +8,16 @@
 <link rel="stylesheet" href="cache/pack.css?1335197225" />
 </head>
 <body>
+    <div id="gm-app-loader" class="loading" style="display:none;">
+        <header>
+            <h1>Chargement en cours...</h1>
+        </header>
+        <p class="gm-loader">Chargement</p>
+    </div>
+    <script>
+    document.getElementById('gm-app-loader').style.display = 'block';
+    </script>
+
     <script id="t-home" type="text/x-handlebars-template">
         <header>
             <h1>Gare mobile</h1>
@@ -148,13 +158,15 @@ debug: true,
             transitions: true,
             actions: {
                 search: 'actions/search.php?str={str}'
-            }
+            },
+            appLoader: '#gm-app-loader'
         });
 
         app.render().dispatch();
     });
     </script>
     <div id="gmmobile"></div>
+    <noscript>Cette application nécessite l'activation de JavaScript.</noscript>
 
 </body>
 </html>
