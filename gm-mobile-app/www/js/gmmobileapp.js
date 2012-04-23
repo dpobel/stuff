@@ -27,7 +27,6 @@ YUI.add('gmmobileapp', function (Y) {
             if ( action != 'read' ) {
                 callback('Only read is allowed');
             }
-            //console.log(this.get('stationCode'));
             Y.io(url, {
                 method: 'GET',
                 on: {
@@ -71,7 +70,6 @@ YUI.add('gmmobileapp', function (Y) {
         model: Station,
 
         sync: function (action, options, callback) {
-            console.log(options);
             Y.io(options.action, {
                 method: 'GET',
                 on: {
