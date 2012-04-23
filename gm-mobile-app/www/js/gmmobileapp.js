@@ -70,13 +70,23 @@ YUI.add('gmmobileapp', function (Y) {
     StationList = Y.Base.create('stationList', Y.ModelList, [], {
         model: Station,
 
-        search: function (str) {
-            return this.filter(function (s) {
-                if ( s.get('name').search(new RegExp(".*" + str + ".*", "i")) != -1 ) {
-                    return s;
+        sync: function (action, options, callback) {
+            console.log(options);
+            Y.io(options.action, {
+                method: 'GET',
+                on: {
+                    failure: function () {
+                        callback("IO failure"); // TODO properly handle errors
+                    },
+                    success: function (tId, data) {
+                        callback(false, data.response);
+                    }
                 }
-                return false;
             });
+        },
+
+        parse: function (res) {
+            return Y.JSON.parse(res);
         },
 
         bookmarked: function() {
@@ -305,9 +315,18 @@ YUI.add('gmmobileapp', function (Y) {
             });
         },
         showSearch: function (req, res, next) {
-            this.showView('search', {
-                search: req.params.str,
-                results: this._doSearch(req.params.str)
+            var that = this,
+                list = this.get('stations');
+            list.load({
+                action: L.sub(
+                    this.get('actions.search'),
+                    {str: req.params.str}
+                ) 
+            }, function () {
+                that.showView('search', {
+                    search: req.params.str,
+                    results: list
+                });
             });
         },
         showGeoSearch: function (req, res, next) {
@@ -340,10 +359,6 @@ YUI.add('gmmobileapp', function (Y) {
             })
         },
 
-        _doSearch: function (str) {
-            return this.get('stations').search(str);
-        },
-
         _getBookmarkedStations: function() {
             return this.get('stations').bookmarked();
         }
@@ -359,14 +374,10 @@ YUI.add('gmmobileapp', function (Y) {
                 ]
             },
             stations: {
-                writeOnce: true,
-                value: new StationList(),
-                setter: function (val) {
-                    var l = new StationList();
-                    l.add(val);
-                    return l;
-                },
-                validator: L.isArray
+                value: new StationList()
+            },
+            actions: {
+                value: {}
             }
         }
     });

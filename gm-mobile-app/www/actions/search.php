@@ -1,14 +1,17 @@
 <?php
 define( 'PATH_PREFIX', '../../' );
 
-header('Content-Type: application/json; charset=utf-8');
 
 $result = array( 'error' => null, 'data' => null );
-if ( !isset( $_GET['str'] ) )
+if ( !isset( $_GET['str'] ) || trim( $_GET['str'] ) === '' )
 {
+    header('HTTP/1.1 500 Internal Server Error');
+    header('Content-Type: application/json; charset=utf-8');
     $result['error'] = 'str parameter is missing';
     die( json_encode( $result ) );
 }
+
+header('Content-Type: application/json; charset=utf-8');
 
 $ini = include PATH_PREFIX . 'config.php';
 
