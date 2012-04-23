@@ -1,8 +1,9 @@
 YUI.add('gmmobileapp', function (Y) {
+    "use strict";
 
     var L = Y.Lang;
 
-    var HomePageView, SearchView, DeparturesView;
+    var HomePageView, SearchView, DeparturesView, ArrivalsView, LoadingView;
     var Station, StationList, Train, TrainList;
 
 
@@ -179,7 +180,7 @@ YUI.add('gmmobileapp', function (Y) {
                     stations: this.get('stations').map(function (s) {
                         return s.getAttrs(['code', 'name', 'bookmarked']);
                     })
-                }
+                },
                 content = '';
             content =  this.template(vars);
             this.get('container').addClass('home').setContent(content);
