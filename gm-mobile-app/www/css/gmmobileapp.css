@@ -1,4 +1,3 @@
-abbr
 {
 border:0;
 }
@@ -202,6 +201,7 @@ margin-bottom:0.3em;
 }
 .help
 {
+margin:0 5px;
 font-style:italic;
 }
 .gm-toolbar
