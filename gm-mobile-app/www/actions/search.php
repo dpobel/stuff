@@ -25,7 +25,7 @@ foreach ( $stations as $station )
 {
     if ( stripos( $station->name, $_GET['str'] ) !== false )
     {
-        $matched[] = $station;
+        $matched[] = array( 'name' => $station->name );
     }
 }
 echo json_encode( $matched );
