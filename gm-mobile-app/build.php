@@ -11,6 +11,12 @@ $vars = array( 'settings' => $ini );
 
 echo "Generating {$ini['app']['index_template']}\n";
 $content = template( $ini['app']['index_template'], $vars );
+if ( $content !== null )
+{
+    file_put_contents(
+        WWW_ROOT . $ini['app']['index_file'], $content
+    );
+}
 
 echo "Building the station list\n";
 $lines = file( $ini['app']['data_file'] );
@@ -26,12 +32,5 @@ foreach ( $lines as $l )
     );
 }
 file_put_contents( $ini['app']['json_data_file'], json_encode( $result ) );
-
-if ( $content !== null )
-{
-    file_put_contents(
-        WWW_ROOT . $ini['app']['index_file'], $content
-    );
-}
 
 
