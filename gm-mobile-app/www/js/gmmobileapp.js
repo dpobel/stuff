@@ -49,6 +49,7 @@ YUI.add('gmmobileapp', function (Y) {
 
     }, {
         ATTRS: {
+            num: {value:null},
             type: {value:null},
             destination: {value:null},
             time: {value:null},
@@ -61,11 +62,7 @@ YUI.add('gmmobileapp', function (Y) {
         model: Train,
 
         sync: function (action, options, callback) {
-            var url = '/timetable.php'; // TODO!
-            if ( action != 'read' ) {
-                callback('Only read is allowed');
-            }
-            Y.io(url, {
+            Y.io(options.action, {
                 method: 'GET',
                 on: {
                     failure: function () {
@@ -418,18 +415,22 @@ YUI.add('gmmobileapp', function (Y) {
                 that = this;
 
             this.showView('loading');
-            var tl = new TrainList({
+            var tl = new TrainList();
+            tl.load({
                 stationCode: code,
-                type: viewId
-            });
-            tl.load(function () {
+                type: viewId,
+                action: L.sub(this.get('actions.timetable'), {
+                    type: viewId,
+                    code: code
+                })
+            }, function () {
                 if ( that.get('activeView').name === 'loadingView' ) {
                     that.showView(viewId, {
                         station: station,
                         trains: tl
                     });
                 }
-            })
+            });
         }
     },{
         ATTRS: {
