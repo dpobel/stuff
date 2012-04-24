@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>gmMobileApp</title>
-<link rel="stylesheet" href="cache/pack.css?1335272733" />
+<link rel="stylesheet" href="cache/pack.css?1335283379" />
 </head>
 <body>
     <div id="gm-app-loader" class="loading" style="display:none;">
@@ -26,7 +26,7 @@
         {{#if stations}}
         <ul class="gm-station-list">
             {{#each stations}}
-            <li>
+            <li data-station-code="{{code}}">
                 {{> stationview}}           
             </li>
             {{/each}}
@@ -49,7 +49,7 @@
         {{else}}
         <ul class="gm-station-list">
             {{#each results}}
-            <li>
+            <li data-station-code="{{code}}">
                 {{> stationview}}           
             </li>
             {{/each}}
@@ -106,9 +106,6 @@
         </tr>
     </script>
     <script class="gm-t-partial" type="text/x-handlebars-template" data-name="stationview">
-        <div class="gm-action">
-            <a class="yui3-button" href="#/departures/{{code}}"><abbr title="Départs"><span>Dép.</span></abbr> &raquo;</a>
-        </div>
         <a class="yui3-button gm-bookmark{{#if bookmarked}} bookmarked{{/if}}" href="#" data-station-code="{{code}}">★</a>
         <strong class="gm-name">{{name}}</strong>
     </script>
