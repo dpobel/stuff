@@ -75,15 +75,19 @@
             {{> backhome}}
             <h1>Départs de {{station.name}}</h1>
         </header>
+        <h2>Départs de {{station.name}}{{#if time}} à partir de {{time}}{{/if}}</h2>
         <p class="gm-toolbar">
             <a href="#/departures/{{station.code}}" class="yui3-button">Actualiser</a>
         </p>
-        <table summary="Prochains départs de {{station.name}}">
-            {{> trainviewheader}}
-            {{#each trains}}
-                {{> trainview}}
-            {{/each}}
-        </table>
+        {{#if trains}}
+            <ul class="gm-departures">
+                {{#each trains}}
+                    {{> trainview}}
+                {{/each}}
+            </ul>
+        {{else}}
+            <p class="gm-error">Une erreur s'est produite durant le chargement des horaires de départs.</p>
+        {{/if}}
     </script>
 
     <script id="t-loading" type="text/x-handlebars-template">
@@ -96,25 +100,23 @@
 
     <!-- partials -->
     <script class="gm-t-partial" type="text/x-handlebars-template" data-name="trainview">
-        <tr{{#if details}} class="late"{{/if}}>
-            <td class="c">{{type}}</td>
-            <td>{{destination}}</td>
-            <td class="c">{{time}}</td>
-            <td class="c">{{platform}}</td>
-            <td class="details">{{details}}</td>
-        </tr>
+        <li class="{{#if details}}late{{/if}}">
+            <div class="yui3-g">
+                <div class="yui3-u-1-2 gm-infos">
+                    <span class="time">{{time}}</span>
+                    {{#if details}}<span class="details">{{details}}</span>{{/if}}
+                    {{#if platform}} &ndash; voie {{platform}}{{/if}}
+                </div>
+                <div class="yui3-u-1-2 gm-num">
+                    {{#if type}}{{type}}{{/if}}
+                    {{#if num}}N°{{num}}{{/if}}
+                </div>
+                <div class="yui3-u-1 gm-destination"><strong>{{destination}}</strong></div>
+            </div>
+        </li>
     </script>
     <script class="gm-t-partial" type="text/x-handlebars-template" data-name="backhome">
     <a href="#/" class="back-home">↰</a>
-    </script>
-    <script class="gm-t-partial" type="text/x-handlebars-template" data-name="trainviewheader">
-        <tr>
-            <th>Type</th>
-            <th>Destination</th>
-            <th>Heure</th>
-            <th>Voie</th>
-            <th>Retard</th>
-        </tr>
     </script>
     <script class="gm-t-partial" type="text/x-handlebars-template" data-name="stationview">
         <a class="yui3-button gm-bookmark{{#if bookmarked}} bookmarked{{/if}}" href="#" data-station-code="{{code}}">★</a>

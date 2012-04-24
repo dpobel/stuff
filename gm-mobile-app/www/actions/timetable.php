@@ -102,7 +102,7 @@ if ( !isset( $struct['listeHoraire'] ) || count( $struct['listeHoraire'] ) === 0
     die( json_encode( $result ) );
 }
 
-$result = array();
+$result = array( 'trains' => array() );
 
 $tz = new DateTimeZone( $ini['app']['timezone'] );
 $trainsIndex = array(); // results may contain the same train twice...
@@ -129,8 +129,9 @@ foreach ( $struct['listeHoraire'] as $train )
     {
         $t['details'] = 'Retard de ' . $train['impactDepart']['tempsRetard'] . ' min.';
     }
-    $result[] = $t;
+    $result['trains'][] = $t;
 }
+$result['time'] = date( 'H:i' );
 
 echo json_encode( $result );
 

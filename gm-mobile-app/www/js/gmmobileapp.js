@@ -76,11 +76,14 @@ YUI.add('gmmobileapp', function (Y) {
         },
 
         parse: function (res) {
-            return Y.JSON.parse(res);
+            var s = Y.JSON.parse(res);
+            this.set('time', s.time);
+            return s.trains;
         }
     }, {
         ATTRS: {
-            stationCode: {value: ''}
+            stationCode: {value: ''},
+            time: {value: ''}
         }
     });
 
@@ -303,8 +306,9 @@ YUI.add('gmmobileapp', function (Y) {
         render: function () {
             var vars = {
                     station: this.get('station').getAttrs(['name', 'code']),
+                    time: this.get('trains').get('time'),
                     trains: this.get('trains').map(function (t) {
-                        return t.getAttrs(['type', 'destination', 'time', 'platform', 'details'])
+                        return t.getAttrs(['num', 'type', 'destination', 'time', 'platform', 'details'])
                     })
                 },
                 content = this.template(vars);
