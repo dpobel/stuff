@@ -76,7 +76,7 @@
             <h1>Départs de {{station.name}}</h1>
         </header>
         <p class="gm-toolbar">
-            <a href="#/departures/{{station.code}}" class="yui3-button">Actualiser</button><a href="#/arrivals/{{station.code}}" class="yui3-button">Voir les arrivées &raquo;</a>
+            <a href="#/departures/{{station.code}}" class="yui3-button">Actualiser</a>
         </p>
         <table summary="Prochains départs de {{station.name}}">
             {{> trainviewheader}}
@@ -85,23 +85,6 @@
             {{/each}}
         </table>
     </script>
-
-    <script id="t-arrivals" type="text/x-handlebars-template">
-        <header>
-            {{> backhome}}
-            <h1>Arrivées à {{station.name}}</h1>
-        </header>
-        <p class="gm-toolbar">
-            <a href="#/arrivals/{{station.code}}" class="yui3-button">↻ Actualiser</button><a href="#/departures/{{station.code}}" class="yui3-button">Voir les départs &raquo;</a>
-        </p>
-        <table summary="Prochaines arrivées à {{station.name}}">
-            {{> trainviewheader}}
-            {{#each trains}}
-                {{> trainview}}
-            {{/each}}
-        </table>
-    </script>
-
 
     <script id="t-loading" type="text/x-handlebars-template">
         <header>
@@ -136,7 +119,6 @@
     <script class="gm-t-partial" type="text/x-handlebars-template" data-name="stationview">
         <div class="gm-action">
             <a class="yui3-button" href="#/departures/{{code}}"><abbr title="Départs"><span>Dép.</span></abbr> &raquo;</a>
-            <a class="yui3-button" href="#/arrivals/{{code}}"><abbr title="Arrivées"><span>Arr.</span></abbr> &raquo;</a>
         </div>
         <a class="yui3-button gm-bookmark{{#if bookmarked}} bookmarked{{/if}}" href="#" data-station-code="{{code}}">★</a>
         <strong class="gm-name">{{name}}</strong>

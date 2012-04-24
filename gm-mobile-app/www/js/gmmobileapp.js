@@ -3,7 +3,7 @@ YUI.add('gmmobileapp', function (Y) {
 
     var L = Y.Lang;
 
-    var HomePageView, SearchView, DeparturesView, ArrivalsView, LoadingView,
+    var HomePageView, SearchView, DeparturesView, LoadingView,
         SearchFormView;
     var Station, StationList, Train, TrainList;
 
@@ -297,13 +297,6 @@ YUI.add('gmmobileapp', function (Y) {
 
     });
 
-    ArrivalsView = Y.Base.create('arrivalsView', DeparturesView, [], {
-        template: Y.Handlebars.compile(Y.one('#t-arrivals').getContent()),
-        containerClass: 'arrivals'
-    }, {
-
-    });
-
     LoadingView = Y.Base.create('loadingView', Y.View, [], {
         template: Y.Handlebars.compile(Y.one('#t-loading').getContent()),
 
@@ -335,10 +328,6 @@ YUI.add('gmmobileapp', function (Y) {
             },
             departures: {
                 type: DeparturesView,
-                parent: 'home'
-            },
-            arrivals: {
-                type: ArrivalsView,
                 parent: 'home'
             },
             loading: {
@@ -403,29 +392,20 @@ YUI.add('gmmobileapp', function (Y) {
 
         },
         showDepartures: function (req, res, next) {
-            this._showTimetable(req.params.code, 'departures');
-        },
-        showArrivals: function (req, res, next) {
-            this._showTimetable(req.params.code, 'arrivals');
-        },
-
-        // do the real jobs...
-        _showTimetable: function (code, viewId) {
-            var station = this.get('stations').getById(code),
-                that = this;
+            var code = req.params.code,
+                station = this.get('stations').getById(code),
+                that = this,
+                tl = new TrainList();
 
             this.showView('loading');
-            var tl = new TrainList();
             tl.load({
                 stationCode: code,
-                type: viewId,
                 action: L.sub(this.get('actions.timetable'), {
-                    type: viewId,
                     code: code
                 })
             }, function () {
                 if ( that.get('activeView').name === 'loadingView' ) {
-                    that.showView(viewId, {
+                    that.showView('departures', {
                         station: station,
                         trains: tl
                     });
@@ -439,8 +419,7 @@ YUI.add('gmmobileapp', function (Y) {
                     {path: '/', callback: 'showHome'},
                     {path: '/search/:str', callback: 'showSearch'},
                     {path: '/geosearch', callback: 'showGeoSearch'},
-                    {path: '/departures/:code', callback: 'showDepartures'},
-                    {path: '/arrivals/:code', callback: 'showArrivals'}
+                    {path: '/departures/:code', callback: 'showDepartures'}
                 ]
             },
             stations: {
