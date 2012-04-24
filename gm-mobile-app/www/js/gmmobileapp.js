@@ -232,7 +232,7 @@ YUI.add('gmmobileapp', function (Y) {
                 if ( li.siblings().size() == 0 ) {
                     Y.one(that.selectors.help).show('fadeIn');
                 }
-                li.remove(true);
+                li.get('parentNode').remove(true);
             });
         }
     });
