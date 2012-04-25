@@ -171,7 +171,7 @@ YUI.add('gmmobileapp', function (Y) {
             if (e.keyCode === 13) {
                 this.search();
             }
-        },
+        }
     });
 
 
