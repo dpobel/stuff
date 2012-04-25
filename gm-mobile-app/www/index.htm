@@ -127,10 +127,15 @@
     <script src="js/3.5.0/build/yui/yui-min.js"></script>
     <script>
     YUI({
-        debug: true,
+        debug: false,
+combine: true,
+comboBase: 'combo.php?',
+root: '3.5.0/build/',
         modules: {
             gmmobileapp: {
-                fullpath: "js/gmmobileapp.js",
+                fullpath: "gmmobileapp.js",
+                combine: true,
+                root: "/",
                 requires: ['app', 'app-transitions', 'handlebars', 'transition', 'io-base', 'json']
             }
         }

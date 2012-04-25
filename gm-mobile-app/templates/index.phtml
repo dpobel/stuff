@@ -141,7 +141,9 @@
         <?php foreach( $settings['yui'] as $k => $s ) echo "$k: $s,\n" ?>
         modules: {
             gmmobileapp: {
-                fullpath: "js/gmmobileapp.js",
+                fullpath: "gmmobileapp.js",
+                combine: <?php echo $settings['yui']['combine']; ?>,
+                root: "/",
                 requires: ['app', 'app-transitions', 'handlebars', 'transition', 'io-base', 'json']
             }
         }
