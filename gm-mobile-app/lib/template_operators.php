@@ -1,7 +1,7 @@
 <?php
 
 
-function gm_css( $cssFiles, $packer )
+function gm_css( $cssFiles, $packer = false, $minify = false )
 {
     $res = '';
     $content = '';
@@ -27,7 +27,12 @@ function gm_css( $cssFiles, $packer )
     if ( $packer )
     {
         $css = 'pack.css';
-        // TODO minify
+        if ( $minify )
+        {
+            include 'lib/ext/cssmin.php';
+            $min = new CSSmin();
+            $content = $min->run( $content );
+        }
         file_put_contents( WWW_ROOT . PUBLIC_CACHE_DIR . $css, $content );
         $res = '<link rel="stylesheet" href="' .
                     PUBLIC_CACHE_DIR . $css . '?' . $mtime . '" />' . "\n";
