@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("anim-xy",function(b){var a=Number;b.Anim.behaviors.xy={set:function(f,d,i,h,c,g,e){f._node.setXY([e(c,a(i[0]),a(h[0])-a(i[0]),g),e(c,a(i[1]),a(h[1])-a(i[1]),g)]);},get:function(c){return c._node.getXY();}};},"3.5.0",{requires:["anim-base","node-screen"]});
+YUI.add("anim-xy",function(c){var a=Number;c.Anim.behaviors.xy={set:function(h,c,b,d,e,f,g){h._node.setXY([g(e,a(b[0]),a(d[0])-a(b[0]),f),g(e,a(b[1]),a(d[1])-a(b[1]),f)])},get:function(a){return a._node.getXY()}}},"3.5.0",{requires:["anim-base","node-screen"]});

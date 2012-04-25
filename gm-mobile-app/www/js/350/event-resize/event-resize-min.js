@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("event-resize",function(a){a.Event.define("windowresize",{on:(a.UA.gecko&&a.UA.gecko<1.91)?function(d,b,c){b._handle=a.Event.attach("resize",function(f){c.fire(f);});}:function(e,c,d){var b=a.config.windowResizeDelay||100;c._handle=a.Event.attach("resize",function(f){if(c._timer){c._timer.cancel();}c._timer=a.later(b,a,function(){d.fire(f);});});},detach:function(c,b){if(b._timer){b._timer.cancel();}b._handle.detach();}});},"3.5.0",{requires:["event-synthetic"]});
+YUI.add("event-resize",function(b){b.Event.define("windowresize",{on:b.UA.gecko&&1.91>b.UA.gecko?function(c,a,d){a._handle=b.Event.attach("resize",function(a){d.fire(a)})}:function(c,a,d){var e=b.config.windowResizeDelay||100;a._handle=b.Event.attach("resize",function(c){a._timer&&a._timer.cancel();a._timer=b.later(e,b,function(){d.fire(c)})})},detach:function(b,a){a._timer&&a._timer.cancel();a._handle.detach()}})},"3.5.0",{requires:["event-synthetic"]});

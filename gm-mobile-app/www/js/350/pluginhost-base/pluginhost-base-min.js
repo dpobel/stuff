@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("pluginhost-base",function(c){var a=c.Lang;function b(){this._plugins={};}b.prototype={plug:function(g,d){var e,h,f;if(a.isArray(g)){for(e=0,h=g.length;e<h;e++){this.plug(g[e]);}}else{if(g&&!a.isFunction(g)){d=g.cfg;g=g.fn;}if(g&&g.NS){f=g.NS;d=d||{};d.host=this;if(this.hasPlugin(f)){this[f].setAttrs(d);}else{this[f]=new g(d);this._plugins[f]=g;}}}return this;},unplug:function(f){var e=f,d=this._plugins;if(f){if(a.isFunction(f)){e=f.NS;if(e&&(!d[e]||d[e]!==f)){e=null;}}if(e){if(this[e]){this[e].destroy();delete this[e];}if(d[e]){delete d[e];}}}else{for(e in this._plugins){if(this._plugins.hasOwnProperty(e)){this.unplug(e);}}}return this;},hasPlugin:function(d){return(this._plugins[d]&&this[d]);},_initPlugins:function(d){this._plugins=this._plugins||{};if(this._initConfigPlugins){this._initConfigPlugins(d);}},_destroyPlugins:function(){this.unplug();}};c.namespace("Plugin").Host=b;},"3.5.0",{requires:["yui-base"]});
+YUI.add("pluginhost-base",function(d){function f(){this._plugins={}}var e=d.Lang;f.prototype={plug:function(a,b){var c,d;if(e.isArray(a)){c=0;for(d=a.length;c<d;c++)this.plug(a[c])}else if(a&&!e.isFunction(a)&&(b=a.cfg,a=a.fn),a&&a.NS)c=a.NS,b=b||{},b.host=this,this.hasPlugin(c)?this[c].setAttrs(b):(this[c]=new a(b),this._plugins[c]=a);return this},unplug:function(a){var b=a,c=this._plugins;if(a){if(e.isFunction(a)&&(b=a.NS)&&(!c[b]||c[b]!==a))b=null;b&&(this[b]&&(this[b].destroy(),delete this[b]),
+c[b]&&delete c[b])}else for(b in this._plugins)this._plugins.hasOwnProperty(b)&&this.unplug(b);return this},hasPlugin:function(a){return this._plugins[a]&&this[a]},_initPlugins:function(a){this._plugins=this._plugins||{};this._initConfigPlugins&&this._initConfigPlugins(a)},_destroyPlugins:function(){this.unplug()}};d.namespace("Plugin").Host=f},"3.5.0",{requires:["yui-base"]});

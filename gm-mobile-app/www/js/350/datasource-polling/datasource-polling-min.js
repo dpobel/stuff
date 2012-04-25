@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("datasource-polling",function(b){function a(){this._intervals={};}a.prototype={_intervals:null,setInterval:function(e,d){var c=b.later(e,this,this.sendRequest,[d],true);this._intervals[c.id]=c;b.later(0,this,this.sendRequest,[d]);return c.id;},clearInterval:function(d,c){d=c||d;if(this._intervals[d]){this._intervals[d].cancel();delete this._intervals[d];}},clearAllIntervals:function(){b.each(this._intervals,this.clearInterval,this);}};b.augment(b.DataSource.Local,a);},"3.5.0",{requires:["datasource-local"]});
+YUI.add("datasource-polling",function(a){function d(){this._intervals={}}d.prototype={_intervals:null,setInterval:function(b,e){var c=a.later(b,this,this.sendRequest,[e],!0);this._intervals[c.id]=c;a.later(0,this,this.sendRequest,[e]);return c.id},clearInterval:function(b,a){b=a||b;this._intervals[b]&&(this._intervals[b].cancel(),delete this._intervals[b])},clearAllIntervals:function(){a.each(this._intervals,this.clearInterval,this)}};a.augment(a.DataSource.Local,d)},"3.5.0",{requires:["datasource-local"]});

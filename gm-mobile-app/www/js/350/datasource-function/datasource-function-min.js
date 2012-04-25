@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("datasource-function",function(b){var a=b.Lang,c=function(){c.superclass.constructor.apply(this,arguments);};b.mix(c,{NAME:"dataSourceFunction",ATTRS:{source:{validator:a.isFunction}}});b.extend(c,b.DataSource.Local,{_defRequestFn:function(h){var f=this.get("source"),g=h.details[0];if(f){try{g.data=f(h.request,this,h);}catch(d){g.error=d;}}else{g.error=new Error("Function data failure");}this.fire("data",g);return h.tId;}});b.DataSource.Function=c;},"3.5.0",{requires:["datasource-local"]});
+YUI.add("datasource-function",function(a){var b=function(){b.superclass.constructor.apply(this,arguments)};a.mix(b,{NAME:"dataSourceFunction",ATTRS:{source:{validator:a.Lang.isFunction}}});a.extend(b,a.DataSource.Local,{_defRequestFn:function(a){var b=this.get("source"),c=a.details[0];if(b)try{c.data=b(a.request,this,a)}catch(d){c.error=d}else c.error=Error("Function data failure");this.fire("data",c);return a.tId}});a.DataSource.Function=b},"3.5.0",{requires:["datasource-local"]});

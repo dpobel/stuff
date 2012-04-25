@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("attribute-base",function(b){var a=function(){this._ATTR_E_FACADE=null;this._yuievt=null;b.AttributeCore.apply(this,arguments);b.AttributeEvents.apply(this,arguments);b.AttributeExtras.apply(this,arguments);};b.mix(a,b.AttributeCore,false,null,1);b.mix(a,b.AttributeExtras,false,null,1);b.mix(a,b.AttributeEvents,true,null,1);a.INVALID_VALUE=b.AttributeCore.INVALID_VALUE;a._ATTR_CFG=b.AttributeCore._ATTR_CFG.concat(b.AttributeEvents._ATTR_CFG);b.Attribute=a;},"3.5.0",{requires:["attribute-core","attribute-events","attribute-extras"]});
+YUI.add("attribute-base",function(a){var b=function(){this._yuievt=this._ATTR_E_FACADE=null;a.AttributeCore.apply(this,arguments);a.AttributeEvents.apply(this,arguments);a.AttributeExtras.apply(this,arguments)};a.mix(b,a.AttributeCore,!1,null,1);a.mix(b,a.AttributeExtras,!1,null,1);a.mix(b,a.AttributeEvents,!0,null,1);b.INVALID_VALUE=a.AttributeCore.INVALID_VALUE;b._ATTR_CFG=a.AttributeCore._ATTR_CFG.concat(a.AttributeEvents._ATTR_CFG);a.Attribute=b},"3.5.0",{requires:["attribute-core","attribute-events",
+"attribute-extras"]});

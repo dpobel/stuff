@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("anim-curve",function(a){a.Anim.behaviors.curve={set:function(f,c,i,h,b,g,e){i=i.slice.call(i);h=h.slice.call(h);var d=e(b,0,100,g)/100;h.unshift(i);f._node.setXY(a.Anim.getBezier(h,d));},get:function(c,b){return c._node.getXY();}};a.Anim.getBezier=function(f,e){var g=f.length;var d=[];for(var c=0;c<g;++c){d[c]=[f[c][0],f[c][1]];}for(var b=1;b<g;++b){for(c=0;c<g-b;++c){d[c][0]=(1-e)*d[c][0]+e*d[parseInt(c+1,10)][0];d[c][1]=(1-e)*d[c][1]+e*d[parseInt(c+1,10)][1];}}return[d[0][0],d[0][1]];};},"3.5.0",{requires:["anim-xy"]});
+YUI.add("anim-curve",function(g){g.Anim.behaviors.curve={set:function(d,e,c,b,a,f,h){c=c.slice.call(c);b=b.slice.call(b);e=h(a,0,100,f)/100;b.unshift(c);d._node.setXY(g.Anim.getBezier(b,e))},get:function(d){return d._node.getXY()}};g.Anim.getBezier=function(d,e){for(var c=d.length,b=[],a=0;a<c;++a)b[a]=[d[a][0],d[a][1]];for(var f=1;f<c;++f)for(a=0;a<c-f;++a)b[a][0]=(1-e)*b[a][0]+e*b[parseInt(a+1,10)][0],b[a][1]=(1-e)*b[a][1]+e*b[parseInt(a+1,10)][1];return[b[0][0],b[0][1]]}},"3.5.0",{requires:["anim-xy"]});

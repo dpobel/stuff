@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("attribute-extras",function(f){var a="broadcast",d="published",e="initValue",c={readOnly:1,writeOnce:1,getter:1,broadcast:1};function b(){}b.prototype={modifyAttr:function(h,g){var i=this,k,j;if(i.attrAdded(h)){if(i._isLazyAttr(h)){i._addLazyAttr(h);}j=i._state;for(k in g){if(c[k]&&g.hasOwnProperty(k)){j.add(h,k,g[k]);if(k===a){j.remove(h,d);}}}}},removeAttr:function(g){this._state.removeAll(g);},reset:function(g){var h=this;if(g){if(h._isLazyAttr(g)){h._addLazyAttr(g);}h.set(g,h._state.get(g,e));}else{f.each(h._state.data,function(i,j){h.reset(j);});}return h;},_getAttrCfg:function(g){var i,h=this._state;if(g){i=h.getAll(g)||{};}else{i={};f.each(h.data,function(j,k){i[k]=h.getAll(k);});}return i;}};f.AttributeExtras=b;},"3.5.0");
+YUI.add("attribute-extras",function(d){function f(){}var g={readOnly:1,writeOnce:1,getter:1,broadcast:1};f.prototype={modifyAttr:function(a,b){var c,e;if(this.attrAdded(a))for(c in this._isLazyAttr(a)&&this._addLazyAttr(a),e=this._state,b)g[c]&&b.hasOwnProperty(c)&&(e.add(a,c,b[c]),"broadcast"===c&&e.remove(a,"published"))},removeAttr:function(a){this._state.removeAll(a)},reset:function(a){var b=this;a?(b._isLazyAttr(a)&&b._addLazyAttr(a),b.set(a,b._state.get(a,"initValue"))):d.each(b._state.data,
+function(a,e){b.reset(e)});return b},_getAttrCfg:function(a){var b,c=this._state;a?b=c.getAll(a)||{}:(b={},d.each(c.data,function(a,d){b[d]=c.getAll(d)}));return b}};d.AttributeExtras=f},"3.5.0");

@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("datatype-date-parse",function(b){var a=b.Lang;b.mix(b.namespace("DataType.Date"),{parse:function(d){var c=null;if(!(a.isDate(d))){c=new Date(d);}else{return c;}if(a.isDate(c)&&(c!="Invalid Date")&&!isNaN(c)){return c;}else{return null;}}});b.namespace("Parsers").date=b.DataType.Date.parse;},"3.5.0");
+YUI.add("datatype-date-parse",function(a){var c=a.Lang;a.mix(a.namespace("DataType.Date"),{parse:function(a){var b=null;if(c.isDate(a))return b;b=new Date(a);return c.isDate(b)&&"Invalid Date"!=b&&!isNaN(b)?b:null}});a.namespace("Parsers").date=a.DataType.Date.parse},"3.5.0");

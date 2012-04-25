@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("dataschema-array",function(c){var a=c.Lang,b={apply:function(f,g){var d=g,e={results:[],meta:{}};if(a.isArray(d)){if(f&&a.isArray(f.resultFields)){e=b._parseResults.call(this,f.resultFields,d,e);}else{e.results=d;}}else{e.error=new Error("Array schema parse failure");}return e;},_parseResults:function(h,m,d){var g=[],q,p,k,l,o,n,f,e;for(f=m.length-1;f>-1;f--){q={};p=m[f];k=(a.isObject(p)&&!a.isFunction(p))?2:(a.isArray(p))?1:(a.isString(p))?0:-1;if(k>0){for(e=h.length-1;e>-1;e--){l=h[e];o=(!a.isUndefined(l.key))?l.key:l;n=(!a.isUndefined(p[o]))?p[o]:p[e];q[o]=c.DataSchema.Base.parse.call(this,n,l);}}else{if(k===0){q=p;}else{q=null;}}g[f]=q;}d.results=g;return d;}};c.DataSchema.Array=c.mix(b,c.DataSchema.Base);},"3.5.0",{requires:["dataschema-base"]});
+YUI.add("dataschema-array",function(g){var b=g.Lang,h={apply:function(e,f){var c={results:[],meta:{}};b.isArray(f)?e&&b.isArray(e.resultFields)?c=h._parseResults.call(this,e.resultFields,f,c):c.results=f:c.error=Error("Array schema parse failure");return c},_parseResults:function(e,f,c){var h=[],k,a,d,l,m,i,j;for(i=f.length-1;-1<i;i--){k={};a=f[i];d=b.isObject(a)&&!b.isFunction(a)?2:b.isArray(a)?1:b.isString(a)?0:-1;if(0<d)for(j=e.length-1;-1<j;j--)d=e[j],l=!b.isUndefined(d.key)?d.key:d,m=!b.isUndefined(a[l])?
+a[l]:a[j],k[l]=g.DataSchema.Base.parse.call(this,m,d);else k=0===d?a:null;h[i]=k}c.results=h;return c}};g.DataSchema.Array=g.mix(h,g.DataSchema.Base)},"3.5.0",{requires:["dataschema-base"]});

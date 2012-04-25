@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("arraylist",function(e){var d=e.Array,c=d.each,a;function b(f){if(f!==undefined){this._items=e.Lang.isArray(f)?f:d(f);}else{this._items=this._items||[];}}a={item:function(f){return this._items[f];},each:function(g,f){c(this._items,function(j,h){j=this.item(h);g.call(f||j,j,h,this);},this);return this;},some:function(g,f){return d.some(this._items,function(j,h){j=this.item(h);return g.call(f||j,j,h,this);},this);},indexOf:function(f){return d.indexOf(this._items,f);},size:function(){return this._items.length;},isEmpty:function(){return !this.size();},toJSON:function(){return this._items;}};a._item=a.item;e.mix(b.prototype,a);e.mix(b,{addMethod:function(f,g){g=d(g);c(g,function(h){f[h]=function(){var j=d(arguments,0,true),i=[];c(this._items,function(m,l){m=this._item(l);var k=m[h].apply(m,j);if(k!==undefined&&k!==m){i[l]=k;}},this);return i.length?i:this;};});}});e.ArrayList=b;},"3.5.0",{requires:["yui-base"]});
+YUI.add("arraylist",function(e){function h(a){this._items=void 0!==a?e.Lang.isArray(a)?a:b(a):this._items||[]}var b=e.Array,i=b.each,f;f={item:function(a){return this._items[a]},each:function(a,c){i(this._items,function(d,g){d=this.item(g);a.call(c||d,d,g,this)},this);return this},some:function(a,c){return b.some(this._items,function(d,g){d=this.item(g);return a.call(c||d,d,g,this)},this)},indexOf:function(a){return b.indexOf(this._items,a)},size:function(){return this._items.length},isEmpty:function(){return!this.size()},
+toJSON:function(){return this._items}};f._item=f.item;e.mix(h.prototype,f);e.mix(h,{addMethod:function(a,c){c=b(c);i(c,function(d){a[d]=function(){var a=b(arguments,0,!0),c=[];i(this._items,function(b,e){var b=this._item(e),f=b[d].apply(b,a);void 0!==f&&f!==b&&(c[e]=f)},this);return c.length?c:this}})}});e.ArrayList=h},"3.5.0",{requires:["yui-base"]});

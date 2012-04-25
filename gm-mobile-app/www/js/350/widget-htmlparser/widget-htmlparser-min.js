@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("widget-htmlparser",function(f){var e=f.Widget,c=f.Node,d=f.Lang,a="srcNode",b="contentBox";e.HTML_PARSER={};e._buildCfg={aggregates:["HTML_PARSER"]};e.ATTRS[a]={value:null,setter:c.one,getter:"_getSrcNode",writeOnce:true};f.mix(e.prototype,{_getSrcNode:function(g){return g||this.get(b);},_applyParsedConfig:function(i,g,h){return(h)?f.mix(g,h,false):g;},_applyParser:function(g){var i=this,j=i.get(a),h=i._getHtmlParser(),l,k;if(h&&j){f.Object.each(h,function(n,m,p){k=null;if(d.isFunction(n)){k=n.call(i,j);}else{if(d.isArray(n)){k=j.all(n[0]);if(k.isEmpty()){k=null;}}else{k=j.one(n);}}if(k!==null&&k!==undefined){l=l||{};l[m]=k;}});}g=i._applyParsedConfig(j,g,l);},_getHtmlParser:function(){var h=this._getClasses(),k={},g,j;for(g=h.length-1;g>=0;g--){j=h[g].HTML_PARSER;if(j){f.mix(k,j,true);}}return k;}});},"3.5.0",{requires:["widget-base"]});
+YUI.add("widget-htmlparser",function(e){var c=e.Widget,i=e.Node,g=e.Lang;c.HTML_PARSER={};c._buildCfg={aggregates:["HTML_PARSER"]};c.ATTRS.srcNode={value:null,setter:i.one,getter:"_getSrcNode",writeOnce:!0};e.mix(c.prototype,{_getSrcNode:function(a){return a||this.get("contentBox")},_applyParsedConfig:function(a,d,b){return b?e.mix(d,b,!1):d},_applyParser:function(a){var d=this,b=d.get("srcNode"),h=d._getHtmlParser(),c,f;h&&b&&e.Object.each(h,function(a,e){f=null;g.isFunction(a)?f=a.call(d,b):g.isArray(a)?
+(f=b.all(a[0]),f.isEmpty()&&(f=null)):f=b.one(a);null!==f&&void 0!==f&&(c=c||{},c[e]=f)});a=d._applyParsedConfig(b,a,c)},_getHtmlParser:function(){var a=this._getClasses(),d={},b,c;for(b=a.length-1;0<=b;b--)(c=a[b].HTML_PARSER)&&e.mix(d,c,!0);return d}})},"3.5.0",{requires:["widget-base"]});

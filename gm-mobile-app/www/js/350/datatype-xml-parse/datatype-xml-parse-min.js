@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("datatype-xml-parse",function(b){var a=b.Lang;b.mix(b.namespace("DataType.XML"),{parse:function(f){var d=null;if(a.isString(f)){try{if(!a.isUndefined(ActiveXObject)){d=new ActiveXObject("Microsoft.XMLDOM");d.async=false;d.loadXML(f);}}catch(c){try{if(!a.isUndefined(DOMParser)){d=new DOMParser().parseFromString(f,"text/xml");}}catch(g){}}}if((a.isNull(d))||(a.isNull(d.documentElement))||(d.documentElement.nodeName==="parsererror")){}return d;}});b.namespace("Parsers").xml=b.DataType.XML.parse;},"3.5.0");
+YUI.add("datatype-xml-parse",function(a){var c=a.Lang;a.mix(a.namespace("DataType.XML"),{parse:function(a){var b=null;if(c.isString(a))try{c.isUndefined(ActiveXObject)||(b=new ActiveXObject("Microsoft.XMLDOM"),b.async=!1,b.loadXML(a))}catch(d){try{c.isUndefined(DOMParser)||(b=(new DOMParser).parseFromString(a,"text/xml"))}catch(e){}}c.isNull(b)||c.isNull(b.documentElement);return b}});a.namespace("Parsers").xml=a.DataType.XML.parse},"3.5.0");

@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("widget-base-ie",function(a){var d="boundingBox",f="contentBox",c="height",e="offsetHeight",g="",b=a.UA.ie,i=b<7,h=a.Widget.getClassName("tmp","forcesize"),j=a.Widget.getClassName("content","expanded");a.Widget.prototype._uiSizeCB=function(l){var n=this.get(d),k=this.get(f),m=this._bbs;if(m===undefined){this._bbs=m=!(b&&b<8&&n.get("ownerDocument").get("compatMode")!="BackCompat");}if(m){k.toggleClass(j,l);}else{if(l){if(i){n.addClass(h);}k.set(e,n.get(e));if(i){n.removeClass(h);}}else{k.setStyle(c,g);}}};},"3.5.0",{requires:["widget-base"]});
+YUI.add("widget-base-ie",function(a){var c=a.UA.ie,f=7>c,g=a.Widget.getClassName("tmp","forcesize"),h=a.Widget.getClassName("content","expanded");a.Widget.prototype._uiSizeCB=function(a){var b=this.get("boundingBox"),d=this.get("contentBox"),e=this._bbs;void 0===e&&(this._bbs=e=!(c&&8>c&&"BackCompat"!=b.get("ownerDocument").get("compatMode")));e?d.toggleClass(h,a):a?(f&&b.addClass(g),d.set("offsetHeight",b.get("offsetHeight")),f&&b.removeClass(g)):d.setStyle("height","")}},"3.5.0",{requires:["widget-base"]});

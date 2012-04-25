@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("attribute-complex",function(b){var a=b.Object,c=".";b.Attribute.Complex=function(){};b.Attribute.Complex.prototype={_normAttrVals:function(g){var i={},h={},j,d,f,e;if(g){for(e in g){if(g.hasOwnProperty(e)){if(e.indexOf(c)!==-1){j=e.split(c);d=j.shift();f=h[d]=h[d]||[];f[f.length]={path:j,value:g[e]};}else{i[e]=g[e];}}}return{simple:i,complex:h};}else{return null;}},_getAttrInitVal:function(m,j,p){var e=j.value,o=j.valueFn,d,f,h,g,q,n,k;if(o){if(!o.call){o=this[o];}if(o){e=o.call(this,m);}}if(!j.readOnly&&p){d=p.simple;if(d&&d.hasOwnProperty(m)){e=d[m];}f=p.complex;if(f&&f.hasOwnProperty(m)){k=f[m];for(h=0,g=k.length;h<g;++h){q=k[h].path;n=k[h].value;a.setValue(e,q,n);}}}return e;}};b.mix(b.Attribute,b.Attribute.Complex,true,null,1);b.AttributeComplex=b.Attribute.Complex;},"3.5.0",{requires:["attribute-base"]});
+YUI.add("attribute-complex",function(a){var h=a.Object;a.Attribute.Complex=function(){};a.Attribute.Complex.prototype={_normAttrVals:function(b){var g={},d={},a,c,e;if(b){for(e in b)b.hasOwnProperty(e)&&(-1!==e.indexOf(".")?(a=e.split("."),c=a.shift(),c=d[c]=d[c]||[],c[c.length]={path:a,value:b[e]}):g[e]=b[e]);return{simple:g,complex:d}}return null},_getAttrInitVal:function(b,a,d){var f=a.value,c=a.valueFn,e;c&&(c.call||(c=this[c]),c&&(f=c.call(this,b)));if(!a.readOnly&&d&&((a=d.simple)&&a.hasOwnProperty(b)&&
+(f=a[b]),(d=d.complex)&&d.hasOwnProperty(b))){e=d[b];b=0;for(d=e.length;b<d;++b)a=e[b].path,c=e[b].value,h.setValue(f,a,c)}return f}};a.mix(a.Attribute,a.Attribute.Complex,!0,null,1);a.AttributeComplex=a.Attribute.Complex},"3.5.0",{requires:["attribute-base"]});

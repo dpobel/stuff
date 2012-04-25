@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("querystring-stringify-simple",function(c){var b=c.namespace("QueryString"),a=encodeURIComponent;b.stringify=function(j,k){var d=[],h=k&&k.arrayKey?true:false,g,f,e;for(g in j){if(j.hasOwnProperty(g)){if(c.Lang.isArray(j[g])){for(f=0,e=j[g].length;f<e;f++){d.push(a(h?g+"[]":g)+"="+a(j[g][f]));}}else{d.push(a(g)+"="+a(j[g]));}}}return d.join("&");};},"3.5.0",{requires:["yui-base"]});
+YUI.add("querystring-stringify-simple",function(g){var e=g.namespace("QueryString"),c=encodeURIComponent;e.stringify=function(b,h){var f=[],e=h&&h.arrayKey?!0:!1,a,d,i;for(a in b)if(b.hasOwnProperty(a))if(g.Lang.isArray(b[a])){d=0;for(i=b[a].length;d<i;d++)f.push(c(e?a+"[]":a)+"="+c(b[a][d]))}else f.push(c(a)+"="+c(b[a]));return f.join("&")}},"3.5.0",{requires:["yui-base"]});

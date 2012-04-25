@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("event-touch",function(d){var c="scale",a="rotation",b="identifier";d.DOMEventFacade.prototype._touch=function(n,m,o){var g,f,h,k,j;if(n.touches){this.touches=[];j={};for(g=0,f=n.touches.length;g<f;++g){k=n.touches[g];j[d.stamp(k)]=this.touches[g]=new d.DOMEventFacade(k,m,o);}}if(n.targetTouches){this.targetTouches=[];for(g=0,f=n.targetTouches.length;g<f;++g){k=n.targetTouches[g];h=j&&j[d.stamp(k,true)];this.targetTouches[g]=h||new d.DOMEventFacade(k,m,o);}}if(n.changedTouches){this.changedTouches=[];for(g=0,f=n.changedTouches.length;g<f;++g){k=n.changedTouches[g];h=j&&j[d.stamp(k,true)];this.changedTouches[g]=h||new d.DOMEventFacade(k,m,o);}}if(c in n){this[c]=n[c];}if(a in n){this[a]=n[a];}if(b in n){this[b]=n[b];}};if(d.Node.DOM_EVENTS){d.mix(d.Node.DOM_EVENTS,{touchstart:1,touchmove:1,touchend:1,touchcancel:1,gesturestart:1,gesturechange:1,gestureend:1});}},"3.5.0",{requires:["node-base"]});
+YUI.add("event-touch",function(c){c.DOMEventFacade.prototype._touch=function(a,h,i){var b,e,g,d,f;if(a.touches){this.touches=[];f={};b=0;for(e=a.touches.length;b<e;++b)d=a.touches[b],f[c.stamp(d)]=this.touches[b]=new c.DOMEventFacade(d,h,i)}if(a.targetTouches){this.targetTouches=[];b=0;for(e=a.targetTouches.length;b<e;++b)d=a.targetTouches[b],g=f&&f[c.stamp(d,!0)],this.targetTouches[b]=g||new c.DOMEventFacade(d,h,i)}if(a.changedTouches){this.changedTouches=[];b=0;for(e=a.changedTouches.length;b<e;++b)d=
+a.changedTouches[b],g=f&&f[c.stamp(d,!0)],this.changedTouches[b]=g||new c.DOMEventFacade(d,h,i)}"scale"in a&&(this.scale=a.scale);"rotation"in a&&(this.rotation=a.rotation);"identifier"in a&&(this.identifier=a.identifier)};c.Node.DOM_EVENTS&&c.mix(c.Node.DOM_EVENTS,{touchstart:1,touchmove:1,touchend:1,touchcancel:1,gesturestart:1,gesturechange:1,gestureend:1})},"3.5.0",{requires:["node-base"]});

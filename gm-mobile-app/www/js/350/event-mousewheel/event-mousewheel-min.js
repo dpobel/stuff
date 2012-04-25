@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("event-mousewheel",function(c){var b="DOMMouseScroll",a=function(e){var d=c.Array(e,0,true),f;if(c.UA.gecko){d[0]=b;f=c.config.win;}else{f=c.config.doc;}if(d.length<3){d[2]=f;}else{d.splice(2,0,f);}return d;};c.Env.evt.plugins.mousewheel={on:function(){return c.Event._attach(a(arguments));},detach:function(){return c.Event.detach.apply(c.Event,a(arguments));}};},"3.5.0",{requires:["node-base"]});
+YUI.add("event-mousewheel",function(a){var d=function(b){var b=a.Array(b,0,!0),c;a.UA.gecko?(b[0]="DOMMouseScroll",c=a.config.win):c=a.config.doc;3>b.length?b[2]=c:b.splice(2,0,c);return b};a.Env.evt.plugins.mousewheel={on:function(){return a.Event._attach(d(arguments))},detach:function(){return a.Event.detach.apply(a.Event,d(arguments))}}},"3.5.0",{requires:["node-base"]});

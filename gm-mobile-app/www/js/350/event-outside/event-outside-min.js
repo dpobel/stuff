@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("event-outside",function(b){var a=["blur","change","click","dblclick","focus","keydown","keypress","keyup","mousedown","mousemove","mouseout","mouseover","mouseup","select","submit"];b.Event.defineOutside=function(e,d){d=d||(e+"outside");var c={on:function(h,f,g){f.handle=b.one("doc").on(e,function(i){if(this.isOutside(h,i.target)){i.currentTarget=h;g.fire(i);}},this);},detach:function(h,f,g){f.handle.detach();},delegate:function(i,g,h,f){g.handle=b.one("doc").delegate(e,function(j){if(this.isOutside(i,j.target)){h.fire(j);}},f,this);},isOutside:function(f,g){return g!==f&&!g.ancestor(function(h){return h===f;});}};c.detachDelegate=c.detach;b.Event.define(d,c);};b.Array.each(a,function(c){b.Event.defineOutside(c);});},"3.5.0",{requires:["event-synthetic"]});
+YUI.add("event-outside",function(c){c.Event.defineOutside=function(d,g){var e={on:function(b,a,f){a.handle=c.one("doc").on(d,function(a){this.isOutside(b,a.target)&&(a.currentTarget=b,f.fire(a))},this)},detach:function(b,a){a.handle.detach()},delegate:function(b,a,f,e){a.handle=c.one("doc").delegate(d,function(a){this.isOutside(b,a.target)&&f.fire(a)},e,this)},isOutside:function(b,a){return a!==b&&!a.ancestor(function(a){return a===b})}};e.detachDelegate=e.detach;c.Event.define(g||d+"outside",e)};
+c.Array.each("blur,change,click,dblclick,focus,keydown,keypress,keyup,mousedown,mousemove,mouseout,mouseover,mouseup,select,submit".split(","),function(d){c.Event.defineOutside(d)})},"3.5.0",{requires:["event-synthetic"]});

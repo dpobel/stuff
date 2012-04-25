@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("yui-log",function(d){var c=d,e="yui:log",a="undefined",b={debug:1,info:1,warn:1,error:1};c.log=function(j,s,g,q){var l,p,n,k,o,i=c,r=i.config,h=(i.fire)?i:YUI.Env.globalEvents;if(r.debug){if(g){p=r.logExclude;n=r.logInclude;if(n&&!(g in n)){l=1;}else{if(n&&(g in n)){l=!n[g];}else{if(p&&(g in p)){l=p[g];}}}}if(!l){if(r.useBrowserConsole){k=(g)?g+": "+j:j;if(i.Lang.isFunction(r.logFn)){r.logFn.call(i,j,s,g);}else{if(typeof console!=a&&console.log){o=(s&&console[s]&&(s in b))?s:"log";console[o](k);}else{if(typeof opera!=a){opera.postError(k);}}}}if(h&&!q){if(h==i&&(!h.getEvent(e))){h.publish(e,{broadcast:2});}h.fire(e,{msg:j,cat:s,src:g});}}}return i;};c.message=function(){return c.log.apply(c,arguments);};},"3.5.0",{requires:["yui-base"]});
+YUI.add("yui-log",function(a){var j={debug:1,info:1,warn:1,error:1};a.log=function(h,e,b,k){var d,i,f,c;c=a.config;var g=a.fire?a:YUI.Env.globalEvents;if(c.debug&&(b&&(i=c.logExclude,(f=c.logInclude)&&!(b in f)?d=1:f&&b in f?d=!f[b]:i&&b in i&&(d=i[b])),!d))if(c.useBrowserConsole&&(d=b?b+": "+h:h,a.Lang.isFunction(c.logFn)?c.logFn.call(a,h,e,b):"undefined"!=typeof console&&console.log?(c=e&&console[e]&&e in j?e:"log",console[c](d)):"undefined"!=typeof opera&&opera.postError(d)),g&&!k)g==a&&!g.getEvent("yui:log")&&
+g.publish("yui:log",{broadcast:2}),g.fire("yui:log",{msg:h,cat:e,src:b});return a};a.message=function(){return a.log.apply(a,arguments)}},"3.5.0",{requires:["yui-base"]});

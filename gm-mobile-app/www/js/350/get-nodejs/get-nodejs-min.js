@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("get-nodejs",function(h){var g=require("path");h.config.base=g.join(__dirname,"../");console.log(h.config);YUI.add("get",function(){});var d=function(j,k,i){if(h.Lang.isFunction(j.onEnd)){j.onEnd.call(h,k,i);}},f=function(i){if(h.Lang.isFunction(i.onSuccess)){i.onSuccess.call(h,i);}d(i,"success","success");},c=function(i,j){if(h.Lang.isFunction(i.onFailure)){i.onFailure.call(h,j,i);}d(i,j,"fail");};h.Get=function(){};h.Get.script=function(p,k){var j=h.Array,q=j(p),n,o,m=q.length;for(o=0;o<m;o++){n=q[o];n=n.replace(/'/g,"%27");a(n,function(i){if(!h.config){h.config={debug:true};}if(i){if(i.stack){j.each(i.stack.split("\n"),function(l){});}else{console.log(i);}}else{f(k);}});}};var e=require("vm"),b=require("fs");var a=function(k,i){var l=b.readFileSync(k,"utf8");var j=e.createScript(l,k);var m={YUI:{add:function(){console.log("YUI in the sandbox");console.log(arguments);YUI.apply(YUI,arguments);i();}}};j.runInNewContext(m);};},"3.5.0",{requires:["yui-base"]});
+YUI.add("get-nodejs",function(b){var f=require("path");b.config.base=f.join(__dirname,"../");console.log(b.config);YUI.add("get",function(){});var h=function(a){b.Lang.isFunction(a.onSuccess)&&a.onSuccess.call(b,a);b.Lang.isFunction(a.onEnd)&&a.onEnd.call(b,"success","success")};b.Get=function(){};b.Get.script=function(a,i){var c=b.Array,g=c(a),d,e,f=g.length;for(e=0;e<f;e++)d=g[e],d=d.replace(/'/g,"%27"),j(d,function(a){b.config||(b.config={debug:!0});a?a.stack?c.each(a.stack.split("\n"),function(){}):
+console.log(a):h(i)})};var k=require("vm"),l=require("fs"),j=function(a,b){var c=l.readFileSync(a,"utf8");k.createScript(c,a).runInNewContext({YUI:{add:function(){console.log("YUI in the sandbox");console.log(arguments);YUI.apply(YUI,arguments);b()}}})}},"3.5.0",{requires:["yui-base"]});

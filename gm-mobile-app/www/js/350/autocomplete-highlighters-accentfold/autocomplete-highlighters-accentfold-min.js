@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("autocomplete-highlighters-accentfold",function(c){var a=c.Highlight,b=c.Array;c.mix(c.namespace("AutoCompleteHighlighters"),{charMatchFold:function(f,e){var d=b.unique(f.split(""));return b.map(e,function(g){return a.allFold(g.text,d);});},phraseMatchFold:function(e,d){return b.map(d,function(f){return a.allFold(f.text,[e]);});},startsWithFold:function(e,d){return b.map(d,function(f){return a.allFold(f.text,[e],{startsWith:true});});},subWordMatchFold:function(f,d){var e=c.Text.WordBreak.getUniqueWords(f);return b.map(d,function(g){return a.allFold(g.text,e);});},wordMatchFold:function(e,d){return b.map(d,function(f){return a.wordsFold(f.text,e);});}});},"3.5.0",{requires:["array-extras","highlight-accentfold"]});
+YUI.add("autocomplete-highlighters-accentfold",function(d){var e=d.Highlight,c=d.Array;d.mix(d.namespace("AutoCompleteHighlighters"),{charMatchFold:function(b,a){var f=c.unique(b.split(""));return c.map(a,function(b){return e.allFold(b.text,f)})},phraseMatchFold:function(b,a){return c.map(a,function(a){return e.allFold(a.text,[b])})},startsWithFold:function(b,a){return c.map(a,function(a){return e.allFold(a.text,[b],{startsWith:!0})})},subWordMatchFold:function(b,a){var f=d.Text.WordBreak.getUniqueWords(b);
+return c.map(a,function(a){return e.allFold(a.text,f)})},wordMatchFold:function(b,a){return c.map(a,function(a){return e.wordsFold(a.text,b)})}})},"3.5.0",{requires:["array-extras","highlight-accentfold"]});

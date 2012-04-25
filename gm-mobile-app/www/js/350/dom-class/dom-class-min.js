@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("dom-class",function(d){var b,a,c;d.mix(d.DOM,{hasClass:function(g,f){var e=d.DOM._getRegExp("(?:^|\\s+)"+f+"(?:\\s+|$)");return e.test(g.className);},addClass:function(f,e){if(!d.DOM.hasClass(f,e)){f.className=d.Lang.trim([f.className,e].join(" "));}},removeClass:function(f,e){if(e&&a(f,e)){f.className=d.Lang.trim(f.className.replace(d.DOM._getRegExp("(?:^|\\s+)"+e+"(?:\\s+|$)")," "));if(a(f,e)){c(f,e);}}},replaceClass:function(f,e,g){c(f,e);b(f,g);},toggleClass:function(f,e,g){var h=(g!==undefined)?g:!(a(f,e));if(h){b(f,e);}else{c(f,e);}}});a=d.DOM.hasClass;c=d.DOM.removeClass;b=d.DOM.addClass;},"3.5.0",{requires:["dom-core"]});
+YUI.add("dom-class",function(c){var f,d,e;c.mix(c.DOM,{hasClass:function(a,b){return c.DOM._getRegExp("(?:^|\\s+)"+b+"(?:\\s+|$)").test(a.className)},addClass:function(a,b){c.DOM.hasClass(a,b)||(a.className=c.Lang.trim([a.className,b].join(" ")))},removeClass:function(a,b){b&&d(a,b)&&(a.className=c.Lang.trim(a.className.replace(c.DOM._getRegExp("(?:^|\\s+)"+b+"(?:\\s+|$)")," ")),d(a,b)&&e(a,b))},replaceClass:function(a,b,c){e(a,b);f(a,c)},toggleClass:function(a,b,c){(void 0!==c?c:!d(a,b))?f(a,b):
+e(a,b)}});d=c.DOM.hasClass;e=c.DOM.removeClass;f=c.DOM.addClass},"3.5.0",{requires:["dom-core"]});

@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("node-style",function(a){(function(b){b.mix(b.Node.prototype,{setStyle:function(c,d){b.DOM.setStyle(this._node,c,d);return this;},setStyles:function(c){b.DOM.setStyles(this._node,c);return this;},getStyle:function(c){return b.DOM.getStyle(this._node,c);},getComputedStyle:function(c){return b.DOM.getComputedStyle(this._node,c);}});b.NodeList.importMethod(b.Node.prototype,["getStyle","getComputedStyle","setStyle","setStyles"]);})(a);},"3.5.0",{requires:["dom-style","node-base"]});
+YUI.add("node-style",function(c){(function(a){a.mix(a.Node.prototype,{setStyle:function(b,c){a.DOM.setStyle(this._node,b,c);return this},setStyles:function(b){a.DOM.setStyles(this._node,b);return this},getStyle:function(b){return a.DOM.getStyle(this._node,b)},getComputedStyle:function(b){return a.DOM.getComputedStyle(this._node,b)}});a.NodeList.importMethod(a.Node.prototype,["getStyle","getComputedStyle","setStyle","setStyles"])})(c)},"3.5.0",{requires:["dom-style","node-base"]});

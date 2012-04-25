@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("highlight-accentfold",function(e){var d=e.Text.AccentFold,b=e.Escape,c={},a=e.mix(e.Highlight,{allFold:function(o,f,q){var n=a._TEMPLATE,g=[],l=0,m,h,k,j,p;q=e.merge({escapeHTML:false,replacer:function(r,t,s,u){var i;if(t&&!(/\s/).test(s)){return r;}i=s.length;g.push([o.substring(l,u),o.substr(u,i)]);l=u+i;}},q||c);a.all(d.fold(o),d.fold(f),q);if(l<o.length){g.push([o.substr(l)]);}for(h=0,k=g.length;h<k;++h){m=b.html(g[h][0]);if((j=g[h][1])){m+=n.replace(/\{s\}/g,b.html(j));}g[h]=m;}return g.join("");},startFold:function(g,f){return a.allFold(g,f,{startsWith:true});},wordsFold:function(h,g){var f=a._TEMPLATE;return a.words(h,d.fold(g),{mapper:function(j,i){if(i.hasOwnProperty(d.fold(j))){return f.replace(/\{s\}/g,b.html(j));}return b.html(j);}});}});},"3.5.0",{requires:["highlight-base","text-accentfold"]});
+YUI.add("highlight-accentfold",function(e){var g=e.Text.AccentFold,h=e.Escape,l={},d=e.mix(e.Highlight,{allFold:function(c,b,a){var m=d._TEMPLATE,f=[],i=0,j,k,a=e.merge({escapeHTML:!1,replacer:function(a,b,e,d){if(b&&!/\s/.test(e))return a;a=e.length;f.push([c.substring(i,d),c.substr(d,a)]);i=d+a}},a||l);d.all(g.fold(c),g.fold(b),a);i<c.length&&f.push([c.substr(i)]);a=0;for(j=f.length;a<j;++a){b=h.html(f[a][0]);if(k=f[a][1])b+=m.replace(/\{s\}/g,h.html(k));f[a]=b}return f.join("")},startFold:function(c,
+b){return d.allFold(c,b,{startsWith:!0})},wordsFold:function(c,b){var a=d._TEMPLATE;return d.words(c,g.fold(b),{mapper:function(b,c){return c.hasOwnProperty(g.fold(b))?a.replace(/\{s\}/g,h.html(b)):h.html(b)}})}})},"3.5.0",{requires:["highlight-base","text-accentfold"]});

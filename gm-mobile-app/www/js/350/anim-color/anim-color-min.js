@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("anim-color",function(b){var a=Number;b.Anim.behaviors.color={set:function(f,d,i,h,c,g,e){i=b.Color.re_RGB.exec(b.Color.toRGB(i));h=b.Color.re_RGB.exec(b.Color.toRGB(h));if(!i||i.length<3||!h||h.length<3){b.error("invalid from or to passed to color behavior");}f._node.setStyle(d,"rgb("+[Math.floor(e(c,a(i[1]),a(h[1])-a(i[1]),g)),Math.floor(e(c,a(i[2]),a(h[2])-a(i[2]),g)),Math.floor(e(c,a(i[3]),a(h[3])-a(i[3]),g))].join(", ")+")");},get:function(d,c){var e=d._node.getComputedStyle(c);e=(e==="transparent")?"rgb(255, 255, 255)":e;return e;}};b.each(["backgroundColor","borderColor","borderTopColor","borderRightColor","borderBottomColor","borderLeftColor"],function(c,d){b.Anim.behaviors[c]=b.Anim.behaviors.color;});},"3.5.0",{requires:["anim-base"]});
+YUI.add("anim-color",function(c){var a=Number;c.Anim.behaviors.color={set:function(h,i,b,d,e,f,g){b=c.Color.re_RGB.exec(c.Color.toRGB(b));d=c.Color.re_RGB.exec(c.Color.toRGB(d));(!b||3>b.length||!d||3>d.length)&&c.error("invalid from or to passed to color behavior");h._node.setStyle(i,"rgb("+[Math.floor(g(e,a(b[1]),a(d[1])-a(b[1]),f)),Math.floor(g(e,a(b[2]),a(d[2])-a(b[2]),f)),Math.floor(g(e,a(b[3]),a(d[3])-a(b[3]),f))].join(", ")+")")},get:function(c,a){var b=c._node.getComputedStyle(a);return"transparent"===
+b?"rgb(255, 255, 255)":b}};c.each("backgroundColor,borderColor,borderTopColor,borderRightColor,borderBottomColor,borderLeftColor".split(","),function(a){c.Anim.behaviors[a]=c.Anim.behaviors.color})},"3.5.0",{requires:["anim-base"]});

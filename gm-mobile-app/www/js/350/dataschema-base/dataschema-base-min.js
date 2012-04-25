@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("dataschema-base",function(b){var a=b.Lang,c={apply:function(d,e){return e;},parse:function(d,e){if(e.parser){var f=(a.isFunction(e.parser))?e.parser:b.Parsers[e.parser+""];if(f){d=f.call(this,d);}else{}}return d;}};b.namespace("DataSchema").Base=c;b.namespace("Parsers");},"3.5.0",{requires:["base"]});
+YUI.add("dataschema-base",function(b){var e=b.Lang;b.namespace("DataSchema").Base={apply:function(b,a){return a},parse:function(c,a){if(a.parser){var d=e.isFunction(a.parser)?a.parser:b.Parsers[a.parser+""];d&&(c=d.call(this,c))}return c}};b.namespace("Parsers")},"3.5.0",{requires:["base"]});

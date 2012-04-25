@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("createlink-base",function(b){var a={};a.STRINGS={PROMPT:"Please enter the URL for the link to point to:",DEFAULT:"http://"};b.namespace("Plugin");b.Plugin.CreateLinkBase=a;b.mix(b.Plugin.ExecCommand.COMMANDS,{createlink:function(i){var h=this.get("host").getInstance(),e,c,g,f,d=prompt(a.STRINGS.PROMPT,a.STRINGS.DEFAULT);if(d){f=h.config.doc.createElement("div");d=d.replace(/"/g,"").replace(/'/g,"");d=h.config.doc.createTextNode(d);f.appendChild(d);d=f.innerHTML;this.get("host")._execCommand(i,d);g=new h.EditorSelection();e=g.getSelected();if(!g.isCollapsed&&e.size()){c=e.item(0).one("a");if(c){e.item(0).replace(c);}if(b.UA.gecko){if(c.get("parentNode").test("span")){if(c.get("parentNode").one("br.yui-cursor")){c.get("parentNode").insert(c,"before");}}}}else{this.get("host").execCommand("inserthtml",'<a href="'+d+'">'+d+"</a>");}}return c;}});},"3.5.0",{skinnable:false,requires:["editor-base"]});
+YUI.add("createlink-base",function(d){var f={STRINGS:{PROMPT:"Please enter the URL for the link to point to:",DEFAULT:"http://"}};d.namespace("Plugin");d.Plugin.CreateLinkBase=f;d.mix(d.Plugin.ExecCommand.COMMANDS,{createlink:function(e){var c=this.get("host").getInstance(),b,g,a=prompt(f.STRINGS.PROMPT,f.STRINGS.DEFAULT);a&&(g=c.config.doc.createElement("div"),a=a.replace(/"/g,"").replace(/'/g,""),a=c.config.doc.createTextNode(a),g.appendChild(a),a=g.innerHTML,this.get("host")._execCommand(e,a),
+c=new c.EditorSelection,e=c.getSelected(),!c.isCollapsed&&e.size()?((b=e.item(0).one("a"))&&e.item(0).replace(b),d.UA.gecko&&b.get("parentNode").test("span")&&b.get("parentNode").one("br.yui-cursor")&&b.get("parentNode").insert(b,"before")):this.get("host").execCommand("inserthtml",'<a href="'+a+'">'+a+"</a>"));return b}})},"3.5.0",{skinnable:!1,requires:["editor-base"]});

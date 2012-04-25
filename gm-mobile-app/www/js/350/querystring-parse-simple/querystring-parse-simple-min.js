@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("querystring-parse-simple",function(b){var a=b.namespace("QueryString");a.parse=function(e,g,d){g=g||"&";d=d||"=";for(var k={},h=0,j=e.split(g),f=j.length,c;h<f;h++){c=j[h].split(d);if(c.length>0){k[a.unescape(c.shift())]=a.unescape(c.join(d));}}return k;};a.unescape=function(c){return decodeURIComponent(c.replace(/\+/g," "));};},"3.5.0",{requires:["yui-base"]});
+YUI.add("querystring-parse-simple",function(h){var b=h.namespace("QueryString");b.parse=function(a,e,c){for(var c=c||"=",g={},f=0,a=a.split(e||"&"),e=a.length,d;f<e;f++)d=a[f].split(c),0<d.length&&(g[b.unescape(d.shift())]=b.unescape(d.join(c)));return g};b.unescape=function(a){return decodeURIComponent(a.replace(/\+/g," "))}},"3.5.0",{requires:["yui-base"]});

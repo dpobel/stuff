@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("jsonp-url",function(d){var a=d.JSONPRequest,c=d.Object.getValue,b=function(){};d.mix(a.prototype,{_pattern:/\bcallback=(.*?)(?=&|$)/i,_template:"callback={callback}",_defaultCallback:function(g){var f=g.match(this._pattern),j=[],h=0,e,k,l;if(f){e=f[1].replace(/\[(['"])(.*?)\1\]/g,function(m,i,n){j[h]=n;return".@"+(h++);}).replace(/\[(\d+)\]/g,function(m,i){j[h]=parseInt(i,10)|0;return".@"+(h++);}).replace(/^\./,"");if(!/[^\w\.\$@]/.test(e)){k=e.split(".");for(h=k.length-1;h>=0;--h){if(k[h].charAt(0)==="@"){k[h]=j[parseInt(k[h].substr(1),10)];}}l=c(d.config.win,k)||c(d,k)||c(d,k.slice(1));}}return l||b;},_format:function(e,g){var h=this._template.replace(/\{callback\}/,g),f;if(this._pattern.test(e)){return e.replace(this._pattern,h);}else{f=e.slice(-1);if(f!=="&"&&f!=="?"){e+=(e.indexOf("?")>-1)?"&":"?";}return e+h;}}},true);},"3.5.0",{requires:["jsonp"]});
+YUI.add("jsonp-url",function(d){var e=d.Object.getValue,g=function(){};d.mix(d.JSONPRequest.prototype,{_pattern:/\bcallback=(.*?)(?=&|$)/i,_template:"callback={callback}",_defaultCallback:function(a){var a=a.match(this._pattern),f=[],c=0,b;if(a&&(a=a[1].replace(/\[(['"])(.*?)\1\]/g,function(a,b,d){f[c]=d;return".@"+c++}).replace(/\[(\d+)\]/g,function(a,b){f[c]=parseInt(b,10)|0;return".@"+c++}).replace(/^\./,""),!/[^\w\.\$@]/.test(a))){b=a.split(".");for(c=b.length-1;0<=c;--c)"@"===b[c].charAt(0)&&
+(b[c]=f[parseInt(b[c].substr(1),10)]);b=e(d.config.win,b)||e(d,b)||e(d,b.slice(1))}return b||g},_format:function(a,d){var c=this._template.replace(/\{callback\}/,d),b;if(this._pattern.test(a))return a.replace(this._pattern,c);b=a.slice(-1);"&"!==b&&"?"!==b&&(a+=-1<a.indexOf("?")?"&":"?");return a+c}},!0)},"3.5.0",{requires:["jsonp"]});

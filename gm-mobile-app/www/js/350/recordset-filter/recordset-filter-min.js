@@ -1,7 +1,2 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("recordset-filter",function(d){var c=d.Array,b=d.Lang;function a(e){a.superclass.constructor.apply(this,arguments);}d.mix(a,{NS:"filter",NAME:"recordsetFilter",ATTRS:{}});d.extend(a,d.Plugin.Base,{filter:function(f,h){var g=this.get("host").get("records"),e;if(h&&b.isString(f)){e=f;f=function(i){return(i.getValue(e)===h);};}return new d.Recordset({records:c.filter(g,f)});},reject:function(e){return new d.Recordset({records:c.reject(this.get("host").get("records"),e)});},grep:function(e){return new d.Recordset({records:c.grep(this.get("host").get("records"),e)});}});d.namespace("Plugin").RecordsetFilter=a;},"3.5.0",{requires:["recordset-base","array-extras","plugin"]});
+YUI.add("recordset-filter",function(a){function c(a){c.superclass.constructor.apply(this,arguments)}var d=a.Array,f=a.Lang;a.mix(c,{NS:"filter",NAME:"recordsetFilter",ATTRS:{}});a.extend(c,a.Plugin.Base,{filter:function(b,c){var g=this.get("host").get("records"),e;c&&f.isString(b)&&(e=b,b=function(a){return a.getValue(e)===c});return new a.Recordset({records:d.filter(g,b)})},reject:function(b){return new a.Recordset({records:d.reject(this.get("host").get("records"),b)})},grep:function(b){return new a.Recordset({records:d.grep(this.get("host").get("records"),
+b)})}});a.namespace("Plugin").RecordsetFilter=c},"3.5.0",{requires:["recordset-base","array-extras","plugin"]});

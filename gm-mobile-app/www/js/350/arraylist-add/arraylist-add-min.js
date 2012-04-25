@@ -1,7 +1,1 @@
-/*
-YUI 3.5.0 (build 5089)
-Copyright 2012 Yahoo! Inc. All rights reserved.
-Licensed under the BSD License.
-http://yuilibrary.com/license/
-*/
-YUI.add("arraylist-add",function(a){a.mix(a.ArrayList.prototype,{add:function(d,c){var b=this._items;if(a.Lang.isNumber(c)){b.splice(c,0,d);}else{b.push(d);}return this;},remove:function(e,d,b){b=b||this.itemsAreEqual;for(var c=this._items.length-1;c>=0;--c){if(b.call(this,e,this.item(c))){this._items.splice(c,1);if(!d){break;}}}return this;},itemsAreEqual:function(d,c){return d===c;}});},"3.5.0",{requires:["arraylist"]});
+YUI.add("arraylist-add",function(e){e.mix(e.ArrayList.prototype,{add:function(a,b){var c=this._items;e.Lang.isNumber(b)?c.splice(b,0,a):c.push(a);return this},remove:function(a,b,c){for(var c=c||this.itemsAreEqual,d=this._items.length-1;0<=d&&(!c.call(this,a,this.item(d))||!(this._items.splice(d,1),!b));--d);return this},itemsAreEqual:function(a,b){return a===b}})},"3.5.0",{requires:["arraylist"]});
