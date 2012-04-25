@@ -96,7 +96,15 @@ padding:0 0.5em;
 list-style-type:none;
 border-radius:3px;
 border:1px solid #aaa;
-margin:0 5px;
+margin:0 auto;
+max-width:800px;
+}
+@media (max-width: 800px)
+{
+    .gm-station-list, .gm-departures
+    {
+    margin:0 4px;
+    }
 }
 .gm-departures .yui3-g
 {
