@@ -132,6 +132,7 @@ foreach ( $struct['listeHoraire'] as $train )
     $result['trains'][] = $t;
 }
 $result['time'] = date( 'H:i' );
+$result['station'] = $stations[$code];
 
 echo json_encode( $result );
 

@@ -78,11 +78,14 @@ YUI.add('gmmobileapp', function (Y) {
         parse: function (res) {
             var s = Y.JSON.parse(res);
             this.set('time', s.time);
+            if ( !this.get('station') ) {
+                this.set('station', new Station(s.station));
+            }
             return s.trains;
         }
     }, {
         ATTRS: {
-            stationCode: {value: ''},
+            station: {value: null},
             time: {value: ''}
         }
     });
@@ -426,14 +429,14 @@ YUI.add('gmmobileapp', function (Y) {
 
             this.showView('loading');
             tl.load({
-                stationCode: code,
+                station: station,
                 action: L.sub(this.get('actions.timetable'), {
                     code: code
                 })
             }, function () {
                 if ( that.get('activeView').name === 'loadingView' ) {
                     that.showView('departures', {
-                        station: station,
+                        station: tl.get('station'),
                         trains: tl
                     });
                 }
