@@ -74,3 +74,20 @@ function gm_css( $cssFiles, $packer = false, $minify = false, $inlineImage = fal
     return $res;
 }
 
+
+function gm_js_file( $jsFile, $dir = 'js/', $minify = false, $command = '' )
+{
+    if ( !$minify )
+    {
+        return $jsFile;
+    }
+    if ( !$command )
+    {
+        error( "No command to minify JavaScript", __FUNCTION__ );
+        return $jsFile;
+    }
+    $destFile = preg_replace( '/.js$/', '-min.js', $jsFile );
+    $content = shell_exec( $command . ' ' . WWW_ROOT . $dir . $jsFile );
+    file_put_contents( WWW_ROOT . $dir . $destFile, $content );
+    return $destFile;
+}
