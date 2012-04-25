@@ -7,12 +7,12 @@
     <title>gmMobileApp</title>
 <?php echo gm_css(
     array(
-        "js/3.5.0/build/cssreset/cssreset.css",
-        "js/3.5.0/build/cssbase/cssbase.css",
-        "js/3.5.0/build/cssfonts/cssfonts.css",
-        "js/3.5.0/build/cssbutton/cssbutton.css",
-        "js/3.5.0/build/cssgrids/cssgrids.css",
-        "js/3.5.0/build/app-transitions-css/app-transitions-css-min.css",
+        "js/350/cssreset/cssreset.css",
+        "js/350/cssbase/cssbase.css",
+        "js/350/cssfonts/cssfonts.css",
+        "js/350/cssbutton/cssbutton.css",
+        "js/350/cssgrids/cssgrids.css",
+        "js/350/app-transitions-css/app-transitions-css-min.css",
         "css/gmmobileapp.css"
     ),
     $settings['css']['pack'], $settings['css']['minify'], $settings['css']['inline_images']
@@ -137,7 +137,7 @@
         </section>
     </script>
 
-    <script src="js/3.5.0/build/yui/yui-min.js"></script>
+    <script src="js/350/yui/yui-min.js"></script>
     <script>
     YUI({
         <?php foreach( $settings['yui'] as $k => $s ) echo "$k: $s,\n" ?>

@@ -126,19 +126,19 @@
         </section>
     </script>
 
-    <script src="js/3.5.0/build/yui/yui-min.js"></script>
+    <script src="js/350/yui/yui-min.js"></script>
     <script>
     YUI({
         debug: false,
 combine: true,
 comboBase: 'combo.php?',
-root: '3.5.0/build/',
+root: '350/',
         modules: {
             gmmobileapp: {
                 fullpath: "gmmobileapp-min.js",
                 combine: true,
                 root: "/",
-                requires: ['app', 'app-transitions', 'handlebars', 'transition', 'io-base', 'json']
+                requires: ['app'/*, 'app-transitions'*/, 'handlebars', 'io-base', 'json']
             }
         }
     }).use('gmmobileapp', function (Y) {
