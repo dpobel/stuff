@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>gmMobileApp</title>
-<link rel="stylesheet" href="cache/pack.css?1335368803" />
+<link rel="stylesheet" href="cache/pack.css?1335369615" />
 </head>
 <body>
     <div id="gm-app-loader" class="loading" style="display:none;">
@@ -91,16 +91,18 @@
     <script class="gm-t-partial" type="text/x-handlebars-template" data-name="trainview">
         <li class="{{#if details}}late{{/if}}">
             <div class="yui3-g">
-                <div class="yui3-u-1-2 gm-infos">
+                <div class="yui3-u-5-6 gm-infos">
                     <span class="time">{{time}}</span>
                     {{#if details}}&ndash; <span class="details">{{details}}</span>{{/if}}
-                    {{#if platform}} &ndash; voie {{platform}}{{/if}}
+                    {{#if platform}} &ndash; <span title="voie" class="info"> {{platform}}</span>{{/if}}
                 </div>
-                <div class="yui3-u-1-2 gm-num">
+                <div class="yui3-u-1-6 gm-num">
                     {{#if type}}{{type}}{{/if}}
-                    {{#if num}}N°{{num}}{{/if}}
                 </div>
-                <div class="yui3-u-1 gm-destination"><strong>{{destination}}</strong></div>
+                <div class="yui3-u-5-6 gm-destination"><strong>{{destination}}</strong></div>
+                <div class="yui3-u-1-6 gm-num">
+                    {{#if num}}<span title="N°" class="info">{{num}}</span>{{/if}}
+                </div>
             </div>
         </li>
     </script>

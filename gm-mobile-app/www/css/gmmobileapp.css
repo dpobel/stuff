@@ -202,6 +202,10 @@ margin-bottom:0.3em;
 margin:0 5px;
 font-style:italic;
 }
+.gm-departures .info:before
+{
+content: attr(title);
+}
 .gm-toolbar
 {
 text-align:center;
@@ -251,17 +255,11 @@ margin:1em auto;
     display:inline;
     }
 }
-@media (max-width: 320px)
+*/
+@media (max-width: 400px)
 {
-
-    a.gm-bookmark
+    .gm-departures .info:before
     {
-    font-size:90%;
-    }
-    .gm-name
-    {
-    font-weight:normal;
-    font-size:85%;
+    content:"";
     }
 }
-*/
