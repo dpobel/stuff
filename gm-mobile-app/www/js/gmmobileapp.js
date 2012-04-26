@@ -55,7 +55,7 @@ YUI.add('gmmobileapp', function (Y) {
                         callback('IO failed');
                     },
                     success: function (tId, data) {
-                        callback(false, data.response);
+                        callback(false, data.responseText);
                     }
                 }
             });
@@ -94,7 +94,7 @@ YUI.add('gmmobileapp', function (Y) {
                         callback('IO Failed');
                     },
                     success: function(tId, data) {
-                        callback(false, data.response);
+                        callback(false, data.responseText);
                     }
                 }
             });
@@ -157,7 +157,7 @@ YUI.add('gmmobileapp', function (Y) {
                         callback("IO failure"); // TODO properly handle errors
                     },
                     success: function (tId, data) {
-                        callback(false, data.response);
+                        callback(false, data.responseText);
                     }
                 }
             });
@@ -478,6 +478,7 @@ YUI.add('gmmobileapp', function (Y) {
         showSearch: function (req, res, next) {
             var that = this,
                 list = new StationList();
+
             list.load({
                 action: L.sub(
                     this.get('actions.search'),
