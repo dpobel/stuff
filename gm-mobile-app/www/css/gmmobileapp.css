@@ -91,7 +91,7 @@ font-size:140%;
 border-right:1px solid #ddd;
 padding:0 0.5em;
 }
-.gm-station-list, .gm-departures
+.gm-station-list, .gm-departures, .gm-train, .gm-stops
 {
 list-style-type:none;
 border-radius:3px;
@@ -101,7 +101,7 @@ max-width:800px;
 }
 @media (max-width: 800px)
 {
-    .gm-station-list, .gm-departures
+    .gm-station-list, .gm-departures, .gm-train, .gm-stops
     {
     margin:0 4px;
     }
@@ -120,11 +120,11 @@ float:right;
 padding-right:0.1em;
 display:block;
 }
-.gm-station-list li:last-child, .gm-departures li:last-child
+.gm-station-list li:last-child, .gm-departures li:last-child, .gm-stops li:last-child
 {
 border:0;
 }
-.gm-station-list li, .gm-departures li
+.gm-station-list li, .gm-departures li, .gm-stops li
 {
 border-bottom:1px solid #aaa;
 padding:4px 2px;
@@ -136,11 +136,54 @@ background-image:     -ms-linear-gradient(top, #fafafa, #eee); /* IE10 */
 background-image:      -o-linear-gradient(top, #fafafa, #eee); /* Opera 11.10+ */
 background-image:         linear-gradient(to bottom, #fafafa, #eee);
 }
+.gm-stops li
+{
+padding:8px 4px;
+}
+.gm-stops, .gm-train
+{
+margin-top:1em;
+font-size:130%;
+}
+.gm-stops .time
+{
+font-weight:bold;
+display:inline-block;
+width:3.1em;
+}
+.gm-stops .late
+{
+color:#cd0000;
+font-weight:bold;
+}
+.gm-train
+{
+padding:4px 2px;
+background-color: #fafafa;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#eee)); /* Saf4+, Chrome */
+background-image: -webkit-linear-gradient(top, #fafafa, #eee); /* Chrome 10+, Saf5.1+, iOS 5+ */
+background-image:    -moz-linear-gradient(top, #fafafa, #eee); /* FF3.6 */
+background-image:     -ms-linear-gradient(top, #fafafa, #eee); /* IE10 */
+background-image:      -o-linear-gradient(top, #fafafa, #eee); /* Opera 11.10+ */
+background-image:         linear-gradient(to bottom, #fafafa, #eee);
+}
+.gm-train.late
+{
+border-color:#cd0000;
+}
+.gm-train li
+{
+padding:5px;
+}
+.gm-train-late strong
+{
+color:#cd0000;
+}
 .gm-departures li
 {
 padding:8px 2px 4px 4px;
 }
-.gm-departures li.late
+.gm-departures li.late, .gm-train.late
 {
 background-color: #ffe5e5;
 background-image: -webkit-gradient(linear, left top, left bottom, from(#ffe5e5), to(#ffcccc)); /* Saf4+, Chrome */
@@ -151,7 +194,7 @@ background-image:      -o-linear-gradient(top, #ffe5e5, #ffcccc); /* Opera 11.10
 background-image:         linear-gradient(to bottom, #ffe5e5, #ffcccc);
 }
 
-.gm-station-list li:hover, .gm-departures li:hover
+.gm-station-list li:hover, .gm-departures li:hover, .gm-stops li:hover
 {
 cursor:pointer;
 background-color: #fafafa;
@@ -161,6 +204,10 @@ background-image:    -moz-linear-gradient(top, #fafafa, #d0d0d0); /* FF3.6 */
 background-image:     -ms-linear-gradient(top, #fafafa, #d0d0d0); /* IE10 */
 background-image:      -o-linear-gradient(top, #fafafa, #d0d0d0); /* Opera 11.10+ */
 background-image:         linear-gradient(to bottom, #fafafa, #d0d0d0);
+}
+.gm-stops li:hover
+{
+cursor:default;
 }
 
 .gm-station-list p
