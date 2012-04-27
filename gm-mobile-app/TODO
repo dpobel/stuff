@@ -1,0 +1,16 @@
+
+- bouton actualiser dans la header bar
+- titre de la page
+- recherche à proximité
+- gestion des erreurs:
+    o erreur de chargement asynchrone
+    o loading trop long ?
+- détection localStorage
+- icons: home, actualiser
+- optimisations
+    - precompiler handlerbars templates
+    - affichage du loader + rapide
+    - supprimer les parties de CSS inutiles
+    - optimization taille du JS (refactoring)
+- page "À propos"
+- train favoris
