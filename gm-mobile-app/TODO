@@ -8,8 +8,6 @@
 - icons: home, actualiser
 - optimisations
     - precompiler handlerbars templates
-    - affichage du loader + rapide
     - supprimer les parties de CSS inutiles
-    - optimization taille du JS (refactoring)
 - page "À propos"
 - train favoris

@@ -1,29 +1,51 @@
 <!DOCTYPE html>
-
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Gare mobile</title>
-<?php echo gm_css(
-    array(
-        "js/350/cssreset/cssreset.css",
-        "js/350/cssbase/cssbase.css",
-        "js/350/cssfonts/cssfonts.css",
-        "js/350/cssbutton/cssbutton.css",
-        "js/350/cssgrids/cssgrids.css",
-        "js/350/app-transitions-css/app-transitions-css-min.css",
-        "css/gmmobileapp.css"
-    ),
-    $settings['css']['pack'], $settings['css']['minify'], $settings['css']['inline_images']
-); ?>
-
-
-  <link rel="apple-touch-icon" sizes="144x144" href="img/gm-144x144.png" />
-  <link rel="apple-touch-icon" sizes="114x114" href="img/gm-114x114.png" />
-  <link rel="apple-touch-icon" sizes="72x72" href="img/gm-72x72.png" />
-  <link rel="apple-touch-icon" href="img/gm-57x57.png" />
-  <link rel="shortcut icon" href="img/gm-57x57.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="img/gm-144x144.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="img/gm-114x114.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="img/gm-72x72.png" />
+    <link rel="apple-touch-icon" href="img/gm-57x57.png" />
+    <link rel="shortcut icon" href="img/gm-57x57.png" />
+    <style>
+<?php
+$cssCode = <<<'CSS'
+header
+{
+color:#fff;
+background-color:#053c72;
+background-image: -webkit-gradient(linear, left top, left bottom, from(#053c72), to(#02274c)); /* Saf4+, Chrome */
+background-image: -webkit-linear-gradient(top, #053c72, #02274c); /* Chrome 10+, Saf5.1+, iOS 5+ */
+background-image:    -moz-linear-gradient(top, #053c72, #02274c); /* FF3.6 */
+background-image:     -ms-linear-gradient(top, #053c72, #02274c); /* IE10 */
+background-image:      -o-linear-gradient(top, #053c72, #02274c); /* Opera 11.10+ */
+background-image:         linear-gradient(to bottom, #053c72, #02274c);
+line-height:3em;
+}
+header h1
+{
+margin:0;
+text-align:center;
+}
+.loading
+{
+text-align:center;
+}
+.gm-loader
+{
+margin-top:2em;
+padding-left:40px;
+min-height:32px;
+background: url(/img/loader.gif) top left no-repeat;
+padding-top:8px;
+display:inline-block;
+}
+CSS;
+echo gm_css_code( $cssCode, $settings['css']['minify'], $settings['css']['inline_images'] );
+?>
+    </style>
 </head>
 <body>
     <div id="gm-app-loader" class="loading" style="display:none;">
@@ -36,6 +58,18 @@
     document.getElementById('gm-app-loader').style.display = 'block';
     document.title = 'Chargement en cours';
     </script>
+<?php echo gm_css(
+    array(
+        "js/350/cssreset/cssreset.css",
+        "js/350/cssbase/cssbase.css",
+        "js/350/cssfonts/cssfonts.css",
+        "js/350/cssbutton/cssbutton.css",
+        "js/350/cssgrids/cssgrids.css",
+        "js/350/app-transitions-css/app-transitions-css-min.css",
+        "css/gmmobileapp.css"
+    ),
+    $settings['css']['pack'], $settings['css']['minify'], $settings['css']['inline_images']
+); ?>
 
     <script id="t-home" type="text/x-handlebars-template">
         <header>

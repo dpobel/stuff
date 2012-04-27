@@ -36,23 +36,6 @@ border-color: rgba(82, 168, 236, 1);
 -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 }
-header
-{
-color:#fff;
-background-color:#053c72;
-background-image: -webkit-gradient(linear, left top, left bottom, from(#053c72), to(#02274c)); /* Saf4+, Chrome */
-background-image: -webkit-linear-gradient(top, #053c72, #02274c); /* Chrome 10+, Saf5.1+, iOS 5+ */
-background-image:    -moz-linear-gradient(top, #053c72, #02274c); /* FF3.6 */
-background-image:     -ms-linear-gradient(top, #053c72, #02274c); /* IE10 */
-background-image:      -o-linear-gradient(top, #053c72, #02274c); /* Opera 11.10+ */
-background-image:         linear-gradient(to bottom, #053c72, #02274c);
-line-height:3em;
-}
-header h1
-{
-margin:0;
-text-align:center;
-}
 h2
 {
 border-bottom: 1px solid #ccc;
@@ -66,19 +49,6 @@ background-color:#333;
 color:#fff;
 font-size:110%;
 padding:0.4em 0.9em;
-}
-.loading
-{
-text-align:center;
-}
-.gm-loader
-{
-margin-top:2em;
-padding-left:40px;
-min-height:32px;
-background: url(../img/loader.gif) top left no-repeat;
-padding-top:8px;
-display:inline-block;
 }
 .back-home
 {
