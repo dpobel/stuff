@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>gmMobileApp</title>
 <link rel="stylesheet" href="cache/pack.css?1335474551" />
+
+
+  <link rel="apple-touch-icon" sizes="144x144" href="img/gm-144x144.png" />
+  <link rel="apple-touch-icon" sizes="114x114" href="img/gm-114x114.png" />
+  <link rel="apple-touch-icon" sizes="72x72" href="img/gm-72x72.png" />
+  <link rel="apple-touch-icon" href="img/gm-57x57.png" />
+  <link rel="shortcut icon" href="img/gm-57x57.png" />
 </head>
 <body>
     <div id="gm-app-loader" class="loading" style="display:none;">
@@ -156,13 +163,13 @@
     <script>
     YUI({
         debug: false,
-combine: false,
+combine: true,
 comboBase: 'combo.php?',
 root: '350/',
         modules: {
             gmmobileapp: {
-                fullpath: "gmmobileapp.js",
-                combine: false,
+                fullpath: "gmmobileapp-min.js",
+                combine: true,
                 root: "/",
                 requires: ['app', 'app-transitions', 'handlebars', 'transition', 'io-base', 'json']
             }
