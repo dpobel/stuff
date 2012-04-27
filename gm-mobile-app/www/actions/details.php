@@ -14,14 +14,9 @@ if ( !isset( $_GET['date'] ) || trim( $_GET['date'] ) === '' )
         array( 'error' => '\'date\' parameter is missing' )
     );
 }
-if ( !isset( $_GET['type'] ) || trim( $_GET['type'] === '' ) )
-{
-    error500JSON(
-        array( 'error' => '\'type\' parameter is missing' )
-    );
-}
+
 $num = (int) $_GET['num'];
-$type = $_GET['type'];
+$type = ( isset( $_GET['type'] ) && $_GET['type'] != "0" ) ? $_GET['type'] : '';
 $date = $_GET['date'];
 $raw = false;
 
@@ -61,13 +56,20 @@ if ( !is_array( $struct ) )
 }
 
 $train = null;
-foreach ( $struct as $s )
+if ( count( $struct ) > 1 && $type != '' )
 {
-    if ( stripos( normalizeType( $s['mode'] ), $type ) !== false )
+    foreach ( $struct as $s )
     {
-        $train = $s;
-        break;
+        if ( stripos( normalizeType( $s['mode'] ), $type ) !== false )
+        {
+            $train = $s;
+            break;
+        }
     }
+}
+else
+{
+    $train = $struct[0];
 }
 
 if ( $train === null )

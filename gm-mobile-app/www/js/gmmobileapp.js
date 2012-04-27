@@ -353,7 +353,7 @@ YUI.add('gmmobileapp', function (Y) {
             e.halt(true);
             this.fire('details', {
                 num: e.currentTarget.getAttribute('data-train-num'),
-                type: e.currentTarget.getAttribute('data-train-type'),
+                trainType: e.currentTarget.getAttribute('data-train-type'),
                 date: e.currentTarget.getAttribute('data-train-date')
             });
          }
@@ -460,8 +460,9 @@ YUI.add('gmmobileapp', function (Y) {
         },
 
         navigateToDetails: function (e) {
-            var tmp = e.date.split('/');
-            this.navigate('/details/' + e.num + '/'  + e.type + '/' + tmp[2] + '|' + tmp[1] + '|' + tmp[0]);
+            var tmp = e.date.split('/'),
+                type = e.trainType ? e.trainType : "0";
+            this.navigate('/details/' + e.num + '/'  + type + '/' + tmp[2] + '|' + tmp[1] + '|' + tmp[0]);
         },
 
         bookmark: function (e) {
