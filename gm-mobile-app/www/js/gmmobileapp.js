@@ -347,7 +347,8 @@ YUI.add('gmmobileapp', function (Y) {
             },
             loading: {
                 type: LoadingView,
-                parent: 'home'
+                parent: 'home',
+                preserved: true
             }
         },
 
