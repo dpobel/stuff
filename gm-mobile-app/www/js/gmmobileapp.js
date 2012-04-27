@@ -212,13 +212,16 @@ YUI.add('gmmobileapp', function (Y) {
 
         events: {
             '.gm-bookmark': {
-                click: 'bookmark'
+                touchstart: 'bookmark',
+                mousedown: 'bookmark'
             },
             '.gm-station-list li': {
-                click: 'departures'
+                touchstart: 'departures',
+                mousedown: 'departures'
             },
             '.gm-search': {
-                click: 'search'
+                touchstart: 'search',
+                mousedown: 'search'
             },
             '#search-station': {
                 keypress: 'handleEnter'
@@ -273,13 +276,16 @@ YUI.add('gmmobileapp', function (Y) {
 
         events: {
             '.gm-bookmark': {
-                click: 'bookmark'
+                touchstart: 'bookmark',
+                mousedown: 'bookmark'
             },
             '.gm-station-list li': {
-                click: 'departures'
+                touchstart: 'departures',
+                mousedown: 'bookmark'
             },
             '.gm-search': {
-                click: 'search'
+                touchstart: 'search',
+                mousedown: 'search'
             },
             '#search-station': {
                 keypress: 'handleEnter'
@@ -325,7 +331,8 @@ YUI.add('gmmobileapp', function (Y) {
 
         events: {
             '.gm-departures li': {
-                click: 'details'
+                touchstart: 'details',
+                mousedown: 'details'
             }
 
         },
