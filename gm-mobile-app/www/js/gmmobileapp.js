@@ -393,6 +393,10 @@ YUI.add('gmmobileapp', function (Y) {
 
         },
 
+        showView: function (view, config, options, callback) {
+            Y.GMMobileApp.superclass.showView.call(this, view, config, options, this.setTitle);
+        },
+
         // Route handlers
         showHome: function (req, res, next) {
             this.showView('home', {
@@ -461,6 +465,10 @@ YUI.add('gmmobileapp', function (Y) {
         // utils
         isLoading: function() {
             return (this.get('activeView').name == 'loadingView');
+        },
+
+        setTitle: function () {
+            Y.config.doc.title = this.get('container').one('header h1').getContent();
         }
     },{
         ATTRS: {

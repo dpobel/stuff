@@ -1,6 +1,5 @@
 
 - bouton actualiser dans la header bar
-- titre de la page
 - recherche à proximité
 - gestion des erreurs:
     o erreur de chargement asynchrone
