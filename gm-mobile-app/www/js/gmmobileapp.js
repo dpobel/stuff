@@ -2,12 +2,6 @@ YUI.add('gmmobileapp', function (Y) {
     "use strict";
 
     var L = Y.Lang;
-
-    var HomePageView, SearchView, DeparturesView, LoadingView,
-        SearchFormView, DetailsView;
-    var Station, StationList, Train, TrainList;
-
-
     var bookmarkManager = (function () {
         var key = 'stations',
             storage = Y.config.win.localStorage, // TODO check
@@ -44,22 +38,24 @@ YUI.add('gmmobileapp', function (Y) {
         }
     })();
 
-    // Models and ModelLists
-    Train = Y.Base.create('train', Y.Model, [], {
-
-        sync: function (action, options, callback) {
-            Y.io(options.action, {
-                method: 'GET',
-                on: {
-                    failure: function () {
-                        callback('IO failed');
-                    },
-                    success: function (tId, data) {
-                        callback(false, data.responseText);
-                    }
+    function defaultSync(action, options, callback) {
+        Y.io(options.action, {
+            method: 'GET',
+            on: {
+                failure: function () {
+                    callback('IO failed');
+                },
+                success: function (tId, data) {
+                    callback(false, data.responseText);
                 }
-            });
-        },
+            }
+        });
+    }
+
+    // Models and ModelLists
+    var Train = Y.Base.create('train', Y.Model, [], {
+
+        sync: defaultSync,
 
         parse: function (res) {
             return Y.JSON.parse(res);
@@ -83,22 +79,10 @@ YUI.add('gmmobileapp', function (Y) {
         }
     });
 
-    TrainList = Y.Base.create('trainList', Y.ModelList, [], {
+    var TrainList = Y.Base.create('trainList', Y.ModelList, [], {
         model: Train,
 
-        sync: function (action, options, callback) {
-            Y.io(options.action, {
-                method: 'GET',
-                on: {
-                    failure: function () {
-                        callback('IO Failed');
-                    },
-                    success: function(tId, data) {
-                        callback(false, data.responseText);
-                    }
-                }
-            });
-        },
+        sync: defaultSync,
 
         parse: function (res) {
             var s = Y.JSON.parse(res);
@@ -115,7 +99,7 @@ YUI.add('gmmobileapp', function (Y) {
         }
     });
 
-    Station = Y.Base.create('station', Y.Model, [], {
+    var Station = Y.Base.create('station', Y.Model, [], {
         idAttribute: 'code',
         bookmarkManager: bookmarkManager,
 
@@ -145,23 +129,11 @@ YUI.add('gmmobileapp', function (Y) {
         }
     });
 
-    StationList = Y.Base.create('stationList', Y.ModelList, [], {
+    var StationList = Y.Base.create('stationList', Y.ModelList, [], {
         model: Station,
         bookmarkManager: bookmarkManager,
 
-        sync: function (action, options, callback) {
-            Y.io(options.action, {
-                method: 'GET',
-                on: {
-                    failure: function () {
-                        callback("IO failure"); // TODO properly handle errors
-                    },
-                    success: function (tId, data) {
-                        callback(false, data.responseText);
-                    }
-                }
-            });
-        },
+        sync: defaultSync,
 
         parse: function (res) {
             return Y.JSON.parse(res);
@@ -175,40 +147,11 @@ YUI.add('gmmobileapp', function (Y) {
             return this;
         }
 
-    }, {
-
-    });
+   });
 
     // Views
 
-    SearchFormView = Y.Base.create('searchView', Y.View, [], {
-
-        initializer: function () {
-            this.publish('search', {preventable: false});
-        },
-
-        search: function () {
-            var value = L.trim(Y.one('#search-station').get('value'));
-            if (value !== '') {
-                this.fire('search', {search: value});
-            }
-            // TODO warning in search form
-        },
-
-        handleEnter: function (e) {
-            if (e.keyCode === 13) {
-                this.search();
-            }
-        }
-    });
-
-
-
-    HomePageView = Y.Base.create('homePageView', SearchFormView, [], {
-        selectors: {
-            help: '.help'
-        },
-        template: Y.Handlebars.compile(Y.one('#t-home').getContent()),
+    var BaseView = Y.Base.create('baseView', Y.View, [], {
 
         events: {
             '.gm-bookmark': {
@@ -229,14 +172,43 @@ YUI.add('gmmobileapp', function (Y) {
         },
 
         initializer: function () {
+            this.publish('search', {preventable: false});
             this.publish('bookmarkChange', {preventable: false});
             this.publish('departures', {preventable: false});
         },
 
+        search: function () {
+            var value = L.trim(Y.one('#search-station').get('value'));
+            if (value !== '') {
+                this.fire('search', {search: value});
+            }
+            // TODO warning in search form
+        },
+
+        handleEnter: function (e) {
+            if (e.keyCode === 13) {
+                this.search();
+            }
+        },
+
+        departures: function (e) {
+            e.halt(true);
+            this.fire('departures', {code: e.currentTarget.getAttribute('data-station-code')});
+        }
+    });
+
+
+
+    var HomePageView = Y.Base.create('homePageView', BaseView, [], {
+        selectors: {
+            help: '.help'
+        },
+        template: Y.Handlebars.compile(Y.one('#t-home').getContent()),
+
         render: function () {
             var vars = {
                     stations: this.get('stations').map(function (s) {
-                        return s.getAttrs(['code', 'name', 'bookmarked']);
+                        return s.toJSON();
                     })
                 },
                 content = '';
@@ -244,11 +216,6 @@ YUI.add('gmmobileapp', function (Y) {
             this.get('container').addClass('home').setContent(content);
 
             return this;
-        },
-
-        departures: function (e) {
-            e.halt(true);
-            this.fire('departures', {code: e.currentTarget.getAttribute('data-station-code')});
         },
 
         bookmark: function (e) {
@@ -271,47 +238,19 @@ YUI.add('gmmobileapp', function (Y) {
         }
     });
 
-    SearchView = Y.Base.create('searchView', SearchFormView, [], {
+    var SearchView = Y.Base.create('searchView', BaseView, [], {
         template: Y.Handlebars.compile(Y.one('#t-search').getContent()),
-
-        events: {
-            '.gm-bookmark': {
-                touchstart: 'bookmark',
-                mousedown: 'bookmark'
-            },
-            '.gm-station-list li': {
-                touchstart: 'departures',
-                mousedown: 'bookmark'
-            },
-            '.gm-search': {
-                touchstart: 'search',
-                mousedown: 'search'
-            },
-            '#search-station': {
-                keypress: 'handleEnter'
-            }
-        },
-
-        initializer: function () {
-            this.publish('bookmarkChange', {preventable: false});
-            this.publish('departures', {preventable: false});
-        },
 
         render: function () {
             var vars = {
                     search: this.get('search'),
                     results: this.get('results').map(function (s) {
-                        return s.getAttrs(['code', 'name', 'bookmarked']);
+                        return s.toJSON();
                     })
                 },
                 content = this.template(vars);
             this.get('container').addClass('search').setContent(content);
             return this;
-        },
-
-        departures: function (e) {
-            e.halt(true);
-            this.fire('departures', {code: e.currentTarget.getAttribute('data-station-code')});
         },
 
         bookmark: function (e) {
@@ -325,16 +264,14 @@ YUI.add('gmmobileapp', function (Y) {
         }
     });
 
-    DeparturesView = Y.Base.create('departuresView', Y.View, [], {
+    var DeparturesView = Y.Base.create('departuresView', Y.View, [], {
         template: Y.Handlebars.compile(Y.one('#t-departures').getContent()),
-        containerClass: 'departures',
 
         events: {
             '.gm-departures li': {
                 touchstart: 'details',
                 mousedown: 'details'
             }
-
         },
 
         initializer: function () {
@@ -343,16 +280,14 @@ YUI.add('gmmobileapp', function (Y) {
 
         render: function () {
             var vars = {
-                    station: this.get('station').getAttrs(['name', 'code']),
+                    station: this.get('station').toJSON(),
                     time: this.get('trains').get('time'),
                     trains: this.get('trains').map(function (t) {
-                        return t.getAttrs([
-                            'num', 'type', 'destination', 'startTime', 'startDate', 'platform', 'details'
-                        ]);
+                        return t.toJSON();
                     })
                 },
                 content = this.template(vars);
-            this.get('container').addClass(this.containerClass).setContent(content);
+            this.get('container').addClass('departures').setContent(content);
             return this;
         },
 
@@ -367,16 +302,8 @@ YUI.add('gmmobileapp', function (Y) {
 
     });
 
-    DetailsView = Y.Base.create('detailsView', Y.View, [], {
+    var DetailsView = Y.Base.create('detailsView', Y.View, [], {
         template: Y.Handlebars.compile(Y.one('#t-details').getContent()),
-
-        events: {
-
-        },
-
-        initializer: function () {
-
-        },
 
         render: function () {
             var vars = {
@@ -390,16 +317,8 @@ YUI.add('gmmobileapp', function (Y) {
     });
 
 
-    LoadingView = Y.Base.create('loadingView', Y.View, [], {
+    var LoadingView = Y.Base.create('loadingView', Y.View, [], {
         template: Y.Handlebars.compile(Y.one('#t-loading').getContent()),
-
-        events: {
-
-        },
-
-        initializer: function () {
-
-        },
 
         render: function () {
             var content = this.template();
@@ -433,13 +352,29 @@ YUI.add('gmmobileapp', function (Y) {
         },
 
         initializer: function () {
-            this.on('*:search', this.navigateToSearch);
+            var that = this;
 
-            this.on('*:bookmarkChange', this.bookmark);
+            this.on('*:search', function (e) {
+                that.navigate('/search/' + e.search);
+            });
 
-            this.on('*:departures', this.navigateToDepartures);
+            this.on('*:bookmarkChange', function (e) {
+                var bookmarked = e.station.get('bookmarked');
+                e.station.set('bookmarked', !bookmarked);
+            });
 
-            this.on('*:details', this.navigateToDetails);
+            this.on('*:departures', function (e) {
+                that.navigate('/departures/' + e.code);
+            });
+
+            this.on('*:details', function (e) {
+                var tmp = e.date.split('/'),
+                    type = e.trainType ? e.trainType : "0";
+                that.navigate(
+                    '/details/' + e.num + '/'  + type + '/' +
+                    tmp[2] + '|' + tmp[1] + '|' + tmp[0]
+                );
+            });
 
             Y.all('.gm-t-partial').each(function () {
                 Y.Handlebars.registerPartial(
@@ -455,26 +390,6 @@ YUI.add('gmmobileapp', function (Y) {
                 }
             });
 
-        },
-
-        // Event handlers
-        navigateToSearch: function (e) {
-            this.navigate('/search/' + e.search);
-        },
-
-        navigateToDepartures: function (e) {
-            this.navigate('/departures/' + e.code);
-        },
-
-        navigateToDetails: function (e) {
-            var tmp = e.date.split('/'),
-                type = e.trainType ? e.trainType : "0";
-            this.navigate('/details/' + e.num + '/'  + type + '/' + tmp[2] + '|' + tmp[1] + '|' + tmp[0]);
-        },
-
-        bookmark: function (e) {
-            var bookmarked = e.station.get('bookmarked');
-            e.station.set('bookmarked', !bookmarked);
         },
 
         // Route handlers
@@ -515,7 +430,7 @@ YUI.add('gmmobileapp', function (Y) {
                     code: code
                 })
             }, function () {
-                if ( that.get('activeView').name === 'loadingView' ) {
+                if ( that.isLoading() ) {
                     that.showView('departures', {
                         station: tl.get('station'),
                         trains: tl
@@ -534,12 +449,17 @@ YUI.add('gmmobileapp', function (Y) {
                     date: req.params.date
                 })
             }, function () {
-                if ( that.get('activeView').name === 'loadingView' ) {
+                if ( that.isLoading() ) {
                     that.showView('details', {
                         train: train
                     });
                 }
             });
+        },
+
+        // utils
+        isLoading: function() {
+            return (this.get('activeView').name == 'loadingView');
         }
     },{
         ATTRS: {
@@ -561,8 +481,4 @@ YUI.add('gmmobileapp', function (Y) {
         }
     });
 
-}, '1.0.0', {
-    requires: [
-        'app', 'app-transitions', 'handlebars', 'transition', 'io-base', 'json'
-    ]
-});
+}, '1.0.0');
