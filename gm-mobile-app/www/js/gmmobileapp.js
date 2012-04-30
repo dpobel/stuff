@@ -232,8 +232,10 @@ YUI.add('gmmobileapp', function (Y) {
             li.hide('fadeOut', {}, function() {
                 if ( li.siblings().size() == 0 ) {
                     Y.one(that.selectors.help).show('fadeIn');
+                    li.get('parentNode').remove(true);
+                } else {
+                    li.remove(true);
                 }
-                li.get('parentNode').remove(true);
             });
         }
     });
