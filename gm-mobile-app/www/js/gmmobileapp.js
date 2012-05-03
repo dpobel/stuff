@@ -358,6 +358,11 @@ YUI.add('gmmobileapp', function (Y) {
                 preserved: true
             }
         },
+        transitions: {
+            navigate: 'slideLeft',
+            toChild: 'slideLeft',
+            toParent: 'slideRight'
+        },
 
         initializer: function () {
             var that = this;
