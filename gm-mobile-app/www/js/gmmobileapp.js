@@ -156,7 +156,8 @@ YUI.add('gmmobileapp', function (Y) {
         events: {
             '.gm-bookmark': {
                 touchstart: 'bookmark',
-                mousedown: 'bookmark'
+                mousedown: 'bookmark',
+                click: 'cancelClick'
             },
             '.gm-station-list li': {
                 touchstart: 'departures',
@@ -194,6 +195,10 @@ YUI.add('gmmobileapp', function (Y) {
         departures: function (e) {
             e.halt(true);
             this.fire('departures', {code: e.currentTarget.getAttribute('data-station-code')});
+        },
+
+        cancelClick: function (e) {
+            e.preventDefault();
         }
     });
 
