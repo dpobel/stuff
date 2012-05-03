@@ -23,142 +23,121 @@ header{color:#fff;background-color:#053c72;background-image:-webkit-gradient(lin
     document.getElementById('gm-app-loader').style.display = 'block';
     document.title = 'Chargement en cours';
     </script>
-<link rel="stylesheet" href="cache/pack.css?1335565948" />
+<link rel="stylesheet" href="cache/pack.css?1336054343" />
 
-    <script id="t-home" type="text/x-handlebars-template">
-        <header>
-            <h1>Gare mobile</h1>
-        </header>
-        <h2>Gare favorites</h2>
-        {{#if stations}}
-        <ul class="gm-station-list">
-            {{#each stations}}
-            <li data-station-code="{{code}}">
-                {{> stationview}}           
-            </li>
-            {{/each}}
-        </ul>
-        {{/if}}
-        <p class="help"{{#if stations.length}} style="display:none;"{{/if}}>Aucune gare favorite</p>
+<script id="t-home" type="text/x-handlebars-template"><header>
+    <h1>Gare mobile</h1>
+</header>
+<h2>Gare favorites</h2>
+{{#if stations}}
+<ul class="gm-station-list">
+    {{#each stations}}
+    <li data-station-code="{{code}}">
+        {{> stationview}}
+    </li>
+    {{/each}}
+</ul>
+{{/if}}
+<p class="help"{{#if stations.length}} style="display:none;"{{/if}}>Aucune gare favorite</p>
 
-        <h2>Ajouter des gares favorites</h2>
-        {{> searchform}}
-    </script>
+<h2>Ajouter des gares favorites</h2>
+{{> searchform}}
 
-    <script id="t-search" type="text/x-handlebars-template">
-        <header>
-            {{> backhome}}
-            <h1>Recherche "{{search}}"</h1>
-        </header>
-        <h2>Résultats</h2>
-        {{#unless results}}
-        <p class="gm-no-result">Aucune gare ne correspond à cette recherche</p>
-        {{else}}
-        <ul class="gm-station-list">
-            {{#each results}}
-            <li data-station-code="{{code}}">
-                {{> stationview}}           
-            </li>
-            {{/each}}
-        </ul>
-        {{/unless}}
-        <h2>Autre recherche</h2>
-        {{> searchform}}
-    </script>
+</script><script id="t-search" type="text/x-handlebars-template"><header>
+    {{> backhome}}
+    <h1>Recherche "{{search}}"</h1>
+</header>
+<h2>Résultats</h2>
+{{#unless results}}
+<p class="gm-no-result">Aucune gare ne correspond à cette recherche</p>
+{{else}}
+<ul class="gm-station-list">
+    {{#each results}}
+    <li data-station-code="{{code}}">
+        {{> stationview}}
+    </li>
+    {{/each}}
+</ul>
+{{/unless}}
+<h2>Autre recherche</h2>
+{{> searchform}}
+</script><script id="t-departures" type="text/x-handlebars-template"><header>
+    {{> backhome}}
+    <h1>Départs de {{station.name}}</h1>
+</header>
+<h2>Départs de {{station.name}}{{#if time}} à partir de {{time}}{{/if}}</h2>
+<p class="gm-toolbar">
+    <a href="#/departures/{{station.code}}" class="yui3-button">Actualiser</a>
+</p>
+{{#if trains}}
+    <ul class="gm-departures">
+        {{#each trains}}
+            {{> trainview}}
+        {{/each}}
+    </ul>
+{{else}}
+    <p class="gm-error">Une erreur s'est produite durant le chargement des horaires de départs.</p>
+{{/if}}
 
-    <script id="t-departures" type="text/x-handlebars-template">
-        <header>
-            {{> backhome}}
-            <h1>Départs de {{station.name}}</h1>
-        </header>
-        <h2>Départs de {{station.name}}{{#if time}} à partir de {{time}}{{/if}}</h2>
-        <p class="gm-toolbar">
-            <a href="#/departures/{{station.code}}" class="yui3-button">Actualiser</a>
-        </p>
-        {{#if trains}}
-            <ul class="gm-departures">
-                {{#each trains}}
-                    {{> trainview}}
-                {{/each}}
-            </ul>
-        {{else}}
-            <p class="gm-error">Une erreur s'est produite durant le chargement des horaires de départs.</p>
-        {{/if}}
-    </script>
+</script><script id="t-details" type="text/x-handlebars-template">{{#with train}}
+<header>
+    {{> backhome}}
+    <h1>Détail du {{type}} N°{{num}} ({{startDate}})</h1>
+</header>
+<ul class="gm-train{{#if lateTime}} late{{/if}}">
+    <li>Départ de <strong>{{start}}</strong> à <strong>{{startTime}}</strong></li>
+    <li>↳ Arrivée à <strong>{{destination}}</strong> à <strong>{{destinationTime}}</strong> (Durée&nbsp;: {{duration}})</li>
+    {{#if lateTime}}
+    <li class="gm-train-late"><strong>⚠&nbsp;Retard {{lateTime}} min.</strong>{{#if details}}&nbsp;: <em>{{details}}</em>{{/if}}</li>
+    {{/if}}
+</ul>
 
-    <script id="t-details" type="text/x-handlebars-template">
-        {{#with train}}
-        <header>
-            {{> backhome}}
-            <h1>Détail du {{type}} N°{{num}} ({{startDate}})</h1>
-        </header>
-        <ul class="gm-train{{#if lateTime}} late{{/if}}">
-            <li>Départ de <strong>{{start}}</strong> à <strong>{{startTime}}</strong></li>
-            <li>↳ Arrivée à <strong>{{destination}}</strong> à <strong>{{destinationTime}}</strong> (Durée&nbsp;: {{duration}})</li>
-            {{#if lateTime}}
-            <li class="gm-train-late"><strong>⚠&nbsp;Retard {{lateTime}} min.</strong>{{#if details}}&nbsp;: <em>{{details}}</em>{{/if}}</li>
-            {{/if}}
-        </ul>
-
-        <ul class="gm-stops">
-            {{#each stops}}
-                <li>
-                    <span class="time">{{#if stopTime}}{{stopTime}}{{else}}{{startTime}}{{/if}}</span>
-                    {{name}}{{#if lateTime}} <span class="late">(Retard {{lateTime}} min.)</span>{{/if}}
-                </li>
-            {{/each}}
-        </ul>
-        {{/with}}
-    </script>
-
-
-    <script id="t-loading" type="text/x-handlebars-template">
-        <header>
-            {{> backhome}}
-            <h1>Chargement en cours...</h1>
-        </header>
-        <p class="gm-loader">Chargement</p>
-    </script>
-
-    <!-- partials -->
-    <script class="gm-t-partial" type="text/x-handlebars-template" data-name="trainview">
-        <li class="{{#if details}}late{{/if}}" data-train-num="{{num}}" data-train-date="{{startDate}}" data-train-type="{{type}}">
-            <div class="yui3-g">
-                <div class="yui3-u-5-6 gm-infos">
-                    <span class="time">{{startTime}}</span>
-                    {{#if details}}&ndash; <span class="details">{{details}}</span>{{/if}}
-                    {{#if platform}} &ndash; <span title="voie" class="info"> {{platform}}</span>{{/if}}
-                </div>
-                <div class="yui3-u-1-6 gm-num">
-                    {{#if type}}{{type}}{{/if}}
-                </div>
-                <div class="yui3-u-5-6 gm-destination"><strong>{{destination}}</strong></div>
-                <div class="yui3-u-1-6 gm-num">
-                    {{#if num}}<span title="N°" class="info">{{num}}</span>{{/if}}
-                </div>
-            </div>
+<ul class="gm-stops">
+    {{#each stops}}
+        <li>
+            <span class="time">{{#if stopTime}}{{stopTime}}{{else}}{{startTime}}{{/if}}</span>
+            {{name}}{{#if lateTime}} <span class="late">(Retard {{lateTime}} min.)</span>{{/if}}
         </li>
-    </script>
-    <script class="gm-t-partial" type="text/x-handlebars-template" data-name="backhome">
-    <a href="#/" class="back-home">↰</a>
-    </script>
-    <script class="gm-t-partial" type="text/x-handlebars-template" data-name="stationview">
-        <a class="yui3-button gm-bookmark{{#if bookmarked}} bookmarked{{/if}}" href="#" data-station-code="{{code}}">★</a>
-        <strong class="gm-name">{{name}}</strong>
-    </script>
+    {{/each}}
+</ul>
+{{/with}}
+</script><script id="t-loading" type="text/x-handlebars-template"><header>
+    {{> backhome}}
+    <h1>Chargement en cours...</h1>
+</header>
+<p class="gm-loader">Chargement</p>
 
-    <script class="gm-t-partial" type="text/x-handlebars-template" data-name="searchform">
-        <section class="gm-search-form">
-            <p>
-                <input type="text" placeholder="Nom ou partie du nom de la gare" value="{{search}}" id="search-station" />
-            </p>
-            <p>
-                <button class="gm-geosearch yui3-button yui3-button-primary">À proximité</button>
-                <button class="gm-search yui3-button yui3-button-primary">Recherche</button>
-            </p>
-        </section>
-    </script>
+</script><script data-name="trainview" type="text/x-handlebars-template" class="gm-t-partial"><li class="{{#if details}}late{{/if}}" data-train-num="{{num}}" data-train-date="{{startDate}}" data-train-type="{{type}}">
+    <div class="yui3-g">
+        <div class="yui3-u-5-6 gm-infos">
+            <span class="time">{{startTime}}</span>
+            {{#if details}}&ndash; <span class="details">{{details}}</span>{{/if}}
+            {{#if platform}} &ndash; <span title="voie" class="info"> {{platform}}</span>{{/if}}
+        </div>
+        <div class="yui3-u-1-6 gm-num">
+            {{#if type}}{{type}}{{/if}}
+        </div>
+        <div class="yui3-u-5-6 gm-destination"><strong>{{destination}}</strong></div>
+        <div class="yui3-u-1-6 gm-num">
+            {{#if num}}<span title="N°" class="info">{{num}}</span>{{/if}}
+        </div>
+    </div>
+</li>
 
+</script><script data-name="backhome" type="text/x-handlebars-template" class="gm-t-partial"><a href="#/" class="back-home">↰</a>
+</script><script data-name="stationview" type="text/x-handlebars-template" class="gm-t-partial"><a class="yui3-button gm-bookmark{{#if bookmarked}} bookmarked{{/if}}" href="#" data-station-code="{{code}}">★</a>
+<strong class="gm-name">{{name}}</strong>
+</script><script data-name="searchform" type="text/x-handlebars-template" class="gm-t-partial"><section class="gm-search-form">
+    <p>
+        <input type="text" placeholder="Nom ou partie du nom de la gare" value="{{search}}" id="search-station" />
+    </p>
+    <p>
+        <button class="gm-geosearch yui3-button yui3-button-primary">À proximité</button>
+        <button class="gm-search yui3-button yui3-button-primary">Recherche</button>
+    </p>
+</section>
+
+</script>
     <script src="js/350/yui/yui-min.js"></script>
     <script>
     YUI({

@@ -97,3 +97,20 @@ function gm_js_file( $jsFile, $dir = 'js/', $minify = false, $command = '' )
     file_put_contents( WWW_ROOT . $dir . $destFile, $content );
     return $destFile;
 }
+
+
+function handlebars_tpl( $id, $path )
+{
+    $code = '<script id="t-' . $id . '" type="text/x-handlebars-template">';
+    $code .= file_get_contents( $path . '/' . $id . '.js' );
+    $code .= '</script>';
+    return $code;
+}
+
+function handlebars_partial( $name, $path )
+{
+    $code = '<script data-name="' . $name . '" type="text/x-handlebars-template" class="gm-t-partial">';
+    $code .= file_get_contents( $path . '/' . $name . '.js' );
+    $code .= '</script>';
+    return $code;
+}
