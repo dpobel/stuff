@@ -25,119 +25,7 @@ header{color:#fff;background-color:#053c72;background-image:-webkit-gradient(lin
     </script>
 <link rel="stylesheet" href="cache/pack.css?1336054343" />
 
-<script id="t-home" type="text/x-handlebars-template"><header>
-    <h1>Gare mobile</h1>
-</header>
-<h2>Gare favorites</h2>
-{{#if stations}}
-<ul class="gm-station-list">
-    {{#each stations}}
-    <li data-station-code="{{code}}">
-        {{> stationview}}
-    </li>
-    {{/each}}
-</ul>
-{{/if}}
-<p class="help"{{#if stations.length}} style="display:none;"{{/if}}>Aucune gare favorite</p>
 
-<h2>Ajouter des gares favorites</h2>
-{{> searchform}}
-
-</script><script id="t-search" type="text/x-handlebars-template"><header>
-    {{> backhome}}
-    <h1>Recherche "{{search}}"</h1>
-</header>
-<h2>Résultats</h2>
-{{#unless results}}
-<p class="gm-no-result">Aucune gare ne correspond à cette recherche</p>
-{{else}}
-<ul class="gm-station-list">
-    {{#each results}}
-    <li data-station-code="{{code}}">
-        {{> stationview}}
-    </li>
-    {{/each}}
-</ul>
-{{/unless}}
-<h2>Autre recherche</h2>
-{{> searchform}}
-</script><script id="t-departures" type="text/x-handlebars-template"><header>
-    {{> backhome}}
-    <h1>Départs de {{station.name}}</h1>
-</header>
-<h2>Départs de {{station.name}}{{#if time}} à partir de {{time}}{{/if}}</h2>
-<p class="gm-toolbar">
-    <a href="#/departures/{{station.code}}" class="yui3-button">Actualiser</a>
-</p>
-{{#if trains}}
-    <ul class="gm-departures">
-        {{#each trains}}
-            {{> trainview}}
-        {{/each}}
-    </ul>
-{{else}}
-    <p class="gm-error">Une erreur s'est produite durant le chargement des horaires de départs.</p>
-{{/if}}
-
-</script><script id="t-details" type="text/x-handlebars-template">{{#with train}}
-<header>
-    {{> backhome}}
-    <h1>Détail du {{type}} N°{{num}} ({{startDate}})</h1>
-</header>
-<ul class="gm-train{{#if lateTime}} late{{/if}}">
-    <li>Départ de <strong>{{start}}</strong> à <strong>{{startTime}}</strong></li>
-    <li>↳ Arrivée à <strong>{{destination}}</strong> à <strong>{{destinationTime}}</strong> (Durée&nbsp;: {{duration}})</li>
-    {{#if lateTime}}
-    <li class="gm-train-late"><strong>⚠&nbsp;Retard {{lateTime}} min.</strong>{{#if details}}&nbsp;: <em>{{details}}</em>{{/if}}</li>
-    {{/if}}
-</ul>
-
-<ul class="gm-stops">
-    {{#each stops}}
-        <li>
-            <span class="time">{{#if stopTime}}{{stopTime}}{{else}}{{startTime}}{{/if}}</span>
-            {{name}}{{#if lateTime}} <span class="late">(Retard {{lateTime}} min.)</span>{{/if}}
-        </li>
-    {{/each}}
-</ul>
-{{/with}}
-</script><script id="t-loading" type="text/x-handlebars-template"><header>
-    {{> backhome}}
-    <h1>Chargement en cours...</h1>
-</header>
-<p class="gm-loader">Chargement</p>
-
-</script><script data-name="trainview" type="text/x-handlebars-template" class="gm-t-partial"><li class="{{#if details}}late{{/if}}" data-train-num="{{num}}" data-train-date="{{startDate}}" data-train-type="{{type}}">
-    <div class="yui3-g">
-        <div class="yui3-u-5-6 gm-infos">
-            <span class="time">{{startTime}}</span>
-            {{#if details}}&ndash; <span class="details">{{details}}</span>{{/if}}
-            {{#if platform}} &ndash; <span title="voie" class="info"> {{platform}}</span>{{/if}}
-        </div>
-        <div class="yui3-u-1-6 gm-num">
-            {{#if type}}{{type}}{{/if}}
-        </div>
-        <div class="yui3-u-5-6 gm-destination"><strong>{{destination}}</strong></div>
-        <div class="yui3-u-1-6 gm-num">
-            {{#if num}}<span title="N°" class="info">{{num}}</span>{{/if}}
-        </div>
-    </div>
-</li>
-
-</script><script data-name="backhome" type="text/x-handlebars-template" class="gm-t-partial"><a href="#/" class="back-home">↰</a>
-</script><script data-name="stationview" type="text/x-handlebars-template" class="gm-t-partial"><a class="yui3-button gm-bookmark{{#if bookmarked}} bookmarked{{/if}}" href="#" data-station-code="{{code}}">★</a>
-<strong class="gm-name">{{name}}</strong>
-</script><script data-name="searchform" type="text/x-handlebars-template" class="gm-t-partial"><section class="gm-search-form">
-    <p>
-        <input type="text" placeholder="Nom ou partie du nom de la gare" value="{{search}}" id="search-station" />
-    </p>
-    <p>
-        <button class="gm-geosearch yui3-button yui3-button-primary">À proximité</button>
-        <button class="gm-search yui3-button yui3-button-primary">Recherche</button>
-    </p>
-</section>
-
-</script>
     <script src="js/350/yui/yui-min.js"></script>
     <script>
     YUI({
@@ -150,10 +38,37 @@ root: '350/',
                 fullpath: "gmmobileapp-min.js",
                 combine: true,
                 root: "/",
-                requires: ['app', 'app-transitions', 'handlebars', 'transition', 'io-base', 'json']
+                requires: ['app', 'app-transitions', 'handlebars-base', 'transition', 'io-base', 'json']
             }
         }
     }).use('gmmobileapp', function (Y) {
+
+        var tpl={templates:{departures:function(a,d,e,b,l){function j(a){var c;c="\n            ";if((a=m.invokePartial(b.trainview,"trainview",a,e,b))||0===a)c+=a;return c+"\n        "}var e=e||a.helpers,b=b||a.partials,c,h,k,f,m=this,u=e.helperMissing,p=this.escapeExpression,a="<header>\n    ";if((c=m.invokePartial(b.backhome,"backhome",d,e,b))||0===c)a+=c;a+="\n    <h1>D\u00e9parts de ";c=(k=e.station)||d.station;c=null===c||void 0===c||!1===c?c:c.name;"function"===typeof c?c=c.call(d,{hash:{}}):void 0===
+c&&(c=u.call(d,"station.name",{hash:{}}));a+=p(c)+"</h1>\n</header>\n<h2>D\u00e9parts de ";c=(k=e.station)||d.station;c=null===c||void 0===c||!1===c?c:c.name;"function"===typeof c?c=c.call(d,{hash:{}}):void 0===c&&(c=u.call(d,"station.name",{hash:{}}));a+=p(c);c=(k=e.time)||d.time;h=e["if"];f=m.program(1,function(a){var c,b;c=" \u00e0 partir de ";b=(k=e.time)||a.time;"function"===typeof b?b=b.call(a,{hash:{}}):void 0===b&&(b=u.call(a,"time",{hash:{}}));return c+=p(b)},l);f.hash={};f.fn=f;f.inverse=
+m.noop;if((c=h.call(d,c,f))||0===c)a+=c;a+='</h2>\n<p class="gm-toolbar">\n    <a href="#/departures/';c=(k=e.station)||d.station;c=null===c||void 0===c||!1===c?c:c.code;"function"===typeof c?c=c.call(d,{hash:{}}):void 0===c&&(c=u.call(d,"station.code",{hash:{}}));a+=p(c)+'" class="yui3-button">Actualiser</a>\n</p>\n';c=(k=e.trains)||d.trains;h=e["if"];f=m.program(3,function(a,c){var b,d,o;b='\n    <ul class="gm-departures">\n        ';d=(k=e.trains)||a.trains;o=e.each;f=m.program(4,j,c);f.hash={};
+f.fn=f;f.inverse=m.noop;if((d=o.call(a,d,f))||0===d)b+=d;return b+"\n    </ul>\n"},l);f.hash={};f.fn=f;f.inverse=m.program(6,function(){return'\n    <p class="gm-error">Une erreur s\'est produite durant le chargement des horaires de d\u00e9parts.</p>\n'},l);if((c=h.call(d,c,f))||0===c)a+=c;return a+"\n\n"},details:function(a,d,e,b,l){function j(){return" late"}function c(a,c){var b,g,d;b='\n    <li class="gm-train-late"><strong>\u26a0&nbsp;Retard ';g=(n=e.lateTime)||a.lateTime;typeof g===o?g=g.call(a,
+{hash:{}}):g===r&&(g=s.call(a,"lateTime",{hash:{}}));b+=t(g)+" min.</strong>";g=(n=e.details)||a.details;d=e["if"];i=q.program(5,h,c);i.hash={};i.fn=i;i.inverse=q.noop;if((g=d.call(a,g,i))||0===g)b+=g;return b+"</li>\n    "}function h(a){var c,b;c="&nbsp;: <em>";b=(n=e.details)||a.details;typeof b===o?b=b.call(a,{hash:{}}):b===r&&(b=s.call(a,"details",{hash:{}}));return c+=t(b)+"</em>"}function k(a,c){var b,g,d;b='\n        <li>\n            <span class="time">';g=(n=e.stopTime)||a.stopTime;d=e["if"];
+i=q.program(8,f,c);i.hash={};i.fn=i;i.inverse=q.program(10,m,c);if((g=d.call(a,g,i))||0===g)b+=g;b+="</span>\n            ";g=(n=e.name)||a.name;typeof g===o?g=g.call(a,{hash:{}}):g===r&&(g=s.call(a,"name",{hash:{}}));b+=t(g);g=(n=e.lateTime)||a.lateTime;d=e["if"];i=q.program(12,u,c);i.hash={};i.fn=i;i.inverse=q.noop;if((g=d.call(a,g,i))||0===g)b+=g;return b+"\n        </li>\n    "}function f(a){var b;b=(n=e.stopTime)||a.stopTime;typeof b===o?b=b.call(a,{hash:{}}):b===r&&(b=s.call(a,"stopTime",{hash:{}}));
+return t(b)}function m(a){var b;b=(n=e.startTime)||a.startTime;typeof b===o?b=b.call(a,{hash:{}}):b===r&&(b=s.call(a,"startTime",{hash:{}}));return t(b)}function u(b){var a,c;a=' <span class="late">(Retard ';c=(n=e.lateTime)||b.lateTime;typeof c===o?c=c.call(b,{hash:{}}):c===r&&(c=s.call(b,"lateTime",{hash:{}}));return a+=t(c)+" min.)</span>"}var e=e||a.helpers,b=b||a.partials,a="",p,v,n,i,q=this,o="function",s=e.helperMissing,r=void 0,t=this.escapeExpression;p=(n=e.train)||d.train;v=e["with"];i=
+q.program(1,function(a,d){var f,g,h;f="\n<header>\n    ";if((g=q.invokePartial(b.backhome,"backhome",a,e,b))||0===g)f+=g;f+="\n    <h1>D\u00e9tail du ";g=(n=e.type)||a.type;typeof g===o?g=g.call(a,{hash:{}}):g===r&&(g=s.call(a,"type",{hash:{}}));f+=t(g)+" N\u00b0";g=(n=e.num)||a.num;typeof g===o?g=g.call(a,{hash:{}}):g===r&&(g=s.call(a,"num",{hash:{}}));f+=t(g)+" (";g=(n=e.startDate)||a.startDate;typeof g===o?g=g.call(a,{hash:{}}):g===r&&(g=s.call(a,"startDate",{hash:{}}));f+=t(g)+')</h1>\n</header>\n<ul class="gm-train';
+g=(n=e.lateTime)||a.lateTime;h=e["if"];i=q.program(2,j,d);i.hash={};i.fn=i;i.inverse=q.noop;if((g=h.call(a,g,i))||0===g)f+=g;f+='">\n    <li>D\u00e9part de <strong>';g=(n=e.start)||a.start;typeof g===o?g=g.call(a,{hash:{}}):g===r&&(g=s.call(a,"start",{hash:{}}));f+=t(g)+"</strong> \u00e0 <strong>";g=(n=e.startTime)||a.startTime;typeof g===o?g=g.call(a,{hash:{}}):g===r&&(g=s.call(a,"startTime",{hash:{}}));f+=t(g)+"</strong></li>\n    <li>\u21b3 Arriv\u00e9e \u00e0 <strong>";g=(n=e.destination)||a.destination;
+typeof g===o?g=g.call(a,{hash:{}}):g===r&&(g=s.call(a,"destination",{hash:{}}));f+=t(g)+"</strong> \u00e0 <strong>";g=(n=e.destinationTime)||a.destinationTime;typeof g===o?g=g.call(a,{hash:{}}):g===r&&(g=s.call(a,"destinationTime",{hash:{}}));f+=t(g)+"</strong> (Dur\u00e9e&nbsp;: ";g=(n=e.duration)||a.duration;typeof g===o?g=g.call(a,{hash:{}}):g===r&&(g=s.call(a,"duration",{hash:{}}));f+=t(g)+")</li>\n    ";g=(n=e.lateTime)||a.lateTime;h=e["if"];i=q.program(4,c,d);i.hash={};i.fn=i;i.inverse=q.noop;
+if((g=h.call(a,g,i))||0===g)f+=g;f+='\n</ul>\n\n<ul class="gm-stops">\n    ';g=(n=e.stops)||a.stops;h=e.each;i=q.program(7,k,d);i.hash={};i.fn=i;i.inverse=q.noop;if((g=h.call(a,g,i))||0===g)f+=g;return f+"\n</ul>\n"},l);i.hash={};i.fn=i;i.inverse=q.noop;if((p=v.call(d,p,i))||0===p)a+=p;return a+"\n"},home:function(a,d,e,b,l){function j(a){var c,f;c='\n    <li data-station-code="';f=(k=e.code)||a.code;typeof f===u?f=f.call(a,{hash:{}}):f===v&&(f=p.call(a,"code",{hash:{}}));c+=n(f)+'">\n        ';if((f=
+m.invokePartial(b.stationview,"stationview",a,e,b))||0===f)c+=f;return c+"\n    </li>\n    "}var e=e||a.helpers,b=b||a.partials,c,h,k,f,m=this,u="function",p=e.helperMissing,v=void 0,n=this.escapeExpression,a="<header>\n    <h1>Gare mobile</h1>\n</header>\n<h2>Gare favorites</h2>\n";c=(k=e.stations)||d.stations;h=e["if"];f=m.program(1,function(a,b){var c,d,h;c='\n<ul class="gm-station-list">\n    ';d=(k=e.stations)||a.stations;h=e.each;f=m.program(2,j,b);f.hash={};f.fn=f;f.inverse=m.noop;if((d=h.call(a,
+d,f))||0===d)c+=d;return c+"\n</ul>\n"},l);f.hash={};f.fn=f;f.inverse=m.noop;if((c=h.call(d,c,f))||0===c)a+=c;a+='\n<p class="help"';c=(k=e.stations)||d.stations;c=null===c||void 0===c||!1===c?c:c.length;h=e["if"];f=m.program(4,function(){return' style="display:none;"'},l);f.hash={};f.fn=f;f.inverse=m.noop;if((c=h.call(d,c,f))||0===c)a+=c;a+=">Aucune gare favorite</p>\n\n<h2>Ajouter des gares favorites</h2>\n";if((c=m.invokePartial(b.searchform,"searchform",d,e,b))||0===c)a+=c;return a+"\n\n"},loading:function(a,
+d,e,b){e=e||a.helpers;b=b||a.partials;a="<header>\n    ";if((d=this.invokePartial(b.backhome,"backhome",d,e,b))||0===d)a+=d;return a+'\n    <h1>Chargement en cours...</h1>\n</header>\n<p class="gm-loader">Chargement</p>\n\n'},search:function(a,d,e,b,l){function j(a){var c,f;c='\n    <li data-station-code="';f=(k=e.code)||a.code;typeof f===u?f=f.call(a,{hash:{}}):f===v&&(f=p.call(a,"code",{hash:{}}));c+=n(f)+'">\n        ';if((f=m.invokePartial(b.stationview,"stationview",a,e,b))||0===f)c+=f;return c+
+"\n    </li>\n    "}var e=e||a.helpers,b=b||a.partials,c,h,k,f,m=this,u="function",p=e.helperMissing,v=void 0,n=this.escapeExpression,a="<header>\n    ";if((c=m.invokePartial(b.backhome,"backhome",d,e,b))||0===c)a+=c;a+='\n    <h1>Recherche "';c=(k=e.search)||d.search;typeof c===u?c=c.call(d,{hash:{}}):c===v&&(c=p.call(d,"search",{hash:{}}));a+=n(c)+'"</h1>\n</header>\n<h2>R\u00e9sultats</h2>\n';c=(k=e.results)||d.results;h=e.unless;f=m.program(1,function(){return'\n<p class="gm-no-result">Aucune gare ne correspond \u00e0 cette recherche</p>\n'},
+l);f.hash={};f.fn=f;f.inverse=m.program(3,function(a,b){var c,d,h;c='\n<ul class="gm-station-list">\n    ';d=(k=e.results)||a.results;h=e.each;f=m.program(4,j,b);f.hash={};f.fn=f;f.inverse=m.noop;if((d=h.call(a,d,f))||0===d)c+=d;return c+"\n</ul>\n"},l);if((c=h.call(d,c,f))||0===c)a+=c;a+="\n<h2>Autre recherche</h2>\n";if((c=m.invokePartial(b.searchform,"searchform",d,e,b))||0===c)a+=c;return a+"\n"}},partials:{backhome:function(){return'<a href="#/" class="back-home">\u21b0</a>\n'},searchform:function(a,
+d,e){var e=e||a.helpers,b=e.helperMissing,l=this.escapeExpression,a='<section class="gm-search-form">\n    <p>\n        <input type="text" placeholder="Nom ou partie du nom de la gare" value="',e=e.search||d.search;"function"===typeof e?e=e.call(d,{hash:{}}):void 0===e&&(e=b.call(d,"search",{hash:{}}));return a+=l(e)+'" id="search-station" />\n    </p>\n    <p>\n        <button class="gm-geosearch yui3-button yui3-button-primary">\u00c0 proximit\u00e9</button>\n        <button class="gm-search yui3-button yui3-button-primary">Recherche</button>\n    </p>\n</section>\n\n'},
+stationview:function(a,d,e,b,l){var e=e||a.helpers,j,c,b=e.helperMissing,h=this.escapeExpression,a='<a class="yui3-button gm-bookmark';j=(j=e.bookmarked)||d.bookmarked;c=e["if"];l=this.program(1,function(){return" bookmarked"},l);l.hash={};l.fn=l;l.inverse=this.noop;if((j=c.call(d,j,l))||0===j)a+=j;a+='" href="#" data-station-code="';j=(j=e.code)||d.code;"function"===typeof j?j=j.call(d,{hash:{}}):void 0===j&&(j=b.call(d,"code",{hash:{}}));a+=h(j)+'">\u2605</a>\n<strong class="gm-name">';j=(j=e.name)||
+d.name;"function"===typeof j?j=j.call(d,{hash:{}}):void 0===j&&(j=b.call(d,"name",{hash:{}}));return a+=h(j)+"</strong>\n"},trainview:function(a,d,e,b,l){var e=e||a.helpers,j,c,h,k=e.helperMissing,f=this.escapeExpression,a='<li class="',b=(c=e.details)||d.details;j=e["if"];h=this.program(1,function(){return"late"},l);h.hash={};h.fn=h;h.inverse=this.noop;if((b=j.call(d,b,h))||0===b)a+=b;a+='" data-train-num="';b=(c=e.num)||d.num;"function"===typeof b?b=b.call(d,{hash:{}}):void 0===b&&(b=k.call(d,"num",
+{hash:{}}));a+=f(b)+'" data-train-date="';b=(c=e.startDate)||d.startDate;"function"===typeof b?b=b.call(d,{hash:{}}):void 0===b&&(b=k.call(d,"startDate",{hash:{}}));a+=f(b)+'" data-train-type="';b=(c=e.type)||d.type;"function"===typeof b?b=b.call(d,{hash:{}}):void 0===b&&(b=k.call(d,"type",{hash:{}}));a+=f(b)+'">\n    <div class="yui3-g">\n        <div class="yui3-u-5-6 gm-infos">\n            <span class="time">';b=(c=e.startTime)||d.startTime;"function"===typeof b?b=b.call(d,{hash:{}}):void 0===
+b&&(b=k.call(d,"startTime",{hash:{}}));a+=f(b)+"</span>\n            ";b=(c=e.details)||d.details;j=e["if"];h=this.program(3,function(a){var b,d;b='&ndash; <span class="details">';d=(c=e.details)||a.details;"function"===typeof d?d=d.call(a,{hash:{}}):void 0===d&&(d=k.call(a,"details",{hash:{}}));return b+=f(d)+"</span>"},l);h.hash={};h.fn=h;h.inverse=this.noop;if((b=j.call(d,b,h))||0===b)a+=b;a+="\n            ";b=(c=e.platform)||d.platform;j=e["if"];h=this.program(5,function(a){var b,d;b=' &ndash; <span title="voie" class="info"> ';
+d=(c=e.platform)||a.platform;"function"===typeof d?d=d.call(a,{hash:{}}):void 0===d&&(d=k.call(a,"platform",{hash:{}}));return b+=f(d)+"</span>"},l);h.hash={};h.fn=h;h.inverse=this.noop;if((b=j.call(d,b,h))||0===b)a+=b;a+='\n        </div>\n        <div class="yui3-u-1-6 gm-num">\n            ';b=(c=e.type)||d.type;j=e["if"];h=this.program(7,function(a){var b;b=(c=e.type)||a.type;"function"===typeof b?b=b.call(a,{hash:{}}):void 0===b&&(b=k.call(a,"type",{hash:{}}));return f(b)},l);h.hash={};h.fn=
+h;h.inverse=this.noop;if((b=j.call(d,b,h))||0===b)a+=b;a+='\n        </div>\n        <div class="yui3-u-5-6 gm-destination"><strong>';b=(c=e.destination)||d.destination;"function"===typeof b?b=b.call(d,{hash:{}}):void 0===b&&(b=k.call(d,"destination",{hash:{}}));a+=f(b)+'</strong></div>\n        <div class="yui3-u-1-6 gm-num">\n            ';b=(c=e.num)||d.num;j=e["if"];h=this.program(9,function(a){var b,d;b='<span title="N\u00b0" class="info">';d=(c=e.num)||a.num;"function"===typeof d?d=d.call(a,
+{hash:{}}):void 0===d&&(d=k.call(a,"num",{hash:{}}));return b+=f(d)+"</span>"},l);h.hash={};h.fn=h;h.inverse=this.noop;if((b=j.call(d,b,h))||0===b)a+=b;return a+"\n        </div>\n    </div>\n</li>\n\n"}}};
+;
+
         var app = new Y.GMMobileApp({
             serverRouting: false,
             viewContainer: '#gmmobile',
@@ -165,6 +80,7 @@ root: '350/',
                 details: 'actions/details.php?num={num}&date={date}&type={type}'
                 //timetable: 'actions/timetable.json'
             },
+            templates: tpl,
             appLoader: '#gm-app-loader'
         });
         app.render().dispatch();

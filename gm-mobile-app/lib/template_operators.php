@@ -98,19 +98,46 @@ function gm_js_file( $jsFile, $dir = 'js/', $minify = false, $command = '' )
     return $destFile;
 }
 
-
-function handlebars_tpl( $id, $path )
+function handlebars_templates( $name, $paths, $precompile = false, $compiler = false, $command = false )
 {
-    $code = '<script id="t-' . $id . '" type="text/x-handlebars-template">';
-    $code .= file_get_contents( $path . '/' . $id . '.js' );
-    $code .= '</script>';
-    return $code;
+    $result = 'var ' . $name . ' = {';
+    foreach ( $paths as $t => $path )
+    {
+        $result .= '"' . $t . '":{';
+        $suffix = '.js';
+        $files = glob( $path . '/*' . $suffix );
+        foreach ( $files as $file )
+        {
+            if ( is_file( $file ) )
+            {
+                $k = str_replace( array( $path . '/', $suffix ), '', $file );
+                $result .= '"' . $k . '":';
+                if ( $precompile && $compiler )
+                {
+                    $result .= handlebars_compile( $file, $compiler );
+                }
+                else
+                {
+                    $result .= json_encode( file_get_contents( $file ) );
+                }
+                $result .= ',';
+            }
+        }
+        $result = rtrim( $result, ',' );
+        $result .= '},';
+    }
+    $result = rtrim( $result, ',' ) . '}';
+    if ( $compiler && $precompile && $command )
+    {
+        $tmp = tempnam( '/tmp', 'gm_' );
+        file_put_contents( $tmp, $result );
+        $result = shell_exec( "cat $tmp | $command" );
+        //unlink( $tmp );
+    }
+    return $result;
 }
 
-function handlebars_partial( $name, $path )
+function handlebars_compile( $file, $compiler )
 {
-    $code = '<script data-name="' . $name . '" type="text/x-handlebars-template" class="gm-t-partial">';
-    $code .= file_get_contents( $path . '/' . $name . '.js' );
-    $code .= '</script>';
-    return $code;
+    return shell_exec( "$compiler $file 2> /dev/null" );
 }

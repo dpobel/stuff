@@ -7,7 +7,6 @@
 - détection localStorage
 - icons: home, actualiser
 - optimisations
-    - precompiler handlerbars templates
     - supprimer les parties de CSS inutiles
 - page "À propos"
 - train favoris

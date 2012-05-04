@@ -71,18 +71,6 @@ echo gm_css_code( $cssCode, $settings['css']['minify'], $settings['css']['inline
     $settings['css']['pack'], $settings['css']['minify'], $settings['css']['inline_images']
 ); ?>
 
-<?php
-echo handlebars_tpl( 'home', $settings['templates']['handlebars'] );
-echo handlebars_tpl( 'search', $settings['templates']['handlebars'] );
-echo handlebars_tpl( 'departures', $settings['templates']['handlebars'] );
-echo handlebars_tpl( 'details', $settings['templates']['handlebars'] );
-echo handlebars_tpl( 'loading', $settings['templates']['handlebars'] );
-
-echo handlebars_partial( 'trainview', $settings['templates']['partials'] );
-echo handlebars_partial( 'backhome', $settings['templates']['partials'] );
-echo handlebars_partial( 'stationview', $settings['templates']['partials'] );
-echo handlebars_partial( 'searchform', $settings['templates']['partials'] );
-?>
 
     <script src="js/350/yui/yui-min.js"></script>
     <script>
@@ -93,10 +81,24 @@ echo handlebars_partial( 'searchform', $settings['templates']['partials'] );
                 fullpath: "<?php echo gm_js_file( "gmmobileapp.js", 'js/', $settings['js']['minify'], $settings['js']['command'] ) ?>",
                 combine: <?php echo $settings['yui']['combine']; ?>,
                 root: "/",
-                requires: ['app', 'app-transitions', 'handlebars', 'transition', 'io-base', 'json']
+                requires: ['app', 'app-transitions', 'handlebars<?php echo $settings['templates']['precompile'] ? '-base' : ''; ?>', 'transition', 'io-base', 'json']
             }
         }
     }).use('gmmobileapp', function (Y) {
+
+        <?php
+        echo handlebars_templates(
+            'tpl',
+            array(
+                'templates' => $settings['templates']['handlebars'],
+                'partials' => $settings['templates']['partials']
+            ),
+            $settings['templates']['precompile'],
+            $settings['templates']['compiler'],
+            $settings['js']['command']
+        );
+        ?>;
+
         var app = new Y.GMMobileApp({
             serverRouting: false,
             viewContainer: '#gmmobile',
@@ -108,6 +110,7 @@ echo handlebars_partial( 'searchform', $settings['templates']['partials'] );
                 details: 'actions/details.php?num={num}&date={date}&type={type}'
                 //timetable: 'actions/timetable.json'
             },
+            templates: tpl,
             appLoader: '#gm-app-loader'
         });
         app.render().dispatch();
