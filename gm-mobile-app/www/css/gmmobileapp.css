@@ -1,3 +1,7 @@
+body
+{
+font-size:12px;
+}
 abbr
 {
 border:0;
@@ -57,9 +61,9 @@ float:left;
 color:#fff;
 text-decoration:none;
 font-weight:bolder;
-font-size:140%;
+font-size:150%;
 border-right:1px solid #ddd;
-padding:0 0.5em;
+padding:0 0.6em;
 }
 .gm-station-list, .gm-departures, .gm-train, .gm-stops
 {
@@ -143,7 +147,7 @@ border-color:#cd0000;
 }
 .gm-train li
 {
-padding:5px;
+padding:0 5px;
 }
 .gm-train-late strong
 {

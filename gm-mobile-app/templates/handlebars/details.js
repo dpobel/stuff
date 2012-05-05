@@ -1,11 +1,11 @@
 {{#with train}}
 <header>
     {{> backhome}}
-    <h1>Détail du {{type}} N°{{num}} ({{startDate}})</h1>
+    <h1>{{type}} N°{{num}} ({{startDate}})</h1>
 </header>
 <ul class="gm-train{{#if lateTime}} late{{/if}}">
     <li>Départ de <strong>{{start}}</strong> à <strong>{{startTime}}</strong></li>
-    <li>↳ Arrivée à <strong>{{destination}}</strong> à <strong>{{destinationTime}}</strong> (Durée&nbsp;: {{duration}})</li>
+    <li>Arrivée à <strong>{{destination}}</strong> à <strong>{{destinationTime}}</strong> (Durée&nbsp;: {{duration}})</li>
     {{#if lateTime}}
     <li class="gm-train-late"><strong>‼&nbsp;Retard {{lateTime}} min.</strong>{{#if details}}&nbsp;: <em>{{details}}</em>{{/if}}</li>
     {{/if}}

@@ -1,6 +1,6 @@
 <header>
     {{> backhome}}
-    <h1>Départs de {{station.name}}</h1>
+    <h1>{{station.name}}</h1>
 </header>
 <h2>Départs de {{station.name}}{{#if time}} à partir de {{time}}{{/if}}</h2>
 <p class="gm-toolbar">
