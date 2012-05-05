@@ -7,7 +7,7 @@
     <li>Départ de <strong>{{start}}</strong> à <strong>{{startTime}}</strong></li>
     <li>↳ Arrivée à <strong>{{destination}}</strong> à <strong>{{destinationTime}}</strong> (Durée&nbsp;: {{duration}})</li>
     {{#if lateTime}}
-    <li class="gm-train-late"><strong>⚠&nbsp;Retard {{lateTime}} min.</strong>{{#if details}}&nbsp;: <em>{{details}}</em>{{/if}}</li>
+    <li class="gm-train-late"><strong>‼&nbsp;Retard {{lateTime}} min.</strong>{{#if details}}&nbsp;: <em>{{details}}</em>{{/if}}</li>
     {{/if}}
 </ul>
 
