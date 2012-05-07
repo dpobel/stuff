@@ -81,7 +81,7 @@ echo gm_css_code( $cssCode, $settings['css']['minify'], $settings['css']['inline
                 fullpath: "<?php echo gm_js_file( "gmmobileapp.js", 'js/', $settings['js']['minify'], $settings['js']['command'] ) ?>",
                 combine: <?php echo $settings['yui']['combine']; ?>,
                 root: "/",
-                requires: ['app', 'app-transitions', 'handlebars<?php echo $settings['templates']['precompile'] ? '-base' : ''; ?>', 'transition', 'io-base', 'json']
+                requires: ['app', 'app-transitions', 'handlebars<?php echo $settings['templates']['precompile'] ? '-base' : ''; ?>', 'transition', 'io-base', 'json', 'event-move']
             }
         }
     }).use('gmmobileapp', function (Y) {

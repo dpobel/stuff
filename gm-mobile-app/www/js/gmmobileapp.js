@@ -1,7 +1,9 @@
 YUI.add('gmmobileapp', function (Y) {
     "use strict";
 
-    var L = Y.Lang;
+    var L = Y.Lang,
+        abs = Math.abs,
+        MIN_DIST_GESTURE = 10;
     var bookmarkManager = (function () {
         var key = 'stations',
             storage = Y.config.win.localStorage, // TODO check
@@ -151,6 +153,61 @@ YUI.add('gmmobileapp', function (Y) {
 
     // Views
     var BaseView = Y.Base.create('baseView', Y.View, [], {
+        /**
+         * Overrides the default implementation to handle
+         * the context of gesture* events
+         */
+        attachEvents: function (events) {
+            var container = this.get('container'),
+                owns      = Y.Object.owns,
+                handler, handlers, name, selector, isGesture;
+
+            this.detachEvents();
+
+            events || (events = this.events);
+
+            for (selector in events) {
+                if (!owns(events, selector)) { continue; }
+
+                handlers = events[selector];
+
+                for (name in handlers) {
+                    isGesture = (name.indexOf('gesture') == 0);
+                    if (!owns(handlers, name)) { continue; }
+
+                    handler = handlers[name];
+
+                    if (typeof handler === 'string') {
+                        handler = this[handler];
+                    }
+
+                    if ( isGesture ) {
+                        this._attachedViewEvents.push(
+                            container.delegate(name, handler, selector, {}, this)
+                        );
+                    } else {
+                        this._attachedViewEvents.push(
+                            container.delegate(name, handler, selector, this));
+                    }
+                }
+            }
+
+            return this;
+        },
+        registerGestureStart: function (e) {
+            this.set('gestureStart', {x: e.clientX, y: e.clientY});
+        },
+
+        isTap: function(e) {
+            var start = this.get('gestureStart');
+            if ( !e.touches ) {
+                return true;
+            }
+            if (abs(e.clientX - start.x) > MIN_DIST_GESTURE || abs(e.clientY - start.y) > MIN_DIST_GESTURE) {
+                return false;
+            }
+            return true;
+        }
     }, {
         ATTRS: {
             template:{
@@ -161,6 +218,9 @@ YUI.add('gmmobileapp', function (Y) {
                     }
                     return Y.Handlebars.template(val);
                 }
+            },
+            gestureStart: {
+                value: {}
             }
         }
     });
@@ -169,17 +229,17 @@ YUI.add('gmmobileapp', function (Y) {
 
         events: {
             '.gm-bookmark': {
-                touchstart: 'bookmark',
-                mousedown: 'bookmark',
+                gesturemovestart: 'registerGestureStart',
+                gesturemoveend: 'bookmark',
                 click: 'cancelClick'
             },
             '.gm-station-list li': {
-                touchstart: 'departures',
-                mousedown: 'departures'
+                gesturemovestart: 'registerGestureStart',
+                gesturemoveend: 'departures'
             },
             '.gm-search': {
-                touchstart: 'search',
-                mousedown: 'search'
+                gesturemovestart: 'registerGestureStart',
+                gesturemoveend: 'search'
             },
             '#search-station': {
                 keypress: 'handleEnter'
@@ -207,8 +267,10 @@ YUI.add('gmmobileapp', function (Y) {
         },
 
         departures: function (e) {
-            e.halt(true);
-            this.fire('departures', {code: e.currentTarget.getAttribute('data-station-code')});
+            if ( this.isTap(e) ) {
+                e.halt(true);
+                this.fire('departures', {code: e.currentTarget.getAttribute('data-station-code')});
+            }
         },
 
         cancelClick: function (e) {
@@ -286,8 +348,8 @@ YUI.add('gmmobileapp', function (Y) {
 
         events: {
             '.gm-departures li': {
-                touchstart: 'details',
-                mousedown: 'details'
+                gesturemovestart: 'registerGestureStart',
+                gesturemoveend: 'details'
             }
         },
 
@@ -309,12 +371,14 @@ YUI.add('gmmobileapp', function (Y) {
         },
 
         details: function (e) {
-            e.halt(true);
-            this.fire('details', {
-                num: e.currentTarget.getAttribute('data-train-num'),
-                trainType: e.currentTarget.getAttribute('data-train-type'),
-                date: e.currentTarget.getAttribute('data-train-date')
-            });
+            if ( this.isTap(e) ) {
+                e.halt(true);
+                this.fire('details', {
+                    num: e.currentTarget.getAttribute('data-train-num'),
+                    trainType: e.currentTarget.getAttribute('data-train-type'),
+                    date: e.currentTarget.getAttribute('data-train-date')
+                });
+            }
          }
 
     });
