@@ -1,2 +1,0 @@
-YUI.add("event-hover",function(d){var f=d.Lang.isFunction,g=function(){},b={processArgs:function(c){var a=f(c[2])?2:3;return f(c[a])?c.splice(a,1)[0]:g},on:function(c,a,b,d){var e=a.args?a.args.slice():[];e.unshift(null);a._detach=c[d?"delegate":"on"]({mouseenter:function(a){a.phase="over";b.fire(a)},mouseleave:function(b){var c=a.context||this;e[0]=b;b.type="hover";b.phase="out";a._extra.apply(c,e)}},d)},detach:function(b,a){a._detach.detach()}};b.delegate=b.on;b.detachDelegate=b.detach;d.Event.define("hover",
-b)},"3.5.0",{requires:["event-mouseenter"]});

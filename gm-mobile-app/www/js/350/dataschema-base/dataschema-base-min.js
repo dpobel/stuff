@@ -1,1 +1,0 @@
-YUI.add("dataschema-base",function(b){var e=b.Lang;b.namespace("DataSchema").Base={apply:function(b,a){return a},parse:function(c,a){if(a.parser){var d=e.isFunction(a.parser)?a.parser:b.Parsers[a.parser+""];d&&(c=d.call(this,c))}return c}};b.namespace("Parsers")},"3.5.0",{requires:["base"]});

@@ -1,7 +1,7 @@
 #! /bin/sh
 
 
-FILES=`find www/js/350 -name \*min.js`
+FILES=`find www/js/351 -name \*min.js`
 
 for F in $FILES ; do
     ORIG=`echo $F | sed 's/\-min.js/\-min\-orig.js/g'`

@@ -1,0 +1,2 @@
+YUI.add("scrollview-base-ie",function(a){a.mix(a.ScrollView.prototype,{_fixIESelect:function(c,b){this._cbDoc=b.get("ownerDocument");this._nativeBody=a.Node.getDOMNode(a.one("body",this._cbDoc));b.on("mousedown",function(){this._selectstart=this._nativeBody.onselectstart;this._nativeBody.onselectstart=this._iePreventSelect;this._cbDoc.once("mouseup",this._ieRestoreSelect,this)},this)},_iePreventSelect:function(){return!1},_ieRestoreSelect:function(){this._nativeBody.onselectstart=this._selectstart}},
+!0)},"3.5.1",{requires:["scrollview-base"]});

@@ -1,2 +1,0 @@
-YUI.add("datatype-number-format",function(g){var h=g.Lang;g.mix(g.namespace("DataType.Number"),{format:function(e,c){if(h.isNumber(e)){var c=c||{},g=0>e,a=e+"",b=c.decimalPlaces,d=c.decimalSeparator||".",j=c.thousandsSeparator,i,f;h.isNumber(b)&&0<=b&&20>=b&&(a=e.toFixed(b));"."!==d&&(a=a.replace(".",d));if(j){b=a.lastIndexOf(d);b=-1<b?b:a.length;d=a.substring(b);i=0;for(f=b;0<f;f--){if(0===i%3&&f!==b&&(!g||1<f))d=j+d;d=a.charAt(f-1)+d;i++}a=d}a=c.prefix?c.prefix+a:a;return a=c.suffix?a+c.suffix:
-a}return h.isValue(e)&&e.toString?e.toString():""}})},"3.5.0");

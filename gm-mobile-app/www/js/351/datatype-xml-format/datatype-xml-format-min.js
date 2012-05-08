@@ -1,0 +1,1 @@
+YUI.add("datatype-xml-format",function(b){var c=b.Lang;b.mix(b.namespace("DataType.XML"),{format:function(a){try{if(!c.isUndefined(XMLSerializer))return(new XMLSerializer).serializeToString(a)}catch(b){return a&&a.xml?a.xml:c.isValue(a)&&a.toString?a.toString():""}}})},"3.5.1");

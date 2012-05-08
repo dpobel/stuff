@@ -1,1 +1,0 @@
-YUI.add("cache-plugin",function(b){function c(a){var c=b.Base.create("dataSourceCache",a&&a.cache?a.cache:b.Cache,[b.Plugin.Base]),a=new c(a);c.NS="tmpClass";return a}b.mix(c,{NS:"cache",NAME:"cachePlugin"});b.namespace("Plugin").Cache=c},"3.5.0",{requires:["plugin","cache-base"]});

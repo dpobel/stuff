@@ -1,1 +1,0 @@
-YUI.add("arraysort",function(c){var e=c.Lang,d=e.isValue,f=e.isString;c.ArraySort={compare:function(b,a,c){if(d(b)){if(!d(a))return-1}else return d(a)?1:0;f(b)&&(b=b.toLowerCase());f(a)&&(a=a.toLowerCase());return b<a?c?1:-1:b>a?c?-1:1:0}}},"3.5.0",{requires:["yui-base"]});

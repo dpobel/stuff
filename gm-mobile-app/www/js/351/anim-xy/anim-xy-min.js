@@ -1,0 +1,1 @@
+YUI.add("anim-xy",function(c){var a=Number;c.Anim.behaviors.xy={set:function(h,c,b,d,e,f,g){h._node.setXY([g(e,a(b[0]),a(d[0])-a(b[0]),f),g(e,a(b[1]),a(d[1])-a(b[1]),f)])},get:function(a){return a._node.getXY()}}},"3.5.1",{requires:["anim-base","node-screen"]});

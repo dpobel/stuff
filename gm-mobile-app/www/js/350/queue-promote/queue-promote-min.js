@@ -1,1 +1,0 @@
-YUI.add("queue-promote",function(b){b.mix(b.Queue.prototype,{indexOf:function(a){return b.Array.indexOf(this._q,a)},promote:function(a){a=this.indexOf(a);-1<a&&this._q.unshift(this._q.splice(a,1)[0])},remove:function(a){a=this.indexOf(a);-1<a&&this._q.splice(a,1)}})},"3.5.0",{requires:["yui-base"]});

@@ -1,2 +1,0 @@
-YUI.add("text-accentfold",function(d){var f=d.Array,g=d.Text,e=g.Data.AccentFold,c={canFold:function(a){for(var b in e)if(e.hasOwnProperty(b)&&-1!==a.search(e[b]))return!0;return!1},compare:function(a,b,h){a=c.fold(a);b=c.fold(b);return h?!!h(a,b):a===b},filter:function(a,b){return f.filter(a,function(a){return b(c.fold(a))})},fold:function(a){if(d.Lang.isArray(a))return f.map(a,c.fold);a=a.toLowerCase();d.Object.each(e,function(b,c){a=a.replace(b,c)});return a}};g.AccentFold=c},"3.5.0",{requires:["array-extras",
-"text-data-accentfold"]});

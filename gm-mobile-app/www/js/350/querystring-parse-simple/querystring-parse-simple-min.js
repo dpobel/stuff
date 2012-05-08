@@ -1,1 +1,0 @@
-YUI.add("querystring-parse-simple",function(h){var b=h.namespace("QueryString");b.parse=function(a,e,c){for(var c=c||"=",g={},f=0,a=a.split(e||"&"),e=a.length,d;f<e;f++)d=a[f].split(c),0<d.length&&(g[b.unescape(d.shift())]=b.unescape(d.join(c)));return g};b.unescape=function(a){return decodeURIComponent(a.replace(/\+/g," "))}},"3.5.0",{requires:["yui-base"]});

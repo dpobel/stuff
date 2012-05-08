@@ -1,1 +1,0 @@
-YUI.add("anim-node-plugin",function(a){var c=function(b){b=b?a.merge(b):{};b.node=b.host;c.superclass.constructor.apply(this,arguments)};c.NAME="nodefx";c.NS="fx";a.extend(c,a.Anim);a.namespace("Plugin");a.Plugin.NodeFX=c},"3.5.0",{requires:["node-pluginhost","anim-base"]});

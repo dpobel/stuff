@@ -1,1 +1,0 @@
-YUI.add("widget-skin",function(a){var c=a.ClassNameManager.getClassName;a.Widget.prototype.getSkinName=function(){var a=this.get("contentBox")||this.get("boundingBox"),d=RegExp("\\b"+c("skin")+"-(\\S+)"),b;a&&a.ancestor(function(a){return b=a.get("className").match(d)});return b?b[1]:null}},"3.5.0",{requires:["widget-base"]});

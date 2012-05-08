@@ -1,2 +1,0 @@
-YUI.add("editor-tab",function(a){var b=function(){b.superclass.constructor.apply(this,arguments)};a.extend(b,a.Base,{_onNodeChange:function(a){var b="indent";"tab"===a.changedType&&!a.changedNode.test("li, li *")&&(a.changedEvent.halt(),a.preventDefault(),a.changedEvent.shiftKey&&(b="outdent"),this.get("host").execCommand(b,""))},initializer:function(){this.get("host").on("nodeChange",a.bind(this._onNodeChange,this))}},{NAME:"editorTab",NS:"tab",ATTRS:{host:{value:!1}}});a.namespace("Plugin");a.Plugin.EditorTab=
-b},"3.5.0",{skinnable:!1,requires:["editor-base"]});

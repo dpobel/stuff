@@ -1,0 +1,1 @@
+YUI.add("datatype-number-parse",function(b){var c=b.Lang;b.mix(b.namespace("DataType.Number"),{parse:function(a){a=null===a?a:+a;return c.isNumber(a)?a:null}});b.namespace("Parsers").number=b.DataType.Number.parse},"3.5.1");

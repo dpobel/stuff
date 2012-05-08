@@ -1,0 +1,1 @@
+YUI.add("dom-size",function(b){b.mix(b.DOM,{setWidth:function(c,d){b.DOM._setSize(c,"width",d)},setHeight:function(c,d){b.DOM._setSize(c,"height",d)},_setSize:function(c,d,a){var a=0<a?a:0,b=0;c.style[d]=a+"px";b="height"===d?c.offsetHeight:c.offsetWidth;b>a&&(a-=b-a,0>a&&(a=0),c.style[d]=a+"px")}})},"3.5.1",{requires:["dom-core"]});
