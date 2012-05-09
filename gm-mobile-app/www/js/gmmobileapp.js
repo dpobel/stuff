@@ -57,11 +57,7 @@ YUI.add('gmmobileapp', function (Y) {
     // Models and ModelLists
     var Train = Y.Base.create('train', Y.Model, [], {
 
-        sync: defaultSync,
-
-        parse: function (res) {
-            return Y.JSON.parse(res);
-        }
+        sync: defaultSync
     }, {
         ATTRS: {
             num: {value:null},
@@ -136,10 +132,6 @@ YUI.add('gmmobileapp', function (Y) {
         bookmarkManager: bookmarkManager,
 
         sync: defaultSync,
-
-        parse: function (res) {
-            return Y.JSON.parse(res);
-        },
 
         loadBookmarked: function() {
             var that = this;
@@ -496,6 +488,7 @@ YUI.add('gmmobileapp', function (Y) {
             var that = this,
                 list = new StationList();
 
+            this.showView('loading');
             list.load({
                 action: L.sub(
                     this.get('actions.search'),
@@ -524,12 +517,10 @@ YUI.add('gmmobileapp', function (Y) {
                     code: code
                 })
             }, function () {
-                if ( that.isLoading() ) {
-                    that.showView('departures', {
-                        station: tl.get('station'),
-                        trains: tl
-                    });
-                }
+                that.showView('departures', {
+                    station: tl.get('station'),
+                    trains: tl
+                });
             });
         },
         showDetails: function (req, res, next) {
@@ -543,19 +534,13 @@ YUI.add('gmmobileapp', function (Y) {
                     date: req.params.date
                 })
             }, function () {
-                if ( that.isLoading() ) {
-                    that.showView('details', {
-                        train: train
-                    });
-                }
+                that.showView('details', {
+                    train: train
+                });
             });
         },
 
         // utils
-        isLoading: function() {
-            return (this.get('activeView').name == 'loadingView');
-        },
-
         setTitle: function () {
             Y.config.doc.title = this.get('container').one('header h1').getContent();
         }
