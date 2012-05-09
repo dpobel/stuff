@@ -63,7 +63,7 @@ text-decoration:none;
 font-weight:bolder;
 font-size:150%;
 border-right:1px solid #ddd;
-padding:0 0.6em;
+padding:3px 0.6em;
 }
 .gm-station-list, .gm-departures, .gm-train, .gm-stops
 {
