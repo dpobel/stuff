@@ -143,6 +143,7 @@ YUI.add('gmmobileapp', function (Y) {
 
         loadBookmarked: function() {
             var that = this;
+            this.reset();
             Y.each(this.bookmarkManager.getAll(), function (o) {
                 that.add(o);
             });
