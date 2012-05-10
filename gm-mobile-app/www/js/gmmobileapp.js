@@ -203,6 +203,12 @@ YUI.add('gmmobileapp', function (Y) {
                 return false;
             }
             return true;
+        },
+
+        render: function () {
+            var content = this.get('template')(this.templateVars());
+            this.get('container').addClass(this.get('viewId')).setContent(content);
+            return this;
         }
     }, {
         ATTRS: {
@@ -281,17 +287,12 @@ YUI.add('gmmobileapp', function (Y) {
             help: '.help'
         },
 
-        render: function () {
-            var vars = {
-                    stations: this.get('stations').map(function (s) {
-                        return s.toJSON();
-                    })
-                },
-                content = '';
-            content =  this.get('template')(vars);
-            this.get('container').addClass('home').setContent(content);
-
-            return this;
+        templateVars: function () {
+            return {
+                stations: this.get('stations').map(function (s) {
+                    return s.toJSON();
+                })
+            };
         },
 
         bookmark: function (e) {
@@ -317,16 +318,13 @@ YUI.add('gmmobileapp', function (Y) {
     });
 
     var SearchView = Y.Base.create('searchView', BaseFormFavoriteStationView, [], {
-        render: function () {
-            var vars = {
-                    search: this.get('search'),
-                    results: this.get('results').map(function (s) {
-                        return s.toJSON();
-                    })
-                },
-                content = this.get('template')(vars);
-            this.get('container').addClass('search').setContent(content);
-            return this;
+        templateVars: function () {
+            return {
+                search: this.get('search'),
+                results: this.get('results').map(function (s) {
+                    return s.toJSON();
+                })
+            };
         },
 
         bookmark: function (e) {
@@ -353,17 +351,14 @@ YUI.add('gmmobileapp', function (Y) {
             this.publish('details', {preventable: false});
         },
 
-        render: function () {
-            var vars = {
-                    station: this.get('station').toJSON(),
-                    time: this.get('trains').get('time'),
-                    trains: this.get('trains').map(function (t) {
-                        return t.toJSON();
-                    })
-                },
-                content = this.get('template')(vars);
-            this.get('container').addClass('departures').setContent(content);
-            return this;
+        templateVars: function () {
+            return {
+                station: this.get('station').toJSON(),
+                time: this.get('trains').get('time'),
+                trains: this.get('trains').map(function (t) {
+                    return t.toJSON();
+                })
+            };
         },
 
         details: function (e) {
@@ -380,38 +375,28 @@ YUI.add('gmmobileapp', function (Y) {
     });
 
     var DetailsView = Y.Base.create('detailsView', BaseView, [], {
-
-        render: function () {
-            var vars = {
-                    train: this.get('train').toJSON()
-                },
-                content = this.get('template')(vars);
-            this.get('container').addClass('details').setContent(content);
-            return this;
+        templateVars: function () {
+            return {
+                train: this.get('train').toJSON()
+            };
         }
-
     });
 
 
     var LoadingView = Y.Base.create('loadingView', BaseView, [], {
-
-        render: function () {
-            var content = this.get('template')();
-            this.get('container').addClass('loading').setContent(content);
-            return this;
+        templateVars: function () {
+            return {};
         }
     });
 
     var ErrorView = Y.Base.create('errorView', BaseView, [], {
-
-        render: function () {
-            var content = this.get('template')({
+        templateVars: function () {
+            return {
                 message: this.get('message'),
                 path: this.get('path')
-            });
-            this.get('container').addClass('error').setContent(content);
-            return this;
+            };
         }
+
     });
 
     // Application
@@ -493,6 +478,7 @@ YUI.add('gmmobileapp', function (Y) {
                 config = {};
             }
             config.template = tpls.templates[view];
+            config.viewId = view;
             Y.GMMobileApp.superclass.showView.call(this, view, config, options, this.setTitle);
         },
 
