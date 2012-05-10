@@ -258,12 +258,17 @@ color:#cd0000;
 }
 .gm-error
 {
+text-align:center;
+margin:1em auto;
+font-size:1.3em;
+}
+.gm-error div
+{
 border-radius:3px;
-border:2px solid #bf0000;
+border:3px solid #bf0000;
 padding:0.6em;
 background:#fff1f1;
-width:80%;
-margin:1em auto;
+display:inline-block;
 }
 
 /* Responsive part */

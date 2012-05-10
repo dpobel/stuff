@@ -111,6 +111,10 @@ echo gm_css_code( $cssCode, $settings['css']['minify'], $settings['css']['inline
                 details: 'actions/details.php?num={num}&date={date}&type={type}'
                 //timetable: 'actions/timetable.json'
             },
+            errors: {
+                "0": 'Impossible de se connecter au serveur distant',
+                "500": 'Impossible de récupèrer les informations auprès du serveur distant'
+            },
             templates: tpl,
             appLoader: '#gm-app-loader'
         });

@@ -44,8 +44,11 @@ YUI.add('gmmobileapp', function (Y) {
         Y.io(options.action, {
             method: 'GET',
             on: {
-                failure: function () {
-                    callback('IO failed');
+                failure: function (code, xhr) {
+                    callback({
+                        code: xhr.status,
+                        message: xhr.responseText ? Y.JSON.parse(xhr.responseText) : false
+                    });
                 },
                 success: function (tId, data) {
                     callback(false, data.responseText);
@@ -399,6 +402,18 @@ YUI.add('gmmobileapp', function (Y) {
         }
     });
 
+    var ErrorView = Y.Base.create('errorView', BaseView, [], {
+
+        render: function () {
+            var content = this.get('template')({
+                message: this.get('message'),
+                path: this.get('path')
+            });
+            this.get('container').addClass('error').setContent(content);
+            return this;
+        }
+    });
+
     // Application
     Y.GMMobileApp = Y.Base.create('gmMobileApp', Y.App, [], {
         views: {
@@ -421,6 +436,9 @@ YUI.add('gmmobileapp', function (Y) {
                 type: LoadingView,
                 parent: 'home',
                 preserved: true
+            },
+            error: {
+                type: ErrorView
             }
         },
         transitions: {
@@ -494,11 +512,15 @@ YUI.add('gmmobileapp', function (Y) {
                     this.get('actions.search'),
                     {str: req.params.str}
                 )
-            }, function () {
-                that.showView('search', {
-                    search: req.params.str,
-                    results: list
-                });
+            }, function (err, response) {
+                if (err) {
+                    that.error(err);
+                } else {
+                    that.showView('search', {
+                        search: req.params.str,
+                        results: list
+                    });
+                }
             });
         },
         showGeoSearch: function (req, res, next) {
@@ -516,11 +538,15 @@ YUI.add('gmmobileapp', function (Y) {
                 action: L.sub(this.get('actions.timetable'), {
                     code: code
                 })
-            }, function () {
-                that.showView('departures', {
-                    station: tl.get('station'),
-                    trains: tl
-                });
+            }, function (err, response) {
+                if (err) {
+                    that.error(err);
+                } else {
+                    that.showView('departures', {
+                        station: tl.get('station'),
+                        trains: tl
+                    });
+                }
             });
         },
         showDetails: function (req, res, next) {
@@ -533,10 +559,22 @@ YUI.add('gmmobileapp', function (Y) {
                     type: req.params.type,
                     date: req.params.date
                 })
-            }, function () {
-                that.showView('details', {
-                    train: train
-                });
+            }, function (err, response) {
+                if (err) {
+                    that.error(err);
+                } else {
+                    that.showView('details', {
+                        train: train
+                    });
+                }
+            });
+        },
+
+        error: function (err) {
+            var errors = this.get('errors');
+            this.showView('error', {
+                message: errors[err.code] ? errors[err.code] : "TODO",
+                path: this.getPath()
             });
         },
 
