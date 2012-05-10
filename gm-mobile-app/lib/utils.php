@@ -92,7 +92,7 @@ function parseDate( $dateStr, DateTimeZone $tz )
 function calcDuration( $begin, $end )
 {
     $int = date_diff( new DateTime( $end ), new DateTime( $begin ), true );
-    $min = $int->format( '%i' );
+    $min = $int->format( '%I' );
     $h = $int->format( '%H' );
     if ( $h )
         return $h . 'h' . $min;
