@@ -2,7 +2,6 @@
 - bouton actualiser dans la header bar
 - recherche à proximité
 - gestion des erreurs:
-    o erreur de chargement asynchrone
     o loading trop long ?
 - détection localStorage
 - icons: home, actualiser
@@ -10,3 +9,27 @@
     - supprimer les parties de CSS inutiles
 - page "À propos"
 - train favoris
+
+
+Code d'erreur à implémenter dans le backend pour gérer proprement les
+erreurs ensuite:
+
+- search.php
+    o paramètre str vide ou manquant => 400 Bad request
+
+- timetable.php
+    o paramètre code vide ou manquant => 400 Bad request
+    o code ne correspond à aucune gare => 404 Not Found
+    o pas d'horaire retourné par le serveur distant
+        * serveur distant mort => 502 Bad gateway
+        * autre cas: 500 Internal Server Error
+  
+  
+- details.php 
+    o paramètre num vide ou manquant => 400 Bad request
+    o paramètre date vide ou manquant => 400 Bad request
+    o pas de détail retourné par le serveur distant
+        * serveur distant mort => 502 Bad gateway
+        * train non trouvé => 404 Not found
+        * autre cas: 500 Internal Server Error
+ 
