@@ -149,6 +149,19 @@ YUI.add('gmmobileapp', function (Y) {
 
     // Views
     var BaseView = Y.Base.create('baseView', Y.View, [], {
+
+        events: {
+            '.refresh': {
+                gesturemovestart: 'registerGestureStart',
+                gesturemoveend: 'refresh',
+                click: 'cancelClick'
+            }
+        },
+
+        initializer: function () {
+            this.publish('refresh', {preventable:false});
+        },
+
         /**
          * Overrides the default implementation to handle
          * the context of gesture* events
@@ -209,6 +222,17 @@ YUI.add('gmmobileapp', function (Y) {
             var content = this.get('template')(this.templateVars());
             this.get('container').addClass(this.get('viewId')).setContent(content);
             return this;
+        },
+
+        refresh: function (e) {
+            if ( this.isTap(e) ) {
+                e.halt(true);
+                this.fire('refresh');
+            }
+        },
+
+        cancelClick: function (e) {
+            e.halt(true);
         }
     }, {
         ATTRS: {
@@ -245,6 +269,11 @@ YUI.add('gmmobileapp', function (Y) {
             },
             '#search-station': {
                 keypress: 'handleEnter'
+            },
+            '.refresh': {
+                gesturemovestart: 'registerGestureStart',
+                gesturemoveend: 'refresh',
+                click: 'cancelClick'
             }
         },
 
@@ -273,10 +302,6 @@ YUI.add('gmmobileapp', function (Y) {
                 e.halt(true);
                 this.fire('departures', {code: e.currentTarget.getAttribute('data-station-code')});
             }
-        },
-
-        cancelClick: function (e) {
-            e.preventDefault();
         }
     });
 
@@ -344,6 +369,11 @@ YUI.add('gmmobileapp', function (Y) {
             '.gm-departures li': {
                 gesturemovestart: 'registerGestureStart',
                 gesturemoveend: 'details'
+            },
+            '.refresh': {
+                gesturemovestart: 'registerGestureStart',
+                gesturemoveend: 'refresh',
+                click: 'cancelClick'
             }
         },
 
@@ -446,6 +476,10 @@ YUI.add('gmmobileapp', function (Y) {
 
             this.on('*:departures', function (e) {
                 that.navigate('/departures/' + e.code);
+            });
+
+            this.on('*:refresh', function (e) {
+                this.dispatch();
             });
 
             this.on('*:details', function (e) {

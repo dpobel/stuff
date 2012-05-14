@@ -54,7 +54,7 @@ color:#fff;
 font-size:110%;
 padding:0.4em 0.9em;
 }
-.back-home
+header a
 {
 display:inline-block;
 float:left;
@@ -64,6 +64,10 @@ font-weight:bolder;
 font-size:150%;
 border-right:1px solid #ddd;
 padding:3px 0.6em;
+}
+header .back-home
+{
+border-right:1px solid #888;
 }
 .gm-station-list, .gm-departures, .gm-train, .gm-stops
 {
@@ -229,10 +233,6 @@ font-style:italic;
 .gm-departures .info:before
 {
 content: attr(title);
-}
-.gm-toolbar
-{
-text-align:center;
 }
 .gm-num
 {
