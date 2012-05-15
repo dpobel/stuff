@@ -12,7 +12,7 @@
     <style>
 <?php
 $cssCode = <<<'CSS'
-header
+header, footer
 {
 color:#fff;
 background-color:#053c72;
@@ -112,7 +112,8 @@ echo gm_css_code( $cssCode, $settings['css']['minify'], $settings['css']['inline
             actions: {
                 search: 'actions/search.php?str={str}',
                 timetable: 'actions/timetable.php?code={code}',
-                details: 'actions/details.php?num={num}&date={date}&type={type}'
+                details: 'actions/details.php?num={num}&date={date}&type={type}',
+                about: 'about.htm'
                 //timetable: 'actions/timetable.json'
             },
             errors: {
@@ -126,6 +127,7 @@ echo gm_css_code( $cssCode, $settings['css']['minify'], $settings['css']['inline
     });
     </script>
     <div id="gmmobile"></div>
+    <footer><a href="#/">Gares favorites</a> | <a href="#/about">À propos</a></footer>
     <noscript>Cette application nécessite l'activation de JavaScript.</noscript>
 
 </body>

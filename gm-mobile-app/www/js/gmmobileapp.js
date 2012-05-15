@@ -219,8 +219,10 @@ YUI.add('gmmobileapp', function (Y) {
         },
 
         render: function () {
-            var content = this.get('template')(this.templateVars());
-            this.get('container').addClass(this.get('viewId')).setContent(content);
+            var content = this.get('template')(this.templateVars()),
+                c = this.get('container'),
+                footer = Y.one('footer');
+            c.addClass(this.get('viewId')).setContent(content);
             return this;
         },
 
@@ -412,10 +414,17 @@ YUI.add('gmmobileapp', function (Y) {
         }
     });
 
-
     var LoadingView = Y.Base.create('loadingView', BaseView, [], {
         templateVars: function () {
             return {};
+        }
+    });
+
+    var AboutView = Y.Base.create('aboutView', BaseView, [], {
+        templateVars: function () {
+            return {
+                content: this.get('content')
+            };
         }
     });
 
@@ -446,6 +455,10 @@ YUI.add('gmmobileapp', function (Y) {
             details: {
                 type: DetailsView,
                 parent: 'departures'
+            },
+            about: {
+                type: AboutView,
+                parent: 'home'
             },
             loading: {
                 type: LoadingView,
@@ -497,17 +510,15 @@ YUI.add('gmmobileapp', function (Y) {
                 );
             });
 
-            this.on('init', function (e) {
-                var loader = Y.one(this.get('appLoader'));
-                if ( loader ) {
-                    loader.remove(true);
-                }
+            this.on('ready', function (e) {
+                Y.one(this.get('appLoader')).remove(true);
             });
 
         },
 
         showView: function (view, config, options, callback) {
-            var tpls = this.get('templates');
+            var tpls = this.get('templates'),
+                c = this.get('container');
             if ( !config ) {
                 config = {};
             }
@@ -589,6 +600,24 @@ YUI.add('gmmobileapp', function (Y) {
                 }
             });
         },
+        showAbout: function (req, res, next) {
+            var that = this;
+            this.showView('loading');
+            Y.io(this.get('actions.about'), {
+                method: 'GET',
+                on: {
+                    failure: function (code, xhr) {
+
+                    },
+                    success: function (tId, data) {
+                        that.showView('about', {
+                            content: data.response
+                        });
+                    }
+                }
+            });
+
+        },
 
         error: function (err) {
             var errors = this.get('errors');
@@ -610,7 +639,8 @@ YUI.add('gmmobileapp', function (Y) {
                     {path: '/search/:str', callback: 'showSearch'},
                     {path: '/geosearch', callback: 'showGeoSearch'},
                     {path: '/departures/:code', callback: 'showDepartures'},
-                    {path: '/details/:num/:type/:date', callback: 'showDetails'}
+                    {path: '/details/:num/:type/:date', callback: 'showDetails'},
+                    {path: '/about', callback: 'showAbout'}
                 ]
             },
             stations: {
