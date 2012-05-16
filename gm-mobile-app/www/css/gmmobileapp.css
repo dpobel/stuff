@@ -60,7 +60,7 @@ text-align:center;
 font-size:110%;
 height:40px;
 }
-footer a
+footer a, header a
 {
 color:#fff;
 text-decoration:none;
@@ -71,14 +71,12 @@ height:100%;
 }
 header a
 {
-display:inline-block;
 float:left;
-color:#fff;
-text-decoration:none;
 font-weight:bolder;
 font-size:150%;
 border-right:1px solid #ddd;
 padding:3px 0.6em;
+height:auto;
 }
 header .back-home
 {
@@ -89,15 +87,14 @@ border-right:1px solid #888;
 list-style-type:none;
 border-radius:3px;
 border:1px solid #aaa;
-margin:0 auto;
+margin:0 auto 1em auto;
 max-width:800px;
-margin-bottom:1em;
 }
 @media (max-width: 800px)
 {
     .gm-station-list, .gm-departures, .gm-train, .gm-stops
     {
-    margin:0 4px;
+    margin:0 4px 1em 4px;
     }
 }
 .gm-departures .yui3-g
@@ -118,7 +115,7 @@ display:block;
 {
 border:0;
 }
-.gm-station-list li, .gm-departures li, .gm-stops li
+.gm-station-list li, .gm-departures li, .gm-stops li, .gm-train
 {
 border-bottom:1px solid #aaa;
 padding:4px 2px;
@@ -149,17 +146,6 @@ width:3.1em;
 {
 color:#cd0000;
 font-weight:bold;
-}
-.gm-train
-{
-padding:4px 2px;
-background-color: #fafafa;
-background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#eee)); /* Saf4+, Chrome */
-background-image: -webkit-linear-gradient(top, #fafafa, #eee); /* Chrome 10+, Saf5.1+, iOS 5+ */
-background-image:    -moz-linear-gradient(top, #fafafa, #eee); /* FF3.6 */
-background-image:     -ms-linear-gradient(top, #fafafa, #eee); /* IE10 */
-background-image:      -o-linear-gradient(top, #fafafa, #eee); /* Opera 11.10+ */
-background-image:         linear-gradient(to bottom, #fafafa, #eee);
 }
 .gm-train.late
 {
@@ -287,21 +273,6 @@ padding:0.6em;
 background:#fff1f1;
 display:inline-block;
 }
-
-/* Responsive part */
-/*
-@media (max-width: 480px)
-{
-    abbr:before
-    {
-    content: "";
-    }
-    abbr span
-    {
-    display:inline;
-    }
-}
-*/
 @media (max-width: 400px)
 {
     .gm-departures .info:before

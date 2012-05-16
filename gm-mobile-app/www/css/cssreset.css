@@ -21,15 +21,18 @@ html{
 */
 body,
 div,
+/*
 dl,
 dt,
 dd,
+*/
 ul,
 ol,
 li,
 h1,
 h2,
 h3,
+/*
 h4,
 h5,
 h6,
@@ -38,10 +41,11 @@ code,
 form,
 fieldset,
 legend,
+*/
 input,
-textarea,
+/*textarea,*/
 p,
-blockquote,
+/*blockquote,*/
 th,
 td {
 	margin:0;
@@ -51,22 +55,23 @@ table {
 	border-collapse:collapse;
 	border-spacing:0;
 }
-fieldset,
+/*fieldset,*/
 img {
 	border:0;
 }
 /*
 	TODO think about hanlding inheritence differently, maybe letting IE6 fail a bit...
 */
+/*
 address,
 caption,
 cite,
 code,
-dfn,
+dfn,*/
 em,
 strong,
-th,
-var {
+th/*,
+var*/ {
 	font-style:normal;
 	font-weight:normal;
 }
@@ -75,14 +80,15 @@ ol,
 ul {
 	list-style:none;
 }
-
+/*
 caption,
+*/
 th {
 	text-align:left;
 }
 h1,
 h2,
-h3,
+h3/*,
 h4,
 h5,
 h6 {
@@ -92,35 +98,39 @@ h6 {
 q:before,
 q:after {
 	content:'';
-}
+}*/
 abbr,
 acronym {
 	border:0;
 	font-variant:normal;
 }
 /* to preserve line-height and selector appearance */
+/*
 sup {
 	vertical-align:text-top;
 }
 sub {
 	vertical-align:text-bottom;
 }
-input,
+*/
+input/*,
 textarea,
-select {
+select*/ {
 	font-family:inherit;
 	font-size:inherit;
 	font-weight:inherit;
 }
 /*to enable resizing for IE*/
-input,
+input/*,
 textarea,
-select {
+select*/ {
 	*font-size:100%;
 }
 /*because legend doesn't inherit in IE */
+/*
 legend {
 	color:#000;
 }
+*/
 /* YUI CSS Detection Stamp */
 #yui3-css-stamp.cssreset { display: none; }

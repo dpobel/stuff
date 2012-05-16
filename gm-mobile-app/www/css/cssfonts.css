@@ -35,6 +35,7 @@ table {
 /**
  * Bump up IE to get to 13px equivalent for these fixed-width elements
  */
+/* NOT USED ON gm
 pre,
 code,
 kbd,
@@ -43,6 +44,6 @@ tt {
 	font-family:monospace;
 	*font-size:108%;
 	line-height:100%;
-}
+}*/
 /* YUI CSS Detection Stamp */
 #yui3-css-stamp.cssfonts { display: none; }
