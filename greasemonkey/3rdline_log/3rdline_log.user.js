@@ -19,8 +19,8 @@ for( var i=0; i!=scripts.length; i++) {
         var commitsHash = {};
 
         function getIssueNr(commitLog) {
-            var r = commitLog.match(/Fixed #(\d+)/i);
-            return r[1];
+            var r = commitLog.match(/(Fixed|Implemented|Implement) #(\d+)/i);
+            return r[2];
         }
 
         function getCommitUrl(blockquote) {
@@ -76,7 +76,7 @@ for( var i=0; i!=scripts.length; i++) {
                 return;
             }
 
-            $(el).find('.commits blockquote[title^="Fixed #"]').each(function (index, blockquote) {
+            $(el).find('.commits blockquote[title^="Fixed #"], .commits blockquote[title^="Implemented #"], .commits blockquote[title^="Implement #"]').each(function (index, blockquote) {
 
                 var commitLog = $(blockquote).attr('title'),
                     issueNr = getIssueNr(commitLog),
