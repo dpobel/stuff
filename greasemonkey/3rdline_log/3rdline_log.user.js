@@ -100,7 +100,8 @@ for( var i=0; i!=scripts.length; i++) {
                 }
                 commitsHash["issue" + issueNr][repo].push(commit);
 
-                $(blockquote.parentNode).append('<button class="issue' + issueNr + '">3rdline comment</button>');
+                $(blockquote.parentNode).append('<button class="issue' + issueNr + '">3rdline comment</button>')
+                    .css('whiteSpace', 'normal');
 
             });
 
