@@ -19,7 +19,7 @@ for( var i=0; i!=scripts.length; i++) {
         var commitsHash = {};
 
         function getIssueNr(commitLog) {
-            var r = commitLog.match(/(Fixed|Implemented|Implement) #(\d+)/i);
+            var r = commitLog.match(/(Fixed|Implemented|Implement) ([a-z]+-\d+)/i);
             return r[2];
         }
 
@@ -57,7 +57,7 @@ for( var i=0; i!=scripts.length; i++) {
                 msg += l + fixedLines.join("\n") + "\n\n";
             }
 
-            $('#ez-3rdline-log').find('h2').html('<a style="display:block;float:right;color:#000;font-weight:normal;text-decoration:underline;color:#333" href="/" class="close">Close</a><a href="http://issues.ez.no/' + issueNr + '">Issue #' + issueNr + '</a>');
+            $('#ez-3rdline-log').find('h2').html('<a style="display:block;float:right;color:#000;font-weight:normal;text-decoration:underline;color:#333" href="/" class="close">Close</a><a href="https://jira.ez.no/browse/' + issueNr + '">Issue ' + issueNr + '</a>');
             $('#ez-3rdline-log').find('textarea').val(msg);
             var x = Math.min(e.pageX + 10, $(document).width() - $('#ez-3rdline-log').width() - 10);
             $('#ez-3rdline-log').css('top', e.pageY + 'px').css('left', x + 'px');
@@ -76,7 +76,7 @@ for( var i=0; i!=scripts.length; i++) {
                 return;
             }
 
-            $(el).find('.commits blockquote[title^="Fixed #"], .commits blockquote[title^="Implemented #"], .commits blockquote[title^="Implement #"]').each(function (index, blockquote) {
+            $(el).find('.commits blockquote[title^="Fixed "], .commits blockquote[title^="Implemented "], .commits blockquote[title^="Implement #"]').each(function (index, blockquote) {
 
                 var commitLog = $(blockquote).attr('title'),
                     issueNr = getIssueNr(commitLog),
