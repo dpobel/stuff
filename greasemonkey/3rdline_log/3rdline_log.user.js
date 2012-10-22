@@ -2,6 +2,7 @@
 // @name           3rdline log
 // @namespace      http://project.issues.ez.no/
 // @include        https://github.com/*
+// @grant          none
 // ==/UserScript==
 
 var scripts = document.getElementsByTagName('script');
