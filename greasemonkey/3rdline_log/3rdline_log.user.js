@@ -31,7 +31,7 @@ for( var i=0; i!=scripts.length; i++) {
         function getBranch(blockquote) {
             var body = $(blockquote).parents('.body');
             var titleTxt = body.find('.title').text();
-            var r = titleTxt.match(/pushed to ([a-zA-Z0-9_\.-]+) at/i);
+            var r = titleTxt.match(/([a-zA-Z0-9_\.-]+) at/i);
             return r[1];
         }
 
@@ -77,10 +77,15 @@ for( var i=0; i!=scripts.length; i++) {
                 return;
             }
 
-            $(el).find('.commits blockquote[title^="Fixed "], .commits blockquote[title^="Implemented "], .commits blockquote[title^="Implement #"]').each(function (index, blockquote) {
+            $(el).find('.commits blockquote').each(function (index, blockquote) {
 
-                var commitLog = $(blockquote).attr('title'),
-                    issueNr = getIssueNr(commitLog),
+                var $blockquote = $(blockquote)
+                    commitLog = $.trim($blockquote.text());
+                if ( !commitLog.match(/^(Fixed|Implemented|Implement)/gi) ) {
+                    return;
+                }
+
+                var issueNr = getIssueNr(commitLog),
                     repo = getRepo(blockquote);
 
 
