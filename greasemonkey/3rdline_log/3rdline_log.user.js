@@ -20,7 +20,7 @@ for( var i=0; i!=scripts.length; i++) {
         var commitsHash = {};
 
         function getIssueNr(commitLog) {
-            var r = commitLog.match(/(Fixed|Implemented|Implement) ([a-z]+-\d+)/i);
+            var r = commitLog.match(/(Fixed|Fix|Implemented|Implement) ([a-z]+-\d+)/i);
             return r[2];
         }
 
@@ -81,7 +81,7 @@ for( var i=0; i!=scripts.length; i++) {
 
                 var $blockquote = $(blockquote)
                     commitLog = $.trim($blockquote.text());
-                if ( !commitLog.match(/^(Fixed|Implemented|Implement)/gi) ) {
+                if ( !commitLog.match(/^(Fixed|Fix|Implemented|Implement)/gi) ) {
                     return;
                 }
 
