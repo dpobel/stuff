@@ -9,14 +9,14 @@
 
 var $ = unsafeWindow.jQuery;
 
-
-$('#announcement-banner').remove();
-
-
-var title = $('#summary-val').text(),
-    id = $('#key-val').text(),
-    $item = $('<li class="item full-width"><div class="wrap"><strong class="name">Commit message</strong><b>' + id + ': ' + title + '</b></div></li>');
-$('#issuedetails').prepend($item);
+// Adds a button that display a prompt with the text to copy already selected
+$('<ul class="first ops"><li class="first last"><a id="commit-msg-button" name="commit-msg-button" class="open-dialog button" href="#">Commit message</a></li></ul>').insertAfter($('#opsbar-opsbar-transitions'));
+$('#commit-msg-button').bind(
+    'click',
+    function() {
+        window.prompt("Copy to clipboard:", $('#key-val').text() + ": " + $('#summary-val').text().replace(/^\s+/g, '').replace(/\s+$/g, ''));
+    }
+)
 
 
 $('.activity-comment').each(function (i, comment) {
