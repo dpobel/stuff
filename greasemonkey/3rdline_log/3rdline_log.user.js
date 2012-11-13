@@ -81,7 +81,7 @@ for( var i=0; i!=scripts.length; i++) {
 
                 var $blockquote = $(blockquote)
                     commitLog = $.trim($blockquote.text());
-                if ( !commitLog.match(/^(Fixed|Fix|Implemented|Implement)/gi) ) {
+                if ( !commitLog.match(/^(Fixed|Fix|Implemented|Implement) [a-z]+-\d+/gi) ) {
                     return;
                 }
 
