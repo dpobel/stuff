@@ -40,7 +40,7 @@ for( var i=0; i!=scripts.length; i++) {
             return body.find('.title a[href^="/ezsystems"]').text().replace('ezsystems/', '');
         }
 
-        $('.push button').live('click', function (e) {
+        $('.push').delegate('button', 'click', function (e) {
             var commits = commitsHash[$(this).attr('class')],
                 area = $('#ez-3rdline-log'),
                 msg = "",
@@ -65,7 +65,7 @@ for( var i=0; i!=scripts.length; i++) {
             $('#ez-3rdline-log').fadeIn(600);
         });
 
-        $('#ez-3rdline-log a.close').live('click', function (e) {
+        $('#ez-3rdline-log').delegate( '.close', 'click', function (e) {
             e.preventDefault();
             $('#ez-3rdline-log').fadeOut(400);
         });
