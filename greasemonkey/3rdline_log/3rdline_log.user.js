@@ -37,7 +37,7 @@ for( var i=0; i!=scripts.length; i++) {
 
         function getRepo(blockquote) {
             var body = $(blockquote).parents('.body');
-            return body.find('.title a[href^="/ezsystems"]').text().replace('ezsystems/', '');
+            return body.find('.title a[href^="/ezsystems"]').eq(1).text().replace('ezsystems/', '');
         }
 
         $('.push').delegate('button', 'click', function (e) {
@@ -89,8 +89,7 @@ for( var i=0; i!=scripts.length; i++) {
                     repo = getRepo(blockquote);
 
 
-                if ( repo === 'ezpublish-ee' )
-                    repo = 'ezpublish';
+                repo = repo.replace(/-ee$/, '');
 
                 var commit = {
                     issue: issueNr,
