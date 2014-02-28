@@ -36,8 +36,9 @@ for( var i=0; i!=scripts.length; i++) {
         }
 
         function getRepo(blockquote) {
-            var body = $(blockquote).parents('.body');
-            return body.find('.title a[href^="/ezsystems"]').eq(1).text().replace('ezsystems/', '');
+            var url = $(blockquote).parent().parent().find('code a').attr('href');
+
+            return url.split('/')[2];
         }
 
         $('.push').delegate('button', 'click', function (e) {
